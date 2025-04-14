@@ -2,7 +2,7 @@
 % Please edit documentation in R/fs_get_data.R
 \name{fs_get_data}
 \alias{fs_get_data}
-\title{Get ziff data for fisheriescape project.}
+\title{Get and process ziff data for fisheriescape project.}
 \usage{
 fs_get_data(
   years = NULL,
@@ -24,7 +24,7 @@ fs_get_data(
 \item{gearcode}{Which gear code?}
 }
 \description{
-Get ziff data for fisheriescape project.
+Get and process ziff data for fisheriescape project.
 }
 \examples{
 #fs_get_data(years = 2017, species.sought = 705, nafo=c('4r'), gclass='1', gearcode=c('62','99'))
