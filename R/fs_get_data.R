@@ -105,7 +105,7 @@ fs_get_data<-function(years=NULL,
   if(length(index)>0){
   ziff[index,'depth.gebco']<-gslSpatial::get_depth(ziff[index,'longitude'],ziff[index,'latitude'])
 
-  pts<-terra::vect(ziff[-index,],geom=c('longitude','latitude'), crs='epsg:4269')
+  pts<-terra::vect(ziff[index,],geom=c('longitude','latitude'), crs='epsg:4269')
   pts<-terra::project(pts,'ESRI:102001')
   pts<-terra::geom(pts)
   ziff$x<-NA
