@@ -35,6 +35,7 @@ fs_get_data<-function(years=NULL,
 
   ziff<-ziff[index,]
   ziff$cfv<-gsub("[[:space:]]", "", ziff$cfv) #strip all whitespace
+  ziff$licence<-gsub("[[:space:]]", "", ziff$licence) #strip all whitespace
 
   #///////////////////////////////////////////////////////////////////////
   # Correct dates ----
@@ -95,10 +96,10 @@ fs_get_data<-function(years=NULL,
   ziff[which(ziff$nugear==0),'nugear']<-NA
   ziff[which(ziff$amtgear==0),'amtgear']<-NA
 
-  ziff$fisharea<-tolower(ziff$fisharea)
-  ziff$unitarea<-tolower(ziff$unitarea)
-  ziff$mangare<-tolower(ziff$mangare)
-  ziff$fishery<-tolower(ziff$fishery)
+  ziff$fisharea<-toupper(ziff$fisharea)
+  ziff$unitarea<-toupper(ziff$unitarea)
+  ziff$mangare<-toupper(ziff$mangare)
+  ziff$fishery<-toupper(ziff$fishery)
 
 
   index<-which(!is.na(ziff$latitude)&!is.na(ziff$longitude))
