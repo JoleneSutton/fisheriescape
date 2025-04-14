@@ -9,5 +9,25 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Depends: 
+    R (>= 4.4.0)
+Imports: 
+    dplyr(>= 1.1.4),
+    eclectic(>= 0.0.0.9),
+    get.gulf(>= 0.0.0.9),
+    gslSpatial(>= 0.0.0.9),
+    gulf(>= 1.0),
+    ISOweek(>= 0.6.0),
+    terra(>= 1.7.83)
+Remotes: 
+    github::JoleneSutton/get.gulf,
+    github::JoleneSutton/eclectic,
+    github::JoleneSutton/gslSpatial
+Suggests: 
+    kableExtra,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+LazyData: true
 URL: https://github.com/JoleneSutton/fisheriescape
 BugReports: https://github.com/JoleneSutton/fisheriescape/issues
