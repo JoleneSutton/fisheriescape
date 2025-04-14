@@ -101,7 +101,7 @@ fs_get_data<-function(years=NULL,
   ziff$fishery<-tolower(ziff$fishery)
 
 
-  index<-which(!is.na(ziff$latitude)|!is.na(ziff$longitude))
+  index<-which(!is.na(ziff$latitude)&!is.na(ziff$longitude))
   if(length(index)>0){
   ziff[index,'depth.gebco']<-gslSpatial::get_depth(ziff[index,'longitude'],ziff[index,'latitude'])
 
@@ -110,8 +110,8 @@ fs_get_data<-function(years=NULL,
   pts<-terra::geom(pts)
   ziff$x<-NA
   ziff$y<-NA
-  ziff[-index,'x']<-pts[,3]
-  ziff[-index,'y']<-pts[,4]
+  ziff[index,'x']<-pts[,3]
+  ziff[index,'y']<-pts[,4]
   }
 
   return(ziff)
