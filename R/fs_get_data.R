@@ -85,7 +85,7 @@ fs_get_data<-function(years=NULL,
 
   var<-c("trip.id","event.id","cfv","dateland","nafodiv",'unitarea',"mangare",
          "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
-         "ctchdate","depth","depthcode","region",
+         "ctchdate","depth","depthcode","region",'portland',
          "licclas","licence" ,"fisharea","seqnum","year","fishery","amtgear",
          "longitude","latitude",'sw')
 
