@@ -36,7 +36,9 @@ fs_get_data<-function(years=NULL,
   ziff<-ziff[index,]
   ziff$cfv<-gsub("[[:space:]]", "", ziff$cfv) #strip all whitespace
   ziff$licence<-gsub("[[:space:]]", "", ziff$licence) #strip all whitespace
-
+  ziff[which(ziff$licence=='0'),'licence']<-NA
+  ziff[which(ziff$homeport=='0'),'homeport']<-NA
+  ziff[which(ziff$portland=='0'),'portland']<-NA
   #///////////////////////////////////////////////////////////////////////
   # Correct dates ----
   #///////////////////////////////////////////////////////////////////////
@@ -44,7 +46,7 @@ fs_get_data<-function(years=NULL,
   #//////////////////////////////////////////////////////////
   ## if  missing dateland ----
   # in cases where dateland was "000000" or empty, the ctchdate was used as the dateland
-  index<-which(startsWith(as.character(ziff$dateland),'0')|startsWith(as.character(ziff$dateland)," "))
+  index<-which(startsWith(as.character(ziff$dateland),'0')|startsWith(as.character(ziff$dateland)," ")|is.na(ziff$dateland))
   if(length(index)>0){ziff[index,"dateland"]<-ziff[index,"ctchdate"]}
 
   #//////////////////////////////////////////////////////////
@@ -59,14 +61,12 @@ fs_get_data<-function(years=NULL,
   ## if missing date.caught ----
   #//////////////////////////////////////////////////////////
   # in cases where dateland was "000000" or empty, the ctchdate was used as the dateland
-  index<-which(startsWith(as.character(ziff$ctchdate),'0')|startsWith(as.character(ziff$ctchdate)," "))
+  index<-which(startsWith(as.character(ziff$ctchdate),'0')|startsWith(as.character(ziff$ctchdate)," ")|is.na(ziff$ctchdate))
   if(length(index)>0){ziff[index,"ctchdate"]<-ziff[index,"dateland"]}
   #//////////////////////////////////////////////////////////////////////////
   #//////////////////////////////////////////////////////////////////////////
   #//////////////////////////////////////////////////////////////////////////
   #//////////////////////////////////////////////////////////////////////////
-
-
 
   iso<-ISOweek::ISOweek(ziff$dateland)
   iso<-base::substring(iso,7,8)
@@ -74,24 +74,7 @@ fs_get_data<-function(years=NULL,
 
   ziff$year<-as.numeric(substring(ziff$dateland,1,4))
 
-
-  event.id<-paste(ziff$cfv,ziff$dateland,ziff$ctchdate,ziff$latitude,ziff$longitude,sep=';')
-  trip.id<-paste(ziff$cfv,ziff$dateland,ziff$ctchdate,sep=';')
-
-  ziff<-cbind(trip.id,event.id, ziff)
-
-
-  ziff<-dplyr::distinct_all(ziff)
-
-  var<-c("trip.id","event.id","cfv","dateland","nafodiv",'unitarea',"mangare",
-         "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
-         "ctchdate","depth","depthcode","region",'portland',
-         "licclas","licence" ,"fisharea","seqnum","year","fishery","amtgear",
-         "longitude","latitude",'sw')
-
-  ziff<-ziff[,var]
   ziff[ziff == ""] <- NA
-
   ziff[which(ziff$hourfish==0),'hourfish']<-NA
   ziff[which(ziff$nugear==0),'nugear']<-NA
   ziff[which(ziff$amtgear==0),'amtgear']<-NA
@@ -101,6 +84,36 @@ fs_get_data<-function(years=NULL,
   ziff$mangare<-toupper(ziff$mangare)
   ziff$fishery<-toupper(ziff$fishery)
 
+  index<-which(ziff$cfv=='0')
+  if(length(index)>0){ziff<-ziff[-index,]}
+
+  trip.id<-paste(ziff$cfv,ziff$dateland,ziff$ctchdate,sep=';')
+  ziff<-cbind(trip.id,ziff)
+
+  ziff<-ziff[order(ziff$trip.id,ziff$tripno),]
+
+  var<-c('trip.id',"cfv","dateland","nafodiv",'unitarea',"mangare",'grid',
+         "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
+         "ctchdate","depth","depthcode","region",'portland',"homeport",
+         "licclas","licence" ,"fisharea","seqnum","year","fishery","amtgear",
+         "longitude","latitude",'sw')
+
+  ziff2<-ziff[,var]
+  ziff2<-dplyr::distinct_all(ziff2)
+
+  #message('Filling in missing rows. Please be patient.')
+  #compress <- function(x) c(na.omit(x), NA)[1]
+  #ziff<-aggregate(ziff[2:ncol(ziff)], ziff[1], compress) #if there are differences other than NA, this retains first option only
+  #ziff3<- ziff2 |>
+    #dplyr::group_by(trip.id) |>
+    #tidyr::fill(2:ncol(ziff2), .direction = "downup")
+  #ziff3<-dplyr::distinct_all(ziff3)
+  #nrow(ziff2)
+
+  ziff<-ziff2
+  rm(ziff2)
+  event.id<-paste(ziff$cfv,ziff$dateland,ziff$ctchdate,ziff$latitude,ziff$longitude,sep=';')
+  ziff<-cbind(event.id, ziff)
 
   index<-which(!is.na(ziff$latitude)&!is.na(ziff$longitude))
   if(length(index)>0){
