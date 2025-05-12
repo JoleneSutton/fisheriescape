@@ -13,9 +13,9 @@ fs_get_data(
 )
 }
 \arguments{
-\item{years}{Which years?}
+\item{years}{Which years? Required}
 
-\item{species.sought}{Which species sought statac code?}
+\item{species.sought}{Which species sought statac code? Required}
 
 \item{nafo}{Which NAFO divisions? Case insensitive}
 

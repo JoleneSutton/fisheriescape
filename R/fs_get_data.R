@@ -1,7 +1,7 @@
 #' Get and process ziff data for fisheriescape project.
 #'
-#' @param years Which years?
-#' @param species.sought Which species sought statac code?
+#' @param years Which years? Required
+#' @param species.sought Which species sought statac code? Required
 #' @param nafo Which NAFO divisions? Case insensitive
 #' @param gclass Which gear class?
 #' @param gearcode Which gear code?
@@ -21,19 +21,29 @@ fs_get_data<-function(years=NULL,
                       gclass=NULL,
                       gearcode=NULL){
 
+  if(is.null(years)){stop('\r Must specify years',call. = FALSE)}
+  if(is.null(species.sought)){stop('\r Must specify species.sought',call. = FALSE)}
+
+
   ziff<-get.gulf::get_ziff(years = years, species.sought = species.sought)
-  ziff<-ziff[which(ziff$gclass==gclass),]
-  ziff<-ziff[which(ziff$gearcode%in%c(gearcode)),]
   names(ziff)<-gsub('.dd',"",names(ziff))
+
+  #filters
+  if(!is.null(gclass)){
+  if(length(which(ziff$gclass%in%gclass))>0){ziff<-ziff[which(ziff$gclass%in%gclass),]}else{print("No matches to gclass; ignoring gclass")}
+  }
+
+  if(!is.null(gearcode)){
+  if(length(which(ziff$gearcode%in%gearcode))>0){ziff<-ziff[which(ziff$gearcode%in%gearcode),]}else{print("No matches to gearcode; ignoring gearcode")}
+  }
+
+  if(!is.null(nafo)){
+  index<-eclectic::grep_any(nafo,ziff$nafodiv)
+  if(length(index)>0){ziff<-ziff[index,]}else{print("No matches to NAFO; ignoring NAFO")}
+  }
 
   if(nrow(ziff)==0){stop('\r No matches found',call. = FALSE)}
 
-
-  index<-eclectic::grep_any(nafo,ziff$nafodiv)
-  if(length(index)==0){stop('\r No matches found',call. = FALSE)}
-
-
-  ziff<-ziff[index,]
   ziff$cfv<-gsub("[[:space:]]", "", ziff$cfv) #strip all whitespace
   ziff$licence<-gsub("[[:space:]]", "", ziff$licence) #strip all whitespace
   ziff[which(ziff$licence=='0'),'licence']<-NA
