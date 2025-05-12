@@ -23,6 +23,6 @@ fs_fill_col<-function(df,group.cols,update.col,fun){
   names(df2)[ncol(df2)]<-'val'
   df2[,ncol(df2)]<-round(df2[,ncol(df2)])
   tmp<-dplyr::left_join(df,df2)
-  tmp[,update.col]<-ifelse(is.na(tmp[,update.col]),tmp$val,tmp[,update.col])
+  tmp[which(is.na(tmp[,update.col])),update.col]<-tmp[which(is.na(tmp[,update.col])),'val']
   return(tmp[,-ncol(tmp)])
 }
