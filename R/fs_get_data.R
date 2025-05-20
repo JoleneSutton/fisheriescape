@@ -102,6 +102,9 @@ fs_get_data<-function(years=NULL,
 
   ziff<-ziff[order(ziff$trip.id,ziff$tripno),]
 
+  #///////////////////////////////////////////////////////////////////////
+  ## Restrict columns----
+  #///////////////////////////////////////////////////////////////////////
   var<-c('trip.id',"cfv","dateland","nafodiv",'unitarea',"mangare",'grid',
          "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
          "ctchdate","depth","depthcode","region",'portland',"homeport",
@@ -109,8 +112,11 @@ fs_get_data<-function(years=NULL,
          "longitude","latitude",'sw')
 
   ziff2<-ziff[,var]
-  ziff2<-dplyr::distinct_all(ziff2)
 
+  #///////////////////////////////////////////////////////////////////////
+  ## Remove full row duplicates ----
+  ziff2<-dplyr::distinct_all(ziff2)
+  #///////////////////////////////////////////////////////////////////////
   #message('Filling in missing rows. Please be patient.')
   #compress <- function(x) c(na.omit(x), NA)[1]
   #ziff<-aggregate(ziff[2:ncol(ziff)], ziff[1], compress) #if there are differences other than NA, this retains first option only
