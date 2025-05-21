@@ -42,6 +42,7 @@ fs_get_data<-function(years=NULL,
   if(length(index)>0){ziff<-ziff[index,]}else{print("No matches to NAFO; ignoring NAFO")}
   }
 
+
   if(nrow(ziff)==0){stop('\r No matches found',call. = FALSE)}
 
   ziff$cfv<-gsub("[[:space:]]", "", ziff$cfv) #strip all whitespace
@@ -49,6 +50,12 @@ fs_get_data<-function(years=NULL,
   ziff[which(ziff$licence=='0'),'licence']<-NA
   ziff[which(ziff$homeport=='0'),'homeport']<-NA
   ziff[which(ziff$portland=='0'),'portland']<-NA
+  ziff[which(ziff$typefis==""),'typefis']<-NA
+
+  # remove sentinel ----
+  index<-which(ziff$typfis=='S')
+  if(length(index)>0){ziff<-ziff[-index,]}
+
   #///////////////////////////////////////////////////////////////////////
   # Correct dates ----
   #///////////////////////////////////////////////////////////////////////
@@ -85,6 +92,7 @@ fs_get_data<-function(years=NULL,
   ziff$year<-as.numeric(substring(ziff$dateland,1,4))
 
   ziff[ziff == ""] <- NA
+  ziff[which(ziff$daysfish=='0'),'daysfish']<-NA
   ziff[which(ziff$hourfish==0),'hourfish']<-NA
   ziff[which(ziff$nugear==0),'nugear']<-NA
   ziff[which(ziff$amtgear==0),'amtgear']<-NA
