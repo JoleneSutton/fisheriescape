@@ -80,9 +80,16 @@ fs_pivot4<-function(df1, #ziff
   }
 
   if(trap.fishery!='yes'){
-    df1|>
-      group_by(fleet,year)|>
-      summarize(days.fished = n_distinct(dateland))
+    int.step<-df1|>
+      group_by(fleet,year,sw)|>
+      summarize(days.fished = n_distinct(dateland)/7)
+
+    ceu<-left_join(pivot3,int.step)
+
+    ceu$prop.week.fished<-ceu$days.fished*ceu$days
+
+    index<-which(ceu$prop.week.fished>1)
+    if(length(index)>0){ceu[which(ceu$prop.week.fished>1),'prop.week.fished']<-1}
     }
   #names(ceu)[which(names(ceu)=='FLEET')]<-names(df1)[which(names(df1)%in%fleet.col)]
 
