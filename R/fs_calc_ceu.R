@@ -12,7 +12,7 @@ fs_calc_ceu<-function(pivot4=NULL){
   # Set up ----
   #////////////////////////////////////////////////////////////////////////
   prompt.code<-c(1,2,3,4,5,6,7,8,9)
-  prompt.fishery<-c('American lobster','Atlantic cod','Atlantic herring','Atlantic halibut','Atlantic mackerel','Greenland halibut','rock crab', 'snow crab', 'toad crab','whelk')
+  prompt.fishery<-c('American lobster, NAFO 4S','American lobster, NAFO 4T','Atlantic cod','Atlantic herring','Atlantic halibut','Atlantic mackerel','Greenland halibut','rock crab', 'snow crab', 'toad crab','whelk')
 
   user.input<-function(choose.fishery){
     prompt<-utils::menu(c(prompt.fishery))
@@ -31,7 +31,7 @@ fs_calc_ceu<-function(pivot4=NULL){
   #////////////////////////////////////////////////////////////////////////
   if(!is.null(pivot4)){
 
-    if(fishery%in%c('American lobster')) {
+    if(fishery%in%c('American lobster, NAFO 4S')) {
       pivot4$num.lines<-pivot4$total.gear
       pivot4$soak.time<-24
       pivot4$rope.soak.time<-pivot4$soak.time/24
@@ -49,6 +49,13 @@ fs_calc_ceu<-function(pivot4=NULL){
         group_by(sw,fleet)|>
         summarise(av.ceu = mean(ceu))
     }
+
+
+    if(fishery%in%c('American lobster, NAFO 4T')) {
+
+    }
+
+
 
 
 
@@ -83,7 +90,6 @@ fs_calc_ceu<-function(pivot4=NULL){
 
 
     if(fishery%in%c('Atlantic herring')) {
-
       pivot4$one.rope<-0
       ceu<-pivot4
       ceu4t<-utils::read.csv('analysis/herring/2025/data/ceu_4T.csv',header=TRUE)
