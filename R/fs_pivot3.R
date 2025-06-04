@@ -12,7 +12,7 @@ fs_pivot3<-function(pivot2,
                  trap.fishery
                  ){
 
-  message("'group.cols' must include year and sw, and either cfv or licence")
+  message("'group.cols' must include year and sw")
 
   pivot2$ID<-pivot2[,id.col]
 
