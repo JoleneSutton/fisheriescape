@@ -13,6 +13,14 @@ fs_pivot1<-function(df,
                     hour.col=NULL,
                     day.col=NULL){
 
+  # appease R CMD check
+  trip.id=NULL
+  fleet=NULL
+  GEAR=NULL
+  HRS=NULL
+  DAYS=NULL
+
+
   '%!in%' <- function(x,y)!('%in%'(x,y))
   if(gear.col%!in%names(df)){{stop('\r Missing gear.col',call. = FALSE)}}
 

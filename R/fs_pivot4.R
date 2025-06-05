@@ -16,6 +16,12 @@ fs_pivot4<-function(df1, #ziff
                     area.note.col=NULL
                     ){
 
+  # appease R CMD check
+  fleet=NULL
+  sw=NULL
+  dateland=NULL
+
+
   message("WARNING: This draft function does not yet allow flexibility in `group_by`. Grouping in step 'pivot.season' is done only with year and fleet. Use with CAUTION")
 
   df1$FLEET<-df1[,fleet.col]

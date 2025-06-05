@@ -9,9 +9,15 @@ fs_pivot2<-function(pivot1,
                     trap.fishery='yes',
                     group.cols
                     ){
-
   # for a trap fishery, max of sum.gear and max of max.hours
   # for a longline or gillnet fishery, mean of sum.gear and mean of max.hours
+
+
+  # appease R CMD check
+  sum.gear=NULL
+  max.hours=NULL
+  av.days=NULL
+
 
   message("'group.cols' must include year and sw, and either cfv or licence")
 

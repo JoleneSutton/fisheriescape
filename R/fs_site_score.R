@@ -9,8 +9,19 @@
 #' @export
 fs_site_score<-function(df,fa.poly){
 
-  grid<-terra::vect('analysis/grid/dfo_hex_coffen_smout_cropped.shp')
+  # appease R CMD check
+  GRID_ID=NULL
+  fleet=NULL
+  area.in.fa=NULL
+  year=NULL
+  sw=NULL
+  tot.count.hex=NULL
+  av.count.hex=NULL
+  sum.av.count.fleet=NULL
 
+
+
+  grid<-terra::vect('analysis/grid/dfo_hex_coffen_smout_cropped.shp')
 
   #//////////////////////////////////////////////////////////////////////////
   # Crop grid to extent of data points ----

@@ -12,6 +12,13 @@ fs_pivot3<-function(pivot2,
                  trap.fishery
                  ){
 
+  # appease R CMD check
+  ID=NULL
+  gear=NULL
+  hours=NULL
+  days=NULL
+
+
   message("'group.cols' must include year and sw")
 
   pivot2$ID<-pivot2[,id.col]
