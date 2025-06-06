@@ -55,13 +55,13 @@ summary(ss)
 ```
 
 In the figure below, red grid cells had data points, but these points fall outside of the fishing area polygons, and so are not included in the site score calculations.
-```{r, warning = FALSE, message = FALSE}
+```{r, warning = FALSE, message = FALSE, fig.show="hold"}
 index<-which(grid$GRID_ID%in%unlist(ss[which(is.na(ss$sum.av.count.fleet)),'GRID_ID']))
 
 ggplot()+
   geom_spatvector(data=fa.poly,fill='white')+
   geom_spatvector(data=grid,fill=NA)+
-  geom_spatvector(data=grid[index,],fill='red')#+geom_point(data=df.ss,aes(x,y))
+  geom_spatvector(data=grid[index,],fill='red')
 
 ss<-ss[-which(is.na(ss$prop.count.fleet)),]
 
@@ -93,7 +93,7 @@ pivot1
 summary(pivot1) 
 ```
 
-Now fill in the missing gear.amount with group averages.The user needs to choose the order of variables to group by that is most appropriate for the fishery of interest. By the end of this step, there should be no missing gear.amount. 
+Now fill in the missing gear.amount with group averages.The user needs to choose the order of variables to group by that will be most appropriate for the fishery of interest. By the end of this step, there should be no missing gear.amount. 
 ```{r, warning = FALSE, message = FALSE}
 if(length(which(is.na(pivot1$sum.gear)))>0){
   pivot1<-fisheriescape::fs_fill_col(pivot1,group.cols=c('cfv','year','sw'),update.col = 'sum.gear',fun=mean)}
@@ -155,7 +155,7 @@ summary(pivot3)
 ## Seasons and Pivot 4
 The function `fs_pivot4` is a little different from the previous "pivot" functions, as it performs a number of steps. It does not yet have a lot of flexibility, and needs to be used with caution. Don't use this function for fisheries that need information to be summarized by province in addition to by fleet.
 
-Function `fs_pivot4` first identifies the start and end of the fishing season for each year, and calculates the proportion of each week that fishing occurs for each fleet. It then joins the proportion of week fished to the output from function `fs_pivot3`. 
+Function `fs_pivot4` first identifies the start and end of the fishing season for each year and fleet, and calculates the proportion of each week that fishing occurs. It then joins the proportion of week fished to the output from function `fs_pivot3`. 
 ```{r, warning = FALSE, message = FALSE}
 pivot4<-fs_pivot4(df=df2,
                   trap.fishery='yes',
