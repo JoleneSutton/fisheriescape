@@ -10,14 +10,9 @@ R functions to help with the fisheriescape project.
 
 ## Installation
 
-Installation requires access to DFO internal drives and software. If you
-have those, you can install the development version of **fisheriescape**
-by using the code below, or by downloading and installing the latest
+To install, use the code below or download and install from the latest
 package
 [build](https://github.com/JoleneSutton/fisheriescape/tree/main/builds).
-If you don’t have all the requirements for installation, you can browse
-function code
-[here](https://github.com/JoleneSutton/fisheriescape/tree/main/R).
 
 ``` r
 # install.packages("devtools")
