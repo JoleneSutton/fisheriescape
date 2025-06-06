@@ -48,11 +48,19 @@ ggplot()+
 
 
 Next, use function `fs_site_score`. This function first counts the number of fishing events per grid cell (hexagon) by standard week and year. Then it calculates the mean number of fishing events by standard week for each grid cell. Finally, it calculates the **site score** of each grid cell by dividing the mean number of fishing events in each grid cell by the mean number of fishing events in each grid cell summed by fleet and standard week.
-```{r, warning = FALSE, message = FALSE}
+```{r, warning = FALSE, message = FALSE,eval=FALSE}
 ss<-suppressMessages(fs_site_score(df.ss,fa.poly,grid=grid))# be patient
 head(ss)
 summary(ss)
 ```
+
+```{r, warning = FALSE, message = FALSE,echo=FALSE}
+ss<-suppressMessages(fs_site_score(df.ss,fa.poly,grid=grid))# be patient
+names(ss)[which(names(ss)=='prop.count.fleet')]<-'site.score'
+head(ss)
+summary(ss)
+```
+
 
 In the figure below, red grid cells had data points, but these points fall outside of the fishing area polygons, and so are not included in the site score calculations.
 ```{r, warning = FALSE, message = FALSE, fig.show="hold"}
@@ -63,9 +71,7 @@ ggplot()+
   geom_spatvector(data=grid,fill=NA)+
   geom_spatvector(data=grid[index,],fill='red')
 
-ss<-ss[-which(is.na(ss$prop.count.fleet)),]
-
-ss$site.score<-ss$prop.count.fleet
+ss<-ss[-which(is.na(ss$site.score)),]
 ```
 
 
@@ -169,18 +175,25 @@ summary(pivot4)
 
 
 # Common effort unit (CEU)
-For most fisheries, use function `fs_calc_ceu` and follow the prompts. This function cannot yet be applied to American lobster, NAFO 4T.
+For most fisheries, use function `fs_calc_ceu` with the output from `fs_pivot4` and follow the prompts. This function cannot yet be applied to American lobster, NAFO 4T.
 
-**need to describe what function does for each fishery, and resulting output**
+For snow crab, `fs_calc_ceu` uses the following steps to calculate CEU:
+
+  1. rope.soak.time = soak.time/24
+  1. magnitude = total.gear
+  1. intensity = magnitude X rope.soak.time
+  1. pre.ceu = intensity X proportion.week.fished
+  1. ceu = sum pre.ceu by fleet and standard week, then divide by the number of years examined
 ```{r, eval=FALSE}
-ceu<-fs_calc_ceu(pivot4)
+df.ceu<-fs_calc_ceu(pivot4)
 
-head(ceu)
+head(df.ceu)
 ```
 
 ```{r, echo=FALSE, eval=TRUE, warning = FALSE, message = FALSE}
-ceu<-ceu
-head(ceu)
+df.ceu<-ceu
+names(df.ceu)[3]<-'ceu'
+head(df.ceu)
 ```
 
 
@@ -189,9 +202,9 @@ The **fisheriescape** is the product of the **site score** multiplied by the **C
 
 ## Join site score with CEU and calculate fisheriescape
 ```{r, warning = FALSE, message = FALSE}
-df<-left_join(ss,ceu)
+df<-left_join(ss,df.ceu)
 
-df$fs<-df$site.score*df$av.ceu 
+df$fs<-df$site.score*df$ceu 
 
 head(df)
 summary(df) # a small number of missing fs or av.ceu are expected
