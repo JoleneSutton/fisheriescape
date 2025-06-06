@@ -197,7 +197,7 @@ tapply(df$fs,df$fleet,summary)
 ```
 
 ## Plot
-```{r, warning = FALSE, message = FALSE}
+```{r, warning = FALSE, message = FALSE,eval=FALSE}
 hex<-grid
 naf<-get_shapefile('nafo.clipped')
 naf<-project(naf,fa.poly)
