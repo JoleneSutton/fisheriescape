@@ -1,10 +1,10 @@
 Package: fisheriescape
-Title: What the Package Does (One Line, Title Case)
+Title: R Functions to Help with the Fisheriescape Project
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person(c("Jolene", "T."), "Sutton", , "jolene.sutton@gmail.com",
+           role = c("aut", "cre")))
+Description: R functions to help with the fisheriescape project.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -27,7 +27,9 @@ Remotes:
 Suggests: 
     kableExtra,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tidyterra(>= 0.6.1),
+    ggplot2(>= 3.0.0)
 VignetteBuilder: knitr
 LazyData: true
 URL: https://github.com/JoleneSutton/fisheriescape
