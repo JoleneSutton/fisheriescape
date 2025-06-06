@@ -59,7 +59,7 @@ fs_calc_ceu<-function(pivot4=NULL){
 
 
     if(fishery%in%c('American lobster, NAFO 4T')) {
-
+    message('CEU requires manual calculate for this fishery')
     }
 
 
