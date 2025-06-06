@@ -35,6 +35,7 @@ grid<-terra::crop(grid,ext(fa.poly)*1.05)
 
 
 # Site score
+First, select distinct rows by variable 'event.id'.
 ```{r, warning = FALSE, message = FALSE}
 df.ss<-distinct_at(df,vars('event.id'),.keep_all = T)
 df.ss<-df.ss[-which(is.na(df.ss$x)|is.na(df.ss$y)),]
@@ -46,26 +47,29 @@ ggplot()+
 ```
 
 
+Next, use function `fs_site_score`. This function first counts the number of fishing events per grid cell (hexagon) by standard week and year. Then it calculates the mean number of fishing events by standard week for each grid cell. Finally, it calculates the **site score** of each grid cell by dividing the mean number of fishing events in each grid cell by the mean number of fishing events in each grid cell summed by fleet and standard week.
 ```{r, warning = FALSE, message = FALSE}
-
 ss<-suppressMessages(fs_site_score(df.ss,fa.poly,grid=grid))# be patient
 head(ss)
 summary(ss)
+```
 
+In the figure below, red grid cells had data points, but these points fall outside of the fishing area polygons, and so are not included in the site score calculations.
+```{r, warning = FALSE, message = FALSE}
 index<-which(grid$GRID_ID%in%unlist(ss[which(is.na(ss$sum.av.count.fleet)),'GRID_ID']))
 
 ggplot()+
   geom_spatvector(data=fa.poly,fill='white')+
   geom_spatvector(data=grid,fill=NA)+
   geom_spatvector(data=grid[index,],fill='red')#+geom_point(data=df.ss,aes(x,y))
-# red hexes had data points, but they fall outside of the fa.poly, and so are not included in the site score calculations
 
 ss<-ss[-which(is.na(ss$prop.count.fleet)),]
+
 ss$site.score<-ss$prop.count.fleet
 ```
 
 
-# Pivot tables
+# Pivot tables (pre-CEU steps)
 
 ## Select distinct rows
 ```{r, warning = FALSE, message = FALSE}
@@ -149,9 +153,9 @@ summary(pivot3)
 ```
 
 ## Seasons and Pivot 4
-The function `fs_pivot4` is a little different from the previous pivot functions, as it performs a number of steps. It does not yet have a lot of flexibility, and needs to be used with caution. Don't use this function for fisheries that need information to be summarized by province in addition to by fleet.
+The function `fs_pivot4` is a little different from the previous "pivot" functions, as it performs a number of steps. It does not yet have a lot of flexibility, and needs to be used with caution. Don't use this function for fisheries that need information to be summarized by province in addition to by fleet.
 
-**need to describe what function does, and resulting output**
+Function `fs_pivot4` first identifies the start and end of the fishing season for each year, and calculates the proportion of each week that fishing occurs for each fleet. It then joins the proportion of week fished to the output from function `fs_pivot3`. 
 ```{r, warning = FALSE, message = FALSE}
 pivot4<-fs_pivot4(df=df2,
                   trap.fishery='yes',
@@ -170,16 +174,18 @@ For most fisheries, use function `fs_calc_ceu` and follow the prompts. This func
 **need to describe what function does for each fishery, and resulting output**
 ```{r, eval=FALSE}
 ceu<-fs_calc_ceu(pivot4)
+
+head(ceu)
 ```
 
-To simplify things for this vignette, we will use a pre-made CEU file.
-```{r, eval=TRUE, warning = FALSE, message = FALSE}
+```{r, echo=FALSE, eval=TRUE, warning = FALSE, message = FALSE}
 ceu<-ceu
 head(ceu)
 ```
 
 
 # Fisheriescape
+The **fisheriescape** is the product of the **site score** multiplied by the **CEU**.
 
 ## Join site score with CEU and calculate fisheriescape
 ```{r, warning = FALSE, message = FALSE}
@@ -202,9 +208,6 @@ hex<-grid
 naf<-get_shapefile('nafo.clipped')
 naf<-project(naf,fa.poly)
 names(naf)[1]<-'nafo'
-
-#fa.poly<-gslSpatial::assign_polygons(fa.poly[,'fleet'],naf[,'nafo'])
-#fa.poly<-fa.poly[which(fa.poly$nafo=='4T'),]
 
 coast<-gslSpatial::get_shapefile('coastline')
 coast<-project(coast,fa.poly)
