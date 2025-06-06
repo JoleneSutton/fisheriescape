@@ -18,3 +18,13 @@
 #'   \item{hours.fished}{hours.fished}
 #' }
 "crab"
+
+#' Example data set
+#'
+#' @format A data frame with 85 rows and 3 variables:
+#' \describe{
+#'   \item{fleet}{fleet}
+#'   \item{sw}{standard week}
+#'   \item{av.ceu}{average CEU}
+#' }
+"ceu"
