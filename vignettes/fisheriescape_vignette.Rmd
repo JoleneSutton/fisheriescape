@@ -164,7 +164,7 @@ summary(pivot4)
 ```
 
 
-# Common effort usage (CEU)
+# Common effort unit (CEU)
 For most fisheries, use function `fs_calc_ceu` and follow the prompts. This function cannot yet be applied to American lobster, NAFO 4T.
 
 **need to describe what function does for each fishery, and resulting output**
