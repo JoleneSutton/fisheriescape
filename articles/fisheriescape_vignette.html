@@ -105,18 +105,17 @@ events in each grid cell summed by fleet and standard week.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ss</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="../reference/fs_site_score.html">fs_site_score</a></span><span class="op">(</span><span class="va">df.ss</span>,<span class="va">fa.poly</span>,grid<span class="op">=</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span><span class="co"># be patient</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ss</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ss</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   fleet, sw [5]</span></span></span>
-<span><span class="co">#&gt;   GRID_ID  sw    tot.count.hex av.count.hex fleet sum.av.count.fleet</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ATW-1161 19                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ATW-1161 20                2          0.4 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ATW-1161 21                2          0.4 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ATX-1161 21                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ATY-1137 15                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ATY-1143 13                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: prop.count.fleet &lt;dbl&gt;</span></span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ss</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   GRID_ID  sw    tot.count.hex av.count.hex fleet sum.av.count.fleet site.score</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ATW-1161 19                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ATW-1161 20                2          0.4 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ATW-1161 21                2          0.4 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ATX-1161 21                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ATY-1137 15                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ATY-1143 13                1          0.2 <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">#&gt;    GRID_ID               sw            tot.count.hex     av.count.hex   </span></span>
 <span><span class="co">#&gt;  Length:16202       Length:16202       Min.   : 1.000   Min.   : 0.200  </span></span>
 <span><span class="co">#&gt;  Class :character   Class :character   1st Qu.: 1.000   1st Qu.: 0.200  </span></span>
@@ -125,18 +124,18 @@ events in each grid cell summed by fleet and standard week.</p>
 <span><span class="co">#&gt;                                        3rd Qu.: 3.000   3rd Qu.: 0.600  </span></span>
 <span><span class="co">#&gt;                                        Max.   :58.000   Max.   :11.600  </span></span>
 <span><span class="co">#&gt;                                                                         </span></span>
-<span><span class="co">#&gt;     fleet           sum.av.count.fleet prop.count.fleet  </span></span>
+<span><span class="co">#&gt;     fleet           sum.av.count.fleet   site.score      </span></span>
 <span><span class="co">#&gt;  Length:16202       Min.   :  0.2      Min.   :0.000301  </span></span>
 <span><span class="co">#&gt;  Class :character   1st Qu.:141.0      1st Qu.:0.000602  </span></span>
 <span><span class="co">#&gt;  Mode  :character   Median :454.0      Median :0.001171  </span></span>
 <span><span class="co">#&gt;                     Mean   :374.7      Mean   :0.005595  </span></span>
 <span><span class="co">#&gt;                     3rd Qu.:512.6      3rd Qu.:0.002736  </span></span>
 <span><span class="co">#&gt;                     Max.   :664.6      Max.   :1.000000  </span></span>
-<span><span class="co">#&gt;                     NA's   :117        NA's   :117</span></span></code></pre></div>
+<span><span class="co">#&gt;                     NA's   :117        NA's   :117</span></span></code></pre>
 <p>In the figure below, red grid cells had data points, but these points
 fall outside of the fishing area polygons, and so are not included in
 the site score calculations.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">index</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">grid</span><span class="op">$</span><span class="va">GRID_ID</span><span class="op"><a href="https://rspatial.github.io/terra/reference/match.html" class="external-link">%in%</a></span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">ss</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ss</span><span class="op">$</span><span class="va">sum.av.count.fleet</span><span class="op">)</span><span class="op">)</span>,<span class="st">'GRID_ID'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
@@ -144,10 +143,8 @@ the site score calculations.</p>
 <span>  <span class="fu"><a href="https://dieghernan.github.io/tidyterra/reference/ggspatvector.html" class="external-link">geom_spatvector</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">grid</span>,fill<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://dieghernan.github.io/tidyterra/reference/ggspatvector.html" class="external-link">geom_spatvector</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">grid</span><span class="op">[</span><span class="va">index</span>,<span class="op">]</span>,fill<span class="op">=</span><span class="st">'red'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ss</span><span class="op">&lt;-</span><span class="va">ss</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ss</span><span class="op">$</span><span class="va">prop.count.fleet</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span>
-<span></span>
-<span><span class="va">ss</span><span class="op">$</span><span class="va">site.score</span><span class="op">&lt;-</span><span class="va">ss</span><span class="op">$</span><span class="va">prop.count.fleet</span></span></code></pre></div>
-<p><img src="fisheriescape_vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<span><span class="va">ss</span><span class="op">&lt;-</span><span class="va">ss</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ss</span><span class="op">$</span><span class="va">site.score</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<p><img src="fisheriescape_vignette_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="pivot-tables-pre-ceu-steps">Pivot tables (pre-CEU steps)<a class="anchor" aria-label="anchor" href="#pivot-tables-pre-ceu-steps"></a>
@@ -155,7 +152,7 @@ the site score calculations.</p>
 <div class="section level3">
 <h3 id="select-distinct-rows">Select distinct rows<a class="anchor" aria-label="anchor" href="#select-distinct-rows"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct_all.html" class="external-link">distinct_at</a></span><span class="op">(</span><span class="va">df</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="st">'event.id'</span>,<span class="st">'fleet'</span>,<span class="st">'cfv'</span>,<span class="st">'dateland'</span>,<span class="st">'ctchdate'</span>,</span>
 <span>                           <span class="st">'gear.amount'</span>,</span>
 <span>                           <span class="st">'hours.fished'</span><span class="op">)</span>,.keep_all <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> </span>
@@ -174,7 +171,7 @@ the site score calculations.</p>
 <p>Function <code>fs_pivot1</code> summarizes data by variables trip.id
 and fleet. The resulting table contains the summed gear, maximum hours
 (if applicable), and mean days (if applicable).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot1</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot1.html">fs_pivot1</a></span><span class="op">(</span><span class="va">df2</span>,</span>
 <span>      keep.cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span>,</span>
 <span>       gear.col<span class="op">=</span><span class="st">'gear.amount'</span>,</span>
@@ -216,7 +213,7 @@ and fleet. The resulting table contains the summed gear, maximum hours
 needs to choose the order of variables to group by that will be most
 appropriate for the fishery of interest. By the end of this step, there
 should be no missing gear.amount.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">pivot1</span><span class="op">$</span><span class="va">sum.gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">pivot1</span><span class="op">&lt;-</span><span class="fu">fisheriescape</span><span class="fu">::</span><span class="fu"><a href="../reference/fs_fill_col.html">fs_fill_col</a></span><span class="op">(</span><span class="va">pivot1</span>,group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span>,update.col <span class="op">=</span> <span class="st">'sum.gear'</span>,fun<span class="op">=</span><span class="va">mean</span><span class="op">)</span><span class="op">}</span></span>
 <span></span>
@@ -237,7 +234,7 @@ should be no missing gear.amount.</p>
 <p>There are no longer NAs in gear.amount. If object pivot1 contained
 NAs in hours.fished, we would repeat the above step for hours.fished.
 However, we can see that there are no NAs in hours.fished.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pivot1</span><span class="op">)</span> </span>
 <span><span class="co">#&gt;    trip.id             fleet                 cfv.V1            year     </span></span>
 <span><span class="co">#&gt;  Length:32302       Length:32302       Length:32302       Min.   :2013  </span></span>
@@ -264,7 +261,7 @@ licence, and which should typically also include fleet.</p>
 gear, maximum hours (if applicable), and mean days (if applicable).</p>
 <p>When trap.fishery!=‘yes’, the resulting table contains the mean gear,
 mean hours (if applicable), and mean days (if applicable).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot2</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot2.html">fs_pivot2</a></span><span class="op">(</span><span class="va">pivot1</span>,</span>
 <span>                  trap.fishery<span class="op">=</span><span class="st">'yes'</span>,</span>
 <span>                  group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'fleet'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span><span class="op">)</span></span>
@@ -308,7 +305,7 @@ applicable).</p>
 distinct cfvs or licences (“n.vessels”), summed gear (“total.gear”),
 mean hours (“soak.time”, if applicable), and mean days (“days”, if
 applicable).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot3</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot3.html">fs_pivot3</a></span><span class="op">(</span><span class="va">pivot2</span>,</span>
 <span>                  group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'fleet'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span>,</span>
 <span>                  id.col<span class="op">=</span><span class="st">'cfv'</span>,</span>
@@ -350,7 +347,7 @@ the fishing season for each year and fleet, and calculates the
 proportion of each week that fishing occurs. It then joins the
 proportion of week fished to the output from function
 <code>fs_pivot3</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot4</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot4.html">fs_pivot4</a></span><span class="op">(</span>df<span class="op">=</span><span class="va">df2</span>,</span>
 <span>                  trap.fishery<span class="op">=</span><span class="st">'yes'</span>,</span>
 <span>          <span class="va">pivot3</span>, <span class="co">#output from fs_pivot3</span></span>
@@ -385,18 +382,26 @@ proportion of week fished to the output from function
 <div class="section level2">
 <h2 id="common-effort-unit-ceu">Common effort unit (CEU)<a class="anchor" aria-label="anchor" href="#common-effort-unit-ceu"></a>
 </h2>
-<p>For most fisheries, use function <code>fs_calc_ceu</code> and follow
-the prompts. This function cannot yet be applied to American lobster,
-NAFO 4T.</p>
-<p><strong>need to describe what function does for each fishery, and
-resulting output</strong></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ceu</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_calc_ceu.html">fs_calc_ceu</a></span><span class="op">(</span><span class="va">pivot4</span><span class="op">)</span></span>
+<p>For most fisheries, use function <code>fs_calc_ceu</code> with the
+output from <code>fs_pivot4</code> and follow the prompts. This function
+cannot yet be applied to American lobster, NAFO 4T.</p>
+<p>For snow crab, <code>fs_calc_ceu</code> uses the following steps to
+calculate CEU:</p>
+<ol style="list-style-type: decimal">
+<li>rope.soak.time = soak.time/24</li>
+<li>magnitude = total.gear</li>
+<li>intensity = magnitude X rope.soak.time</li>
+<li>pre.ceu = intensity X proportion.week.fished</li>
+<li>ceu = sum pre.ceu by fleet and standard week, then divide by the
+number of years examined</li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df.ceu</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_calc_ceu.html">fs_calc_ceu</a></span><span class="op">(</span><span class="va">pivot4</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ceu</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   fleet [1]</span></span></span>
-<span><span class="co">#&gt;   fleet     sw     av.ceu</span></span>
+<span><span class="co">#&gt;   fleet     sw        ceu</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> GQ_CFA_12 14        5.6</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> GQ_CFA_12 15       14.4</span></span>
@@ -413,24 +418,23 @@ score</strong> multiplied by the <strong>CEU</strong>.</p>
 <div class="section level3">
 <h3 id="join-site-score-with-ceu-and-calculate-fisheriescape">Join site score with CEU and calculate fisheriescape<a class="anchor" aria-label="anchor" href="#join-site-score-with-ceu-and-calculate-fisheriescape"></a>
 </h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">ss</span>,<span class="va">ceu</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">ss</span>,<span class="va">df.ceu</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">fs</span><span class="op">&lt;-</span><span class="va">df</span><span class="op">$</span><span class="va">site.score</span><span class="op">*</span><span class="va">df</span><span class="op">$</span><span class="va">av.ceu</span> </span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">fs</span><span class="op">&lt;-</span><span class="va">df</span><span class="op">$</span><span class="va">site.score</span><span class="op">*</span><span class="va">df</span><span class="op">$</span><span class="va">ceu</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   fleet, sw [4]</span></span></span>
-<span><span class="co">#&gt;   GRID_ID  sw    tot.count.hex av.count.hex fleet     sum.av.count.fleet</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ATY-1159 19                1          0.2 GQ_CFA_17              100  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ATY-1159 20                2          0.4 GQ_CFA_17               88.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ATY-1159 21                2          0.4 GQ_CFA_17               70.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ATY-1160 18                1          0.2 GQ_CFA_17              108. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ATY-1160 20                2          0.4 GQ_CFA_17               88.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ATY-1160 21                2          0.4 GQ_CFA_17               70.4</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4 more variables: prop.count.fleet &lt;dbl&gt;, site.score &lt;dbl&gt;, av.ceu &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   fs &lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt;   GRID_ID  sw    tot.count.hex av.count.hex fleet  sum.av.count.fleet site.score</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ATY-1159 19                1          0.2 GQ_CF…              100      0.002  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ATY-1159 20                2          0.4 GQ_CF…               88.4    0.004<span style="text-decoration: underline;">52</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ATY-1159 21                2          0.4 GQ_CF…               70.4    0.005<span style="text-decoration: underline;">68</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ATY-1160 18                1          0.2 GQ_CF…              108.     0.001<span style="text-decoration: underline;">85</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ATY-1160 20                2          0.4 GQ_CF…               88.4    0.004<span style="text-decoration: underline;">52</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ATY-1160 21                2          0.4 GQ_CF…               70.4    0.005<span style="text-decoration: underline;">68</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: ceu &lt;dbl&gt;, fs &lt;dbl&gt;</span></span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="co"># a small number of missing fs or av.ceu are expected</span></span>
 <span><span class="co">#&gt;    GRID_ID               sw            tot.count.hex     av.count.hex    </span></span>
 <span><span class="co">#&gt;  Length:16085       Length:16085       Min.   : 1.000   Min.   : 0.2000  </span></span>
@@ -440,22 +444,22 @@ score</strong> multiplied by the <strong>CEU</strong>.</p>
 <span><span class="co">#&gt;                                        3rd Qu.: 3.000   3rd Qu.: 0.6000  </span></span>
 <span><span class="co">#&gt;                                        Max.   :58.000   Max.   :11.6000  </span></span>
 <span><span class="co">#&gt;                                                                          </span></span>
-<span><span class="co">#&gt;     fleet           sum.av.count.fleet prop.count.fleet      site.score       </span></span>
-<span><span class="co">#&gt;  Length:16085       Min.   :  0.2      Min.   :0.0003009   Min.   :0.0003009  </span></span>
-<span><span class="co">#&gt;  Class :character   1st Qu.:141.0      1st Qu.:0.0006019   1st Qu.:0.0006019  </span></span>
-<span><span class="co">#&gt;  Mode  :character   Median :454.0      Median :0.0011705   Median :0.0011705  </span></span>
-<span><span class="co">#&gt;                     Mean   :374.7      Mean   :0.0055953   Mean   :0.0055953  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:512.6      3rd Qu.:0.0027364   3rd Qu.:0.0027364  </span></span>
-<span><span class="co">#&gt;                     Max.   :664.6      Max.   :1.0000000   Max.   :1.0000000  </span></span>
-<span><span class="co">#&gt;                                                                               </span></span>
-<span><span class="co">#&gt;      av.ceu                fs          </span></span>
-<span><span class="co">#&gt;  Min.   :1.143e-01   Min.   :  0.1143  </span></span>
-<span><span class="co">#&gt;  1st Qu.:2.938e+03   1st Qu.:  7.5413  </span></span>
-<span><span class="co">#&gt;  Median :1.593e+04   Median :  9.1276  </span></span>
-<span><span class="co">#&gt;  Mean   :1.405e+04   Mean   : 15.3383  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:2.204e+04   3rd Qu.: 18.2553  </span></span>
-<span><span class="co">#&gt;  Max.   :2.506e+04   Max.   :143.2850  </span></span>
-<span><span class="co">#&gt;  NA's   :26          NA's   :26</span></span>
+<span><span class="co">#&gt;     fleet           sum.av.count.fleet   site.score             ceu           </span></span>
+<span><span class="co">#&gt;  Length:16085       Min.   :  0.2      Min.   :0.0003009   Min.   :1.143e-01  </span></span>
+<span><span class="co">#&gt;  Class :character   1st Qu.:141.0      1st Qu.:0.0006019   1st Qu.:2.938e+03  </span></span>
+<span><span class="co">#&gt;  Mode  :character   Median :454.0      Median :0.0011705   Median :1.593e+04  </span></span>
+<span><span class="co">#&gt;                     Mean   :374.7      Mean   :0.0055953   Mean   :1.405e+04  </span></span>
+<span><span class="co">#&gt;                     3rd Qu.:512.6      3rd Qu.:0.0027364   3rd Qu.:2.204e+04  </span></span>
+<span><span class="co">#&gt;                     Max.   :664.6      Max.   :1.0000000   Max.   :2.506e+04  </span></span>
+<span><span class="co">#&gt;                                                            NA's   :26         </span></span>
+<span><span class="co">#&gt;        fs          </span></span>
+<span><span class="co">#&gt;  Min.   :  0.1143  </span></span>
+<span><span class="co">#&gt;  1st Qu.:  7.5413  </span></span>
+<span><span class="co">#&gt;  Median :  9.1276  </span></span>
+<span><span class="co">#&gt;  Mean   : 15.3383  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 18.2553  </span></span>
+<span><span class="co">#&gt;  Max.   :143.2850  </span></span>
+<span><span class="co">#&gt;  NA's   :26</span></span>
 <span></span>
 <span></span>
 <span><span class="co">#Checks</span></span>
@@ -487,7 +491,7 @@ score</strong> multiplied by the <strong>CEU</strong>.</p>
 <div class="section level3">
 <h3 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hex</span><span class="op">&lt;-</span><span class="va">grid</span></span>
 <span><span class="va">naf</span><span class="op">&lt;-</span><span class="fu"><a href="https://jolenesutton.github.io/gslSpatial/reference/get_shapefile.html" class="external-link">get_shapefile</a></span><span class="op">(</span><span class="st">'nafo.clipped'</span><span class="op">)</span></span>
 <span><span class="va">naf</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html" class="external-link">project</a></span><span class="op">(</span><span class="va">naf</span>,<span class="va">fa.poly</span><span class="op">)</span></span>
