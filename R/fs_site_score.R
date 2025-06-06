@@ -2,12 +2,13 @@
 #'
 #' @param df The for.site.score data frame.
 #' @param fa.poly The fishing area polygon. CRS should be albers. Must contain a column called 'fleet'.
+#' @param grid Grid shapefile. If NULL, defaults to 'dfo_hex_coffen_smout_cropped.shp'.
 #' @import dplyr
 #' @importFrom terra vect crs crop merge
-#' @importFrom gslSpatial assign_points_terra
+#' @importFrom gslSpatial get_shapefile assign_points_terra
 #' @importFrom sf st_as_sf st_intersection st_area
 #' @export
-fs_site_score<-function(df,fa.poly){
+fs_site_score<-function(df,fa.poly,grid=NULL){
 
   # appease R CMD check
   GRID_ID=NULL
@@ -18,10 +19,11 @@ fs_site_score<-function(df,fa.poly){
   tot.count.hex=NULL
   av.count.hex=NULL
   sum.av.count.fleet=NULL
+  area=NULL
 
 
-
-  grid<-terra::vect('analysis/grid/dfo_hex_coffen_smout_cropped.shp')
+  #if(is.null(grid)){grid<-terra::vect('inst/extdata/dfo_hex_coffen_smout_cropped.shp')} #move this to gslSpatial!
+  if(is.null(grid)){grid<-gslSpatial::get_shapefile('hex')}
 
   #//////////////////////////////////////////////////////////////////////////
   # Crop grid to extent of data points ----

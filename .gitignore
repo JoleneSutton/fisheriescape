@@ -7,3 +7,4 @@
 IGNORE/*
 docs
 .Rproj
+inst/doc

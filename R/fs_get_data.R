@@ -5,13 +5,12 @@
 #' @param nafo Which NAFO divisions? Case insensitive
 #' @param gclass Which gear class?
 #' @param gearcode Which gear code?
-#' @import gulf
-#' @import get.gulf
-#' @importFrom gslSpatial get_depth
+#' @importFrom gslSpatial get_depth convert_dms_to_dd
 #' @importFrom eclectic grep_any
 #' @importFrom ISOweek ISOweek
 #' @importFrom dplyr distinct_all
 #' @importFrom terra vect geom project
+#' @importFrom data.table fread
 #' @examples
 #' #fs_get_data(years = 2017, species.sought = 705, nafo=c('4r'), gclass='1', gearcode=c('62','99'))
 #' @export
@@ -21,11 +20,108 @@ fs_get_data<-function(years=NULL,
                       gclass=NULL,
                       gearcode=NULL){
 
+  message("This function requires access to internal drives at DFO Gulf Region.")
+
   if(is.null(years)){stop('\r Must specify years',call. = FALSE)}
   if(is.null(species.sought)){stop('\r Must specify species.sought',call. = FALSE)}
 
+  #///////////////////////////////////////////////////////////////
+  ## remove 'get.gulf' and `gulf` packages as a dependencies by re-creating the get_ziff function here
+  get_ziff<-function(years, nafo=NULL, species.caught=NULL, species.sought=NULL, headers='english'){
 
-  ziff<-get.gulf::get_ziff(years = years, species.sought = species.sought)
+    options(scipen = 999)# turn off scientific notation because it interferes with converting deg/min/sec to dd
+
+
+    if(.Platform$OS.type=='unix'){path<-'/mnt/AquaRes_Common/FishFramSci/ziff_QC/'}else{
+      path<-'//ENT.dfo-mpo.ca/dfo-mpo/GROUP/GLF/Regional_Shares/AquaRes_Common/FishFramSci/ziff_QC/'}
+
+    p1<-'ziff_'
+
+    my.files<-list.files(path=path,pattern=p1)
+    my.files<-my.files[grep(pattern=paste0(paste0(p1,years),collapse="|"),my.files)]
+
+    ziff <- data.frame()
+
+    for (i in 1:length(my.files)){
+      print(paste0("Getting landings for ",  gsub(".*?([0-9]+).*", "\\1", my.files[i])   ))
+      dat<-readRDS(paste(path, my.files[i], sep = ""))
+
+
+      # Begin if statements///////////////////////////////////
+      if(!is.null(nafo)){
+        dat<-dat[c(grep(pattern=paste0(nafo,collapse="|"), dat$opano, ignore.case = T)),]
+      }
+
+      if(!is.null(species.caught)){
+        dat<-dat[c(grep(pattern=paste0(species.caught,collapse="|"), dat$cod_esp, ignore.case = T)),]
+      }
+
+      if(!is.null(species.sought)){
+        dat<-dat[c(grep(pattern=paste0(species.sought,collapse="|"), dat$prespvis, ignore.case = T)),]
+      }
+
+      ziff <- rbind(ziff, dat)
+      ziff<-as.data.frame(ziff)
+      rm(dat)
+    }
+
+    if(headers =='english'){
+      new.names<-data.table::fread(paste0(path, 'qc_ziff_metadata.csv'),header = TRUE)
+      index<-match(names(ziff),new.names$Nom_fr) #reorder the second to match the first
+      #cbind(names(ziff),new.names$Nom_fr[index],new.names$Name_en[index])
+      new.names<-new.names$Name_en[index]
+      names(ziff)<-new.names
+      rm(new.names)
+    }
+    # End if statements/////////////////////////////////////
+
+
+
+    # //////////////////////////////////////////////////////
+    # Sometimes the QC_latitude and QC_longitude coordinates are reversed
+    # Correct this by using the original coordinate columns
+
+    #ziff<-ziff[,-which(names(ziff)%in%c('Q_longitude','Q_latitude'))]# remove problem columns
+
+    #some might be deg-min, but some might be deg-min-sec
+    ziff$nchar.org.coord<-nchar(ziff$long)
+    ziff$unit.org.coord<-ifelse(ziff$long>1000&ziff$nchar.org.coord==4,'deg-min',
+                                ifelse(ziff$long>1000&ziff$nchar.org.coord>4,'deg-min-sec','dd'))
+
+    #table(ziff$unit.org.coord)
+
+    index1<-which(ziff$unit.org.coord=='deg-min-sec')
+    index2<-which(ziff$unit.org.coord=='deg-min')
+    index3<-which(ziff$unit.org.coord=='dd')
+
+    ziff$longitude.dd<-NA
+    ziff$latitude.dd<-NA
+
+    suppressMessages({
+      if(length(index1)>0){
+        ziff[index1, 'longitude.dd']<-gslSpatial::convert_dms_to_dd(ziff[index1, 'long'])*-1
+        ziff[index1, 'latitude.dd']<-gslSpatial::convert_dms_to_dd(ziff[index1, 'lat'])
+      }
+
+      if(length(index2)>0){
+        ziff[index2, 'longitude.dd']<-gslSpatial::convert_dms_to_dd(ziff[index2, 'long']*100)*-1
+        ziff[index2, 'latitude.dd']<-gslSpatial::convert_dms_to_dd(ziff[index2, 'lat']*100)
+      }
+
+      if(length(index3)>0){
+        ziff[index3, 'longitude.dd']<-abs(ziff[index3, 'long'])*-1
+        ziff[index3, 'latitude.dd']<-ziff[index3, 'lat']
+      }
+    })
+    # //////////////////////////////////////////////////////
+
+    #head(ziff)
+
+    return(ziff)
+  }
+  #///////////////////////////////////////////////////////////////
+
+  ziff<-get_ziff(years = years, species.sought = species.sought)
   names(ziff)<-gsub('.dd',"",names(ziff))
 
   #filters

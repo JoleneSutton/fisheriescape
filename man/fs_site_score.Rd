@@ -4,12 +4,14 @@
 \alias{fs_site_score}
 \title{Fisheriescape calculate site score}
 \usage{
-fs_site_score(df, fa.poly)
+fs_site_score(df, fa.poly, grid = NULL)
 }
 \arguments{
 \item{df}{The for.site.score data frame.}
 
 \item{fa.poly}{The fishing area polygon. CRS should be albers. Must contain a column called 'fleet'.}
+
+\item{grid}{Grid shapefile. If NULL, defaults to 'dfo_hex_coffen_smout_cropped.shp'.}
 }
 \description{
 Fisheriescape calculate site score
