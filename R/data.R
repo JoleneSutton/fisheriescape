@@ -1,0 +1,20 @@
+#' Example data set
+#'
+#' @format A data frame with 41,228 rows and 14 variables:
+#' \describe{
+#'   \item{event.id}{event.id}
+#'   \item{trip.id}{trip.id}
+#'   \item{cfv}{anonymized cfv}
+#'   \item{dateland}{date landed}
+#'   \item{ctchdate}{date caught}
+#'   \item{latitude}{latitude}
+#'   \item{longitude}{longitude}
+#'   \item{year}{year}
+#'   \item{sw}{standard week}
+#'   \item{x}{x coordinate}
+#'   \item{y}{y coordinate}
+#'   \item{fleet}{fleet}
+#'   \item{gear.amount}{gear.amount}
+#'   \item{hours.fished}{hours.fished}
+#' }
+"crab"
