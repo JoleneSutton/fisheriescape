@@ -142,13 +142,12 @@ the site score calculations.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://dieghernan.github.io/tidyterra/reference/ggspatvector.html" class="external-link">geom_spatvector</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">fa.poly</span>,fill<span class="op">=</span><span class="st">'white'</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://dieghernan.github.io/tidyterra/reference/ggspatvector.html" class="external-link">geom_spatvector</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">grid</span>,fill<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://dieghernan.github.io/tidyterra/reference/ggspatvector.html" class="external-link">geom_spatvector</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">grid</span><span class="op">[</span><span class="va">index</span>,<span class="op">]</span>,fill<span class="op">=</span><span class="st">'red'</span><span class="op">)</span><span class="co">#+geom_point(data=df.ss,aes(x,y))</span></span></code></pre></div>
-<p><img src="fisheriescape_vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://dieghernan.github.io/tidyterra/reference/ggspatvector.html" class="external-link">geom_spatvector</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">grid</span><span class="op">[</span><span class="va">index</span>,<span class="op">]</span>,fill<span class="op">=</span><span class="st">'red'</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">ss</span><span class="op">&lt;-</span><span class="va">ss</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ss</span><span class="op">$</span><span class="va">prop.count.fleet</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span>
 <span></span>
 <span><span class="va">ss</span><span class="op">$</span><span class="va">site.score</span><span class="op">&lt;-</span><span class="va">ss</span><span class="op">$</span><span class="va">prop.count.fleet</span></span></code></pre></div>
+<p><img src="fisheriescape_vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="pivot-tables-pre-ceu-steps">Pivot tables (pre-CEU steps)<a class="anchor" aria-label="anchor" href="#pivot-tables-pre-ceu-steps"></a>
@@ -156,7 +155,7 @@ the site score calculations.</p>
 <div class="section level3">
 <h3 id="select-distinct-rows">Select distinct rows<a class="anchor" aria-label="anchor" href="#select-distinct-rows"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct_all.html" class="external-link">distinct_at</a></span><span class="op">(</span><span class="va">df</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="st">'event.id'</span>,<span class="st">'fleet'</span>,<span class="st">'cfv'</span>,<span class="st">'dateland'</span>,<span class="st">'ctchdate'</span>,</span>
 <span>                           <span class="st">'gear.amount'</span>,</span>
 <span>                           <span class="st">'hours.fished'</span><span class="op">)</span>,.keep_all <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> </span>
@@ -175,7 +174,7 @@ the site score calculations.</p>
 <p>Function <code>fs_pivot1</code> summarizes data by variables trip.id
 and fleet. The resulting table contains the summed gear, maximum hours
 (if applicable), and mean days (if applicable).</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot1</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot1.html">fs_pivot1</a></span><span class="op">(</span><span class="va">df2</span>,</span>
 <span>      keep.cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span>,</span>
 <span>       gear.col<span class="op">=</span><span class="st">'gear.amount'</span>,</span>
@@ -214,10 +213,10 @@ and fleet. The resulting table contains the summed gear, maximum hours
 <span><span class="co">#&gt;                     Max.   :438.0   Max.   :24  </span></span>
 <span><span class="co">#&gt;                     NA's   :349</span></span></code></pre></div>
 <p>Now fill in the missing gear.amount with group averages.The user
-needs to choose the order of variables to group by that is most
+needs to choose the order of variables to group by that will be most
 appropriate for the fishery of interest. By the end of this step, there
 should be no missing gear.amount.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">pivot1</span><span class="op">$</span><span class="va">sum.gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">pivot1</span><span class="op">&lt;-</span><span class="fu">fisheriescape</span><span class="fu">::</span><span class="fu"><a href="../reference/fs_fill_col.html">fs_fill_col</a></span><span class="op">(</span><span class="va">pivot1</span>,group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span>,update.col <span class="op">=</span> <span class="st">'sum.gear'</span>,fun<span class="op">=</span><span class="va">mean</span><span class="op">)</span><span class="op">}</span></span>
 <span></span>
@@ -238,7 +237,7 @@ should be no missing gear.amount.</p>
 <p>There are no longer NAs in gear.amount. If object pivot1 contained
 NAs in hours.fished, we would repeat the above step for hours.fished.
 However, we can see that there are no NAs in hours.fished.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pivot1</span><span class="op">)</span> </span>
 <span><span class="co">#&gt;    trip.id             fleet                 cfv.V1            year     </span></span>
 <span><span class="co">#&gt;  Length:32302       Length:32302       Length:32302       Min.   :2013  </span></span>
@@ -265,7 +264,7 @@ licence, and which should typically also include fleet.</p>
 gear, maximum hours (if applicable), and mean days (if applicable).</p>
 <p>When trap.fishery!=‘yes’, the resulting table contains the mean gear,
 mean hours (if applicable), and mean days (if applicable).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot2</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot2.html">fs_pivot2</a></span><span class="op">(</span><span class="va">pivot1</span>,</span>
 <span>                  trap.fishery<span class="op">=</span><span class="st">'yes'</span>,</span>
 <span>                  group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'fleet'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span><span class="op">)</span></span>
@@ -309,7 +308,7 @@ applicable).</p>
 distinct cfvs or licences (“n.vessels”), summed gear (“total.gear”),
 mean hours (“soak.time”, if applicable), and mean days (“days”, if
 applicable).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot3</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot3.html">fs_pivot3</a></span><span class="op">(</span><span class="va">pivot2</span>,</span>
 <span>                  group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'fleet'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span>,</span>
 <span>                  id.col<span class="op">=</span><span class="st">'cfv'</span>,</span>
@@ -347,10 +346,11 @@ not yet have a lot of flexibility, and needs to be used with caution.
 Don’t use this function for fisheries that need information to be
 summarized by province in addition to by fleet.</p>
 <p>Function <code>fs_pivot4</code> first identifies the start and end of
-the fishing season for each year, and calculates the proportion of each
-week that fishing occurs for each fleet. It then joins the proportion of
-week fished to the output from function <code>fs_pivot3</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+the fishing season for each year and fleet, and calculates the
+proportion of each week that fishing occurs. It then joins the
+proportion of week fished to the output from function
+<code>fs_pivot3</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pivot4</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_pivot4.html">fs_pivot4</a></span><span class="op">(</span>df<span class="op">=</span><span class="va">df2</span>,</span>
 <span>                  trap.fishery<span class="op">=</span><span class="st">'yes'</span>,</span>
 <span>          <span class="va">pivot3</span>, <span class="co">#output from fs_pivot3</span></span>
@@ -390,7 +390,7 @@ the prompts. This function cannot yet be applied to American lobster,
 NAFO 4T.</p>
 <p><strong>need to describe what function does for each fishery, and
 resulting output</strong></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ceu</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/fs_calc_ceu.html">fs_calc_ceu</a></span><span class="op">(</span><span class="va">pivot4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ceu</span><span class="op">)</span></span></code></pre></div>
@@ -413,7 +413,7 @@ score</strong> multiplied by the <strong>CEU</strong>.</p>
 <div class="section level3">
 <h3 id="join-site-score-with-ceu-and-calculate-fisheriescape">Join site score with CEU and calculate fisheriescape<a class="anchor" aria-label="anchor" href="#join-site-score-with-ceu-and-calculate-fisheriescape"></a>
 </h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">ss</span>,<span class="va">ceu</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span><span class="op">$</span><span class="va">fs</span><span class="op">&lt;-</span><span class="va">df</span><span class="op">$</span><span class="va">site.score</span><span class="op">*</span><span class="va">df</span><span class="op">$</span><span class="va">av.ceu</span> </span>
@@ -487,7 +487,7 @@ score</strong> multiplied by the <strong>CEU</strong>.</p>
 <div class="section level3">
 <h3 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hex</span><span class="op">&lt;-</span><span class="va">grid</span></span>
 <span><span class="va">naf</span><span class="op">&lt;-</span><span class="fu"><a href="https://jolenesutton.github.io/gslSpatial/reference/get_shapefile.html" class="external-link">get_shapefile</a></span><span class="op">(</span><span class="st">'nafo.clipped'</span><span class="op">)</span></span>
 <span><span class="va">naf</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html" class="external-link">project</a></span><span class="op">(</span><span class="va">naf</span>,<span class="va">fa.poly</span><span class="op">)</span></span>
