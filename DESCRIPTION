@@ -32,5 +32,5 @@ Suggests:
     ggplot2(>= 3.0.0)
 VignetteBuilder: knitr
 LazyData: true
-URL: https://github.com/JoleneSutton/fisheriescape
+URL: https://github.com/JoleneSutton/fisheriescape, https://jolenesutton.github.io/fisheriescape/
 BugReports: https://github.com/JoleneSutton/fisheriescape/issues
