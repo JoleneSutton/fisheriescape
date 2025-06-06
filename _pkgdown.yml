@@ -1,4 +1,21 @@
 url: https://jolenesutton.github.io/fisheriescape/
 template:
   bootstrap: 5
+reference:
+- title: Functions
+  contents:
+  - fs_calc_ceu
+  - fs_fill_col
+  - fs_fill_rows
+  - fs_fleet_by_date
+  - fs_get_data
+  - fs_pivot1
+  - fs_pivot2
+  - fs_pivot3
+  - fs_pivot4
+  - fs_site_score
+- title: Data
+  contents:
+  - ceu
+  - crab
 
