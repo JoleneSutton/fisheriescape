@@ -25,6 +25,11 @@ library(dplyr)
 
 
 # Load example files and a 10 x 10 km2 hexagonal grid
+
+  * **crab** An example data set of snow crab fishing data
+  * **fa.poly** A shapefile of snow crab fishing area polygons
+  * **grid** A 10 x 10 km2 hexagonal grid sourced from https://gcgeo.gc.ca/geonetwork/metadata/eng/572f6221-4d12-415e-9d5e-984b15d34da4
+  
 ```{r, warning = FALSE, message = FALSE}
 df<-crab
 fa.poly<-terra::vect(system.file("extdata/sample.fa.poly.shp", package="fisheriescape"))
