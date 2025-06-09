@@ -127,7 +127,7 @@ summary(pivot1)
 
 
 ## Pivot 2
-Function `fs_pivot2` summarizes data by user-specified groups, which must include year, standard week (sw), and either cfv or licence, and which should typically also include fleet. 
+Function `fs_pivot2` summarizes data by user-specified groups, which must include year, standard week (sw), fleet, and either cfv or licence. 
 
 When trap.fishery=='yes', the resulting table contains the maximum gear, maximum hours (if applicable), and mean days (if applicable). 
 
