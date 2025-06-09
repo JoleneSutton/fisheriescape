@@ -74,12 +74,22 @@
 <div class="section level2">
 <h2 id="load-example-files-and-a-10-x-10-km2-hexagonal-grid">Load example files and a 10 x 10 km2 hexagonal grid<a class="anchor" aria-label="anchor" href="#load-example-files-and-a-10-x-10-km2-hexagonal-grid"></a>
 </h2>
+<ul>
+<li>
+<strong>crab</strong> An example data set of snow crab fishing
+data</li>
+<li>
+<strong>fa.poly</strong> A shapefile of snow crab fishing area
+polygons</li>
+<li>
+<strong>grid</strong> A 10 x 10 km2 hexagonal grid sourced from <a href="https://gcgeo.gc.ca/geonetwork/metadata/eng/572f6221-4d12-415e-9d5e-984b15d34da4" class="external-link uri">https://gcgeo.gc.ca/geonetwork/metadata/eng/572f6221-4d12-415e-9d5e-984b15d34da4</a>
+</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">&lt;-</span><span class="va">crab</span></span>
 <span><span class="va">fa.poly</span><span class="op">&lt;-</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/sample.fa.poly.shp"</span>, package<span class="op">=</span><span class="st">"fisheriescape"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">grid</span><span class="op">&lt;-</span><span class="fu">gslSpatial</span><span class="fu">::</span><span class="fu"><a href="https://jolenesutton.github.io/gslSpatial/reference/get_shapefile.html" class="external-link">get_shapefile</a></span><span class="op">(</span><span class="st">'hex'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 10 x 10 km hex grid</span></span>
 <span><span class="va">grid</span><span class="op">&lt;-</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">grid</span>,<span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html" class="external-link">ext</a></span><span class="op">(</span><span class="va">fa.poly</span><span class="op">)</span><span class="op">*</span><span class="fl">1.05</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -493,7 +503,6 @@ score</strong> multiplied by the <strong>CEU</strong>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hex</span><span class="op">&lt;-</span><span class="va">grid</span></span>
 <span><span class="va">naf</span><span class="op">&lt;-</span><span class="fu"><a href="https://jolenesutton.github.io/gslSpatial/reference/get_shapefile.html" class="external-link">get_shapefile</a></span><span class="op">(</span><span class="st">'nafo.clipped'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Source: https://www.nafo.int</span></span>
 <span><span class="va">naf</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html" class="external-link">project</a></span><span class="op">(</span><span class="va">naf</span>,<span class="va">fa.poly</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">naf</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">&lt;-</span><span class="st">'nafo'</span></span>
 <span></span>
