@@ -142,7 +142,7 @@ summary(pivot2)
 
 
 ## Pivot 3
-Function `fs_pivot3` summarizes data by user-specified groups, which must include year and standard week (sw), and which should typically also include fleet. **Grouping should not include either cfv or licence.** A parameter, "id.col", needs to be specified as either cfv or licence.
+Function `fs_pivot3` summarizes data by user-specified groups, which must include year, standard week (sw), and fleet. **Grouping should not include either cfv or licence.** A parameter, "id.col", needs to be specified as either cfv or licence.
 
 When trap.fishery=='yes', the resulting table contains the number of distinct cfvs or licences ("n.vessels"), summed gear ("total.gear"), maximum hours ("soak.time", if applicable), and mean days ("days", if applicable).
 
