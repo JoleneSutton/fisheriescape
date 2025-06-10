@@ -92,6 +92,8 @@ fs_pivot1<-function(df,
   message("Grouped by 'trip.id', 'fleet'")
   message("Duplicate rows removed")
   message("Before proceeding to pivot 2, use function `fs_fill_col` to fill in missing values")
+
+  pivot1<-as.data.frame(pivot1)
   return(pivot1)
 }
 
