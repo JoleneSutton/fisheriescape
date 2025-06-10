@@ -100,7 +100,7 @@ pivot1<-fs_pivot1(df2,
       keep.cols = c('cfv','year','sw'),
        gear.col='gear.amount',
        hour.col='hours.fished')
-pivot1
+head(pivot1)
 summary(pivot1) 
 ```
 
