@@ -212,7 +212,7 @@ df<-left_join(ss,df.ceu)
 df$fs<-df$site.score*df$ceu 
 
 head(df)
-summary(df) # a small number of missing fs or av.ceu are expected
+summary(df) # a small number of missing fs or av.ceu is expected
 
 
 #Checks
