@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   fisheriescape_vignette: fisheriescape_vignette.html
-last_built: 2025-07-04T12:20Z
+last_built: 2025-07-04T12:32Z
 urls:
   reference: https://jolenesutton.github.io/fisheriescape/reference
   article: https://jolenesutton.github.io/fisheriescape/articles
