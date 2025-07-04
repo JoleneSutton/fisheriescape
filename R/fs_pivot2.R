@@ -20,7 +20,7 @@ fs_pivot2<-function(pivot1,
 
 
   message("'group.cols' must include year, sw, and fleet, and either cfv or licence")
-  group.cols = unique('year','sw','fleet', group.cols)
+  group.cols = unique(c('year','sw','fleet', group.cols))
 
   if(trap.fishery=='yes'){
   ## gear only ----
