@@ -19,7 +19,8 @@ fs_pivot2<-function(pivot1,
   av.days=NULL
 
 
-  message("'group.cols' must include year and sw, and either cfv or licence")
+  message("'group.cols' must include year, sw, and fleet, and either cfv or licence")
+  group.cols = unique('year','sw','fleet', group.cols)
 
   if(trap.fishery=='yes'){
   ## gear only ----
