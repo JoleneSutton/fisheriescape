@@ -161,14 +161,7 @@ fs_get_data<-function(years=NULL,
   # in cases where dateland was "000000" or empty, the ctchdate was used as the dateland
   index<-which(startsWith(as.character(ziff$dateland),'0')|startsWith(as.character(ziff$dateland)," ")|is.na(ziff$dateland))
   if(length(index)>0){ziff[index,"dateland"]<-ziff[index,"ctchdate"]}
-
-  #//////////////////////////////////////////////////////////
-  ## if ctchdate are after dateland ----
-  #//////////////////////////////////////////////////////////
-  ##### if the date landed is BEFORE date caught, change date caught to date landed
-  index<-which(ziff$dateland < ziff$ctchdate)
-  if(length(index)>0){ziff[index,"ctchdate"]<-ziff[index,"dateland"]}
-
+  rm(index)
 
   #//////////////////////////////////////////////////////////
   ## if missing date.caught ----
@@ -176,6 +169,15 @@ fs_get_data<-function(years=NULL,
   # in cases where dateland was "000000" or empty, the ctchdate was used as the dateland
   index<-which(startsWith(as.character(ziff$ctchdate),'0')|startsWith(as.character(ziff$ctchdate)," ")|is.na(ziff$ctchdate))
   if(length(index)>0){ziff[index,"ctchdate"]<-ziff[index,"dateland"]}
+  rm(index)
+
+  #//////////////////////////////////////////////////////////
+  ## if ctchdate are after dateland ----
+  #//////////////////////////////////////////////////////////
+  ##### if the date landed is BEFORE date caught, change date caught to date landed
+  index<-which(ziff$dateland < ziff$ctchdate)
+  if(length(index)>0){ziff[index,"ctchdate"]<-ziff[index,"dateland"]}
+  rm(index)
   #//////////////////////////////////////////////////////////////////////////
   #//////////////////////////////////////////////////////////////////////////
   #//////////////////////////////////////////////////////////////////////////
