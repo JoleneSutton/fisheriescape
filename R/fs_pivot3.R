@@ -8,7 +8,7 @@
 #' @export
 fs_pivot3<-function(pivot2,
                  group.cols,#must include 'year' and 'sw'
-                 id.col,#cfv or licence depending on fishery
+                 id.col=NULL,#cfv or licence depending on fishery
                  trap.fishery
                  ){
 
@@ -21,7 +21,7 @@ fs_pivot3<-function(pivot2,
 
   message("'group.cols' must include year and sw. 'group.cols' must NOT include cfv or licence")
 
-  pivot2$ID<-pivot2[,id.col]
+  #pivot2$ID<-pivot2[,id.col]
 
   if(trap.fishery=='yes'){
   ## gear only ----
