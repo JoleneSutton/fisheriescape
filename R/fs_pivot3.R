@@ -13,7 +13,7 @@ fs_pivot3<-function(pivot2,
                  ){
 
   # appease R CMD check
-  ID=NULL
+  #ID=NULL
   gear=NULL
   hours=NULL
   days=NULL

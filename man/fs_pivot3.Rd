@@ -4,7 +4,7 @@
 \alias{fs_pivot3}
 \title{Fisheriescape pivot table 3 in path to CEU calculations.}
 \usage{
-fs_pivot3(pivot2, group.cols, id.col, trap.fishery)
+fs_pivot3(pivot2, group.cols, id.col = NULL, trap.fishery)
 }
 \arguments{
 \item{pivot2}{The output from function \code{fs_pivot2}}
