@@ -275,21 +275,21 @@ mean hours (if applicable), and mean days (if applicable).</p>
 <span>                  trap.fishery<span class="op">=</span><span class="st">'yes'</span>,</span>
 <span>                  group.cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cfv'</span>,<span class="st">'fleet'</span>,<span class="st">'year'</span>,<span class="st">'sw'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">pivot2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      cfv     fleet year sw gear hours</span></span>
-<span><span class="co">#&gt; 1 !2$82$ GQ_CFA_19 2013 29    8    24</span></span>
-<span><span class="co">#&gt; 2 !2$82$ GQ_CFA_19 2013 30    8    24</span></span>
-<span><span class="co">#&gt; 3 !2$82$ GQ_CFA_19 2014 29    8    24</span></span>
-<span><span class="co">#&gt; 4 !2$82$ GQ_CFA_19 2014 30    8    24</span></span>
-<span><span class="co">#&gt; 5 !2$82$ GQ_CFA_19 2014 31    8    24</span></span>
-<span><span class="co">#&gt; 6 !2$82$ GQ_CFA_19 2015 29    8    24</span></span>
+<span><span class="co">#&gt;   year sw      fleet      cfv gear hours</span></span>
+<span><span class="co">#&gt; 1 2013 12 GQ_CFA_12A    a2$7f   18    24</span></span>
+<span><span class="co">#&gt; 2 2013 12 GQ_CFA_12A k6!2$#k6   50    24</span></span>
+<span><span class="co">#&gt; 3 2013 12 GQ_CFA_12A k6!8g2$a   33    24</span></span>
+<span><span class="co">#&gt; 4 2013 12 GQ_CFA_12A k6!ffg2$   14    24</span></span>
+<span><span class="co">#&gt; 5 2013 12 GQ_CFA_12A  k6!k6f8   62    24</span></span>
+<span><span class="co">#&gt; 6 2013 12 GQ_CFA_12A  k6k6a#8   30    24</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pivot2</span><span class="op">)</span> </span>
-<span><span class="co">#&gt;        cfv.V1          fleet                year           sw           </span></span>
-<span><span class="co">#&gt;  Length:14408       Length:14408       Min.   :2013   Length:14408      </span></span>
-<span><span class="co">#&gt;  Class :character   Class :character   1st Qu.:2014   Class :character  </span></span>
-<span><span class="co">#&gt;  Mode  :character   Mode  :character   Median :2015   Mode  :character  </span></span>
-<span><span class="co">#&gt;                                        Mean   :2015                     </span></span>
-<span><span class="co">#&gt;                                        3rd Qu.:2017                     </span></span>
-<span><span class="co">#&gt;                                        Max.   :2017                     </span></span>
+<span><span class="co">#&gt;       year           sw               fleet                 cfv.V1      </span></span>
+<span><span class="co">#&gt;  Min.   :2013   Length:14408       Length:14408       Length:14408      </span></span>
+<span><span class="co">#&gt;  1st Qu.:2014   Class :character   Class :character   Class :character  </span></span>
+<span><span class="co">#&gt;  Median :2015   Mode  :character   Mode  :character   Mode  :character  </span></span>
+<span><span class="co">#&gt;  Mean   :2015                                                           </span></span>
+<span><span class="co">#&gt;  3rd Qu.:2017                                                           </span></span>
+<span><span class="co">#&gt;  Max.   :2017                                                           </span></span>
 <span><span class="co">#&gt;       gear            hours   </span></span>
 <span><span class="co">#&gt;  Min.   :  1.00   Min.   :24  </span></span>
 <span><span class="co">#&gt;  1st Qu.: 50.00   1st Qu.:24  </span></span>
@@ -319,28 +319,28 @@ applicable).</p>
 <span>                  id.col<span class="op">=</span><span class="st">'cfv'</span>,</span>
 <span>                  trap.fishery<span class="op">=</span><span class="st">'yes'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">pivot3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       fleet year sw n.vessels total.gear soak.time</span></span>
-<span><span class="co">#&gt; 1 GQ_CFA_12 2013 17         5        289        24</span></span>
-<span><span class="co">#&gt; 2 GQ_CFA_12 2013 18       251      24551        24</span></span>
-<span><span class="co">#&gt; 3 GQ_CFA_12 2013 19       240      22352        24</span></span>
-<span><span class="co">#&gt; 4 GQ_CFA_12 2013 20       243      22422        24</span></span>
-<span><span class="co">#&gt; 5 GQ_CFA_12 2013 21       244      24111        24</span></span>
-<span><span class="co">#&gt; 6 GQ_CFA_12 2013 22       238      23771        24</span></span>
+<span><span class="co">#&gt;       fleet year sw total.gear soak.time</span></span>
+<span><span class="co">#&gt; 1 GQ_CFA_12 2013 17        289        24</span></span>
+<span><span class="co">#&gt; 2 GQ_CFA_12 2013 18      24551        24</span></span>
+<span><span class="co">#&gt; 3 GQ_CFA_12 2013 19      22352        24</span></span>
+<span><span class="co">#&gt; 4 GQ_CFA_12 2013 20      22422        24</span></span>
+<span><span class="co">#&gt; 5 GQ_CFA_12 2013 21      24111        24</span></span>
+<span><span class="co">#&gt; 6 GQ_CFA_12 2013 22      23771        24</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pivot3</span><span class="op">)</span> </span>
-<span><span class="co">#&gt;     fleet                year           sw              n.vessels     </span></span>
-<span><span class="co">#&gt;  Length:288         Min.   :2013   Length:288         Min.   :  1.00  </span></span>
-<span><span class="co">#&gt;  Class :character   1st Qu.:2014   Class :character   1st Qu.:  5.00  </span></span>
-<span><span class="co">#&gt;  Mode  :character   Median :2015   Mode  :character   Median : 15.00  </span></span>
-<span><span class="co">#&gt;                     Mean   :2015                      Mean   : 50.03  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:2016                      3rd Qu.: 35.00  </span></span>
-<span><span class="co">#&gt;                     Max.   :2017                      Max.   :312.00  </span></span>
-<span><span class="co">#&gt;    total.gear      soak.time </span></span>
-<span><span class="co">#&gt;  Min.   :    1   Min.   :24  </span></span>
-<span><span class="co">#&gt;  1st Qu.:  266   1st Qu.:24  </span></span>
-<span><span class="co">#&gt;  Median :  989   Median :24  </span></span>
-<span><span class="co">#&gt;  Mean   : 4308   Mean   :24  </span></span>
-<span><span class="co">#&gt;  3rd Qu.: 2690   3rd Qu.:24  </span></span>
-<span><span class="co">#&gt;  Max.   :31734   Max.   :24</span></span></code></pre></div>
+<span><span class="co">#&gt;     fleet                year           sw              total.gear   </span></span>
+<span><span class="co">#&gt;  Length:288         Min.   :2013   Length:288         Min.   :    1  </span></span>
+<span><span class="co">#&gt;  Class :character   1st Qu.:2014   Class :character   1st Qu.:  266  </span></span>
+<span><span class="co">#&gt;  Mode  :character   Median :2015   Mode  :character   Median :  989  </span></span>
+<span><span class="co">#&gt;                     Mean   :2015                      Mean   : 4308  </span></span>
+<span><span class="co">#&gt;                     3rd Qu.:2016                      3rd Qu.: 2690  </span></span>
+<span><span class="co">#&gt;                     Max.   :2017                      Max.   :31734  </span></span>
+<span><span class="co">#&gt;    soak.time </span></span>
+<span><span class="co">#&gt;  Min.   :24  </span></span>
+<span><span class="co">#&gt;  1st Qu.:24  </span></span>
+<span><span class="co">#&gt;  Median :24  </span></span>
+<span><span class="co">#&gt;  Mean   :24  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:24  </span></span>
+<span><span class="co">#&gt;  Max.   :24</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="seasons-and-pivot-4">Seasons and Pivot 4<a class="anchor" aria-label="anchor" href="#seasons-and-pivot-4"></a>
@@ -363,28 +363,28 @@ proportion of week fished to the output from function
 <span>          prov.col<span class="op">=</span><span class="cn">NULL</span>,</span>
 <span>          area.note.col<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">pivot4</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       fleet year sw n.vessels total.gear soak.time prop.week.fished</span></span>
-<span><span class="co">#&gt; 1 GQ_CFA_12 2013 17         5        289        24        0.2857143</span></span>
-<span><span class="co">#&gt; 2 GQ_CFA_12 2013 18       251      24551        24        1.0000000</span></span>
-<span><span class="co">#&gt; 3 GQ_CFA_12 2013 19       240      22352        24        1.0000000</span></span>
-<span><span class="co">#&gt; 4 GQ_CFA_12 2013 20       243      22422        24        1.0000000</span></span>
-<span><span class="co">#&gt; 5 GQ_CFA_12 2013 21       244      24111        24        1.0000000</span></span>
-<span><span class="co">#&gt; 6 GQ_CFA_12 2013 22       238      23771        24        1.0000000</span></span>
+<span><span class="co">#&gt;       fleet year sw total.gear soak.time prop.week.fished</span></span>
+<span><span class="co">#&gt; 1 GQ_CFA_12 2013 17        289        24        0.2857143</span></span>
+<span><span class="co">#&gt; 2 GQ_CFA_12 2013 18      24551        24        1.0000000</span></span>
+<span><span class="co">#&gt; 3 GQ_CFA_12 2013 19      22352        24        1.0000000</span></span>
+<span><span class="co">#&gt; 4 GQ_CFA_12 2013 20      22422        24        1.0000000</span></span>
+<span><span class="co">#&gt; 5 GQ_CFA_12 2013 21      24111        24        1.0000000</span></span>
+<span><span class="co">#&gt; 6 GQ_CFA_12 2013 22      23771        24        1.0000000</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pivot4</span><span class="op">)</span> </span>
-<span><span class="co">#&gt;     fleet                year           sw              n.vessels     </span></span>
-<span><span class="co">#&gt;  Length:288         Min.   :2013   Length:288         Min.   :  1.00  </span></span>
-<span><span class="co">#&gt;  Class :character   1st Qu.:2014   Class :character   1st Qu.:  5.00  </span></span>
-<span><span class="co">#&gt;  Mode  :character   Median :2015   Mode  :character   Median : 15.00  </span></span>
-<span><span class="co">#&gt;                     Mean   :2015                      Mean   : 50.03  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:2016                      3rd Qu.: 35.00  </span></span>
-<span><span class="co">#&gt;                     Max.   :2017                      Max.   :312.00  </span></span>
-<span><span class="co">#&gt;    total.gear      soak.time  prop.week.fished</span></span>
-<span><span class="co">#&gt;  Min.   :    1   Min.   :24   Min.   :0.1429  </span></span>
-<span><span class="co">#&gt;  1st Qu.:  266   1st Qu.:24   1st Qu.:1.0000  </span></span>
-<span><span class="co">#&gt;  Median :  989   Median :24   Median :1.0000  </span></span>
-<span><span class="co">#&gt;  Mean   : 4308   Mean   :24   Mean   :0.9201  </span></span>
-<span><span class="co">#&gt;  3rd Qu.: 2690   3rd Qu.:24   3rd Qu.:1.0000  </span></span>
-<span><span class="co">#&gt;  Max.   :31734   Max.   :24   Max.   :1.0000</span></span></code></pre></div>
+<span><span class="co">#&gt;     fleet                year           sw              total.gear   </span></span>
+<span><span class="co">#&gt;  Length:288         Min.   :2013   Length:288         Min.   :    1  </span></span>
+<span><span class="co">#&gt;  Class :character   1st Qu.:2014   Class :character   1st Qu.:  266  </span></span>
+<span><span class="co">#&gt;  Mode  :character   Median :2015   Mode  :character   Median :  989  </span></span>
+<span><span class="co">#&gt;                     Mean   :2015                      Mean   : 4308  </span></span>
+<span><span class="co">#&gt;                     3rd Qu.:2016                      3rd Qu.: 2690  </span></span>
+<span><span class="co">#&gt;                     Max.   :2017                      Max.   :31734  </span></span>
+<span><span class="co">#&gt;    soak.time  prop.week.fished</span></span>
+<span><span class="co">#&gt;  Min.   :24   Min.   :0.1429  </span></span>
+<span><span class="co">#&gt;  1st Qu.:24   1st Qu.:1.0000  </span></span>
+<span><span class="co">#&gt;  Median :24   Median :1.0000  </span></span>
+<span><span class="co">#&gt;  Mean   :24   Mean   :0.9201  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:24   3rd Qu.:1.0000  </span></span>
+<span><span class="co">#&gt;  Max.   :24   Max.   :1.0000</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
