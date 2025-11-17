@@ -47,8 +47,8 @@ fs_pivot4<-function(df1, #ziff
 
   pivot.season<-as.data.frame(season |>
                                 dplyr::group_by(year,FLEET)|> #future function to allow for flexibility here
-                                dplyr::summarise(season.start = min(caught,na.rm=T),    #fishery start date
-                                                 season.stop = max(landed,na.rm=T))  ) #fishery end date
+                                dplyr::summarise(season.start = min(!is.na(caught)),    #fishery start date
+                                                 season.stop = max(!is.na(landed)))  ) #fishery end date
 
 
   #//////////////////////////////////////////////////////

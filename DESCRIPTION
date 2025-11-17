@@ -1,6 +1,6 @@
 Package: fisheriescape
 Title: R Functions to Help with the Fisheriescape Project
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person(c("Jolene", "T."), "Sutton", , "jolene.sutton@gmail.com",
            role = c("aut", "cre")))
