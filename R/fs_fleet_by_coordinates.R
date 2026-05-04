@@ -46,4 +46,6 @@ fs_fleet_by_coordinates<-function(df, polygon){
   #  rm(x)
   #}
 
+  return(df)
+
 }
