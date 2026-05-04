@@ -9,6 +9,7 @@ package
 [build](https://github.com/JoleneSutton/fisheriescape/tree/main/builds).
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("JoleneSutton/fisheriescape")
 ```
@@ -50,9 +51,3 @@ devtools::install_github("JoleneSutton/fisheriescape")
 - [`crab`](https://jolenesutton.github.io/fisheriescape/reference/crab.md)
   : Example data set
 
-# Articles
-
-### All vignettes
-
-- [Fisheriescape
-  vignette](https://jolenesutton.github.io/fisheriescape/articles/fisheriescape_vignette.md):
