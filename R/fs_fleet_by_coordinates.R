@@ -9,10 +9,10 @@
 fs_fleet_by_coordinates<-function(df, polygon){
 
   # checks
-  if(grep('fleet',names(df))<1){df$fleet<-NA}
-  if(grep("SpatVector", class(polygon))<1){stop('\r polygon must be class "SpatVector."',call. = FALSE)}
-  if(grep("polygons",terra::geomtype(polygon))<1){stop('\r polygon must be geomtype "polygons."',call. = FALSE)}
-  if(grep('fleet',names(polygon))<1){stop('\r polygon must include a "fleet" column.',call. = FALSE)}
+  if(length(grep('fleet',names(df)))<1){df$fleet<-NA}
+  if(length(grep("SpatVector", class(polygon)))<1){stop('\r polygon must be class "SpatVector."',call. = FALSE)}
+  if(length(grep("polygons",terra::geomtype(polygon)))<1){stop('\r polygon must be geomtype "polygons."',call. = FALSE)}
+  if(length(grep('fleet',names(polygon)))<1){stop('\r polygon must include a "fleet" column.',call. = FALSE)}
 
   if(terra::crs(polygon, proj=FALSE, describe=TRUE, parse=FALSE)[3]!='102001'){
     polygon <- terra::project(polygon,'ESRI:102001')
@@ -25,6 +25,7 @@ fs_fleet_by_coordinates<-function(df, polygon){
 
   #////////////////////////////////////////////////
   # Assign ziff to geographic fleet using exact location ----
+  message("Coordinates being assigned to polygons they overlap")
   index<-which(!is.na(df$x)&!is.na(df$y)&is.na(df$fleet))
 
   if(length(index)>0){
@@ -35,13 +36,14 @@ fs_fleet_by_coordinates<-function(df, polygon){
   }
 
   #////////////////////////////////////////////////
+  message("Coordinates that do not overlap polygons are no longer assigned to nearest polygon")
   # Assign ziff to geographic fleet using nearest location ----
-  index<-which(!is.na(df$x)&!is.na(df$y)&is.na(df$fleet))
-  if(length(index)>0){
-    x<-gslSpatial::assign_points_to_nearest_polygon(df[index,'x'],df[index,'y'],polygon[,'fleet'],'fleet')
-    df[index,'fleet']<-x[,3]
-    rm(index)
-    rm(x)
-  }
+  #index<-which(!is.na(df$x)&!is.na(df$y)&is.na(df$fleet))
+  #if(length(index)>0){
+  #  x<-gslSpatial::assign_points_to_nearest_polygon(df[index,'x'],df[index,'y'],polygon[,'fleet'],'fleet')
+  #  df[index,'fleet']<-x[,3]
+  #  rm(index)
+  #  rm(x)
+  #}
 
 }
