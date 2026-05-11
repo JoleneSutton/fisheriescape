@@ -10,7 +10,8 @@ fs_get_data(
   species.sought = NULL,
   nafo = NULL,
   gclass = NULL,
-  gearcode = NULL
+  gearcode = NULL,
+  keep.species.caught = FALSE
 )
 ```
 
@@ -35,6 +36,10 @@ fs_get_data(
 - gearcode:
 
   Which gear code?
+
+- keep.species.caught:
+
+  Retain the species caught column? Logical. Default = FALSE
 
 ## Examples
 
