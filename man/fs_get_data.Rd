@@ -9,7 +9,8 @@ fs_get_data(
   species.sought = NULL,
   nafo = NULL,
   gclass = NULL,
-  gearcode = NULL
+  gearcode = NULL,
+  keep.species.caught = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ fs_get_data(
 \item{gclass}{Which gear class?}
 
 \item{gearcode}{Which gear code?}
+
+\item{keep.species.caught}{Retain the species caught column? Logical. Default = FALSE}
 }
 \description{
 Get and process ziff data for fisheriescape project.

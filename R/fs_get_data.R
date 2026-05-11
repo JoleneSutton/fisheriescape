@@ -5,6 +5,7 @@
 #' @param nafo Which NAFO divisions? Case insensitive
 #' @param gclass Which gear class?
 #' @param gearcode Which gear code?
+#' @param keep.species.caught Retain the species caught column? Logical. Default = FALSE
 #' @importFrom gslSpatial get_depth convert_dms_to_dd
 #' @importFrom eclectic grep_any
 #' @importFrom ISOweek ISOweek
@@ -18,7 +19,8 @@ fs_get_data<-function(years=NULL,
                       species.sought=NULL,
                       nafo=NULL,
                       gclass=NULL,
-                      gearcode=NULL){
+                      gearcode=NULL,
+                      keep.species.caught=FALSE){
 
   message("This function requires access to internal drives at DFO Gulf Region.")
 
@@ -248,13 +250,35 @@ fs_get_data<-function(years=NULL,
   #///////////////////////////////////////////////////////////////////////
   ## Restrict columns----
   #///////////////////////////////////////////////////////////////////////
-  var<-c('trip.id',"cfv","dateland","nafodiv",'unitarea',"mangare",'grid',
-         "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
-         "ctchdate","depth","depthcode","region",'portland',"homeport",
-         "licclas","licence" ,"fisharea","seqnum","year","fishery","amtgear",
-         "longitude","latitude",'sw')
 
-  ziff2<-ziff[,var]
+  if(isTRUE(keep.species.caught)){
+    message("Retaining the species caught column. This has implications when removing full row duplicates!")
+
+      var<-c('trip.id','mainsps','mainspc',
+             "cfv","dateland","nafodiv",'unitarea',"mangare",'grid',
+             "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
+             "ctchdate","depth","depthcode","region",'portland',"homeport",
+            "licclas","licence" ,"fisharea","seqnum","year","fishery","amtgear",
+            "longitude","latitude",'sw')
+
+      ziff2<-ziff[,var]
+      names(ziff2)[2:3]<-c('sought','caught')
+
+
+    }else{
+             var<-c('trip.id','mainsps',
+                    "cfv","dateland","nafodiv",'unitarea',"mangare",'grid',
+                    "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
+                    "ctchdate","depth","depthcode","region",'portland',"homeport",
+                    "licclas","licence" ,"fisharea","seqnum","year","fishery","amtgear",
+                    "longitude","latitude",'sw')
+
+             ziff2<-ziff[,var]
+             names(ziff2)[2]<-c('sought')
+
+
+           }
+
 
   #///////////////////////////////////////////////////////////////////////
   ## Remove full row duplicates ----
