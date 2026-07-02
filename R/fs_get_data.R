@@ -254,7 +254,7 @@ fs_get_data<-function(years=NULL,
   if(isTRUE(keep.species.caught)){
     message("Retaining the species caught column. This has implications when removing full row duplicates!")
 
-      var<-c('trip.id','mainsps','mainspc',
+      var<-c('trip.id','mainsps','cod_esp',
              "cfv","dateland","nafodiv",'unitarea',"mangare",'grid',
              "gearcode","gclass","daysea","daysgr","daysfish","hourfish","nugear",
              "ctchdate","depth","depthcode","region",'portland',"homeport",
