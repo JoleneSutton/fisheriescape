@@ -1,14 +1,14 @@
 #' Example fishery data set
 #'
 #' @format Data frame
-"data.anon"
+"fs.data.anon"
 
 #' Example site score calculations
 #'
 #' @format Data frame
-"site.score"
+"fs.data.site.score"
 
 #' Example CEU calculates
 #'
 #' @format Data frame
-"ceu"
+"fs.data.ceu"
