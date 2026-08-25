@@ -19,12 +19,7 @@ fs_fill_col(df, group.cols, update.col, fun)
 A data frame
 }
 \description{
-Fill NAs (replace NAs) in a column based on group summaries.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_fill_missing} instead.
 }
-\examples{
-#df<-fs_get_data(years=2016:2017,species.sought=144,gclass=1,gearcode=41,nafo=c('4t','4s'))
-#test<-fs_fill_col(df,group.cols=c('year','nafodiv'),update.col='nugear',fun=mean)
-#summary(df$nugear)
-#summary(test$nugear)
-#test.fail<-fs_fill_col(df,group.cols=c('year','nafodiv'),update.col=c('nugear','amtgear'),fun=mean)
-}
+\keyword{internal}

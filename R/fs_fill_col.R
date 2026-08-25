@@ -6,14 +6,15 @@
 #' @param fun The function for summarizing (e.g., mean, max etc.)
 #' @return A data frame
 #' @import dplyr
-#' @examples
-#' #df<-fs_get_data(years=2016:2017,species.sought=144,gclass=1,gearcode=41,nafo=c('4t','4s'))
-#' #test<-fs_fill_col(df,group.cols=c('year','nafodiv'),update.col='nugear',fun=mean)
-#' #summary(df$nugear)
-#' #summary(test$nugear)
-#' #test.fail<-fs_fill_col(df,group.cols=c('year','nafodiv'),update.col=c('nugear','amtgear'),fun=mean)
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_fill_missing` instead.
+#' @keywords internal
 #' @export
 fs_fill_col<-function(df,group.cols,update.col,fun){
+
+  stop('This function was deprecated. Please use `fs_fill_missing` instead.', call. = FALSE)
+
 
   if(length(update.col)>1){stop('\r Can only update one column at a time',call. = FALSE)}
 

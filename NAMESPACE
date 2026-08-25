@@ -2,6 +2,7 @@
 
 export(fs_calc_ceu)
 export(fs_fill_col)
+export(fs_fill_missing)
 export(fs_fill_rows)
 export(fs_fleet_by_coordinates)
 export(fs_fleet_by_date)
