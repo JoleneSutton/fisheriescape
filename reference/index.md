@@ -4,8 +4,9 @@
 
 - [`fs_calc_ceu()`](https://jolenesutton.github.io/fisheriescape/reference/fs_calc_ceu.md)
   : Calculate average CEU
-- [`fs_fill_col()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_col.md)
-  : Fill NAs (replace NAs) in a column based on group summaries.
+- [`fs_fill_missing()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_missing.md)
+  : Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing
+  trips. Replaces NAs with either group means or group maximums
 - [`fs_fill_rows()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_rows.md)
   : Fill NAs (replace NAs) in duplicate rows. Use with caution (see
   examples)!!
