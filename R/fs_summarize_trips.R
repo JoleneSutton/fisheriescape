@@ -123,14 +123,3 @@ fs_summarize_trips<-function(df,
   #////////////////////////////////////////////////////////////////////
     return(trips)
   }
-
-#head(as.data.frame(dat))
-
-#trips<-fs_summarize_trips(df=dat,
-#                   group.cols=c('nafodiv','fleet','trip.id'),
-#                   gear.type='non.trap',
-#                   gear.col='gear.amount',
-#                   hour.col='hours.fished',
-#                   day.col='days.fished')
-#head(as.data.frame(trips))
-#summary(trips)
