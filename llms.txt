@@ -32,8 +32,6 @@ devtools::install_github("JoleneSutton/fisheriescape")
   cfv.
 - [`fs_get_data()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_data.md)
   : Get and process ziff data for fisheriescape project.
-- [`fs_pivot1()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot1.md)
-  : Fisheriescape pivot table 1 in path to CEU calculations.
 - [`fs_pivot2()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot2.md)
   : Fisheriescape pivot table 2 in path to CEU calculations.
 - [`fs_pivot3()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot3.md)
@@ -43,6 +41,8 @@ devtools::install_github("JoleneSutton/fisheriescape")
   table 3 in path to CEU calculations.
 - [`fs_site_score()`](https://jolenesutton.github.io/fisheriescape/reference/fs_site_score.md)
   : Fisheriescape calculate site score
+- [`fs_summarize_trips()`](https://jolenesutton.github.io/fisheriescape/reference/fs_summarize_trips.md)
+  : Fisheriescape path to CEU, summarize trips within fishing areas.
 
 ## Data
 
