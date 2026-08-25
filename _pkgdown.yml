@@ -17,6 +17,7 @@ reference:
   - fs_site_score
 - title: Data
   contents:
-  - ceu
-  - crab
+  - fs.data.anon
+  - fs.data.ceu
+  - fs.data.site.score
 
