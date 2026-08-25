@@ -30,7 +30,9 @@
 
 ## Data
 
-- [`ceu`](https://jolenesutton.github.io/fisheriescape/reference/ceu.md)
-  : Example data set
-- [`crab`](https://jolenesutton.github.io/fisheriescape/reference/crab.md)
-  : Example data set
+- [`fs.data.anon`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.anon.md)
+  : Example fishery data set
+- [`fs.data.ceu`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.ceu.md)
+  : Example CEU calculates
+- [`fs.data.site.score`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.site.score.md)
+  : Example site score calculations
