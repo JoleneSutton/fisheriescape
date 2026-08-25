@@ -6,12 +6,18 @@
 #' @param hour.col Name of hours column to summarize. Optional.
 #' @param day.col Name of day column to summarize. Optional.
 #' @import dplyr
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_pivot1<-function(df,
                     keep.cols,
                     gear.col,
                     hour.col=NULL,
                     day.col=NULL){
+
+  stop('This function was deprecated. Please use `fs_summarize_trips` instead.', call. = FALSE)
 
   # appease R CMD check
   trip.id=NULL

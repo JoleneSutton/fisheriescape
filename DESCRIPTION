@@ -29,7 +29,8 @@ Suggests:
     knitr,
     rmarkdown,
     tidyterra(>= 0.6.1),
-    ggplot2(>= 3.0.0)
+    ggplot2(>= 3.0.0),
+    lifecycle(>= 1.0.4),
 VignetteBuilder: knitr
 LazyData: true
 URL: https://github.com/JoleneSutton/fisheriescape, https://jolenesutton.github.io/fisheriescape/

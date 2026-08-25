@@ -18,5 +18,7 @@ fs_pivot1(df, keep.cols, gear.col, hour.col = NULL, day.col = NULL)
 \item{day.col}{Name of day column to summarize. Optional.}
 }
 \description{
-Fisheriescape pivot table 1 in path to CEU calculations.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
+\keyword{internal}
