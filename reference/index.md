@@ -20,6 +20,9 @@
 - [`fs_pivot4()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot4.md)
   : Fisheriescape not really a pivot, but should be done after pivot
   table 3 in path to CEU calculations.
+- [`fs_proportion_week_fished()`](https://jolenesutton.github.io/fisheriescape/reference/fs_proportion_week_fished.md)
+  : Fisheriescape path to CEU, calculate the proportion of each week
+  fished
 - [`fs_site_score()`](https://jolenesutton.github.io/fisheriescape/reference/fs_site_score.md)
   : Fisheriescape calculate site score
 - [`fs_summarize_fishing_areas()`](https://jolenesutton.github.io/fisheriescape/reference/fs_summarize_fishing_areas.md)
