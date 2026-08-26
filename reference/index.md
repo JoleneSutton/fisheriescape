@@ -17,16 +17,14 @@
   cfv.
 - [`fs_get_data()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_data.md)
   : Get and process ziff data for fisheriescape project.
-- [`fs_pivot2()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot2.md)
-  **\[deprecated\]** : Fisheriescape pivot table 2 in path to CEU
-  calculations.
-- [`fs_pivot3()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot3.md)
-  : Fisheriescape pivot table 3 in path to CEU calculations.
 - [`fs_pivot4()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot4.md)
   : Fisheriescape not really a pivot, but should be done after pivot
   table 3 in path to CEU calculations.
 - [`fs_site_score()`](https://jolenesutton.github.io/fisheriescape/reference/fs_site_score.md)
   : Fisheriescape calculate site score
+- [`fs_summarize_fishing_areas()`](https://jolenesutton.github.io/fisheriescape/reference/fs_summarize_fishing_areas.md)
+  : Fisheriescape path to CEU, summarize fishing areas within each time
+  period
 - [`fs_summarize_trips()`](https://jolenesutton.github.io/fisheriescape/reference/fs_summarize_trips.md)
   : Fisheriescape path to CEU, summarize trips within fishing areas
 - [`fs_summarize_vessels()`](https://jolenesutton.github.io/fisheriescape/reference/fs_summarize_vessels.md)
