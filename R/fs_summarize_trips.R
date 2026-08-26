@@ -1,6 +1,9 @@
 #' Fisheriescape path to CEU, summarize trips within fishing areas
 #'
-#' See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
+#' @description
+#' See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife
+#' entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
+#' @returns A data frame
 #' @param df A data frame
 #' @param gear.type Must be either 'trap' or 'non-trap'. Required.
 #' @param group.cols Names of columns of grouping variables. Needs to include the trip id and fishing area columns.
