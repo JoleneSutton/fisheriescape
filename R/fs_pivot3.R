@@ -5,12 +5,17 @@
 #' @param id.col Name of column that is the vessel or licence or individual specifier.
 #' @param trap.fishery Is it a trap fishery? Default is 'yes'.
 #' @import dplyr
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_pivot3<-function(pivot2,
                  group.cols,#must include 'year' and 'sw'
                  id.col=NULL,#cfv or licence depending on fishery
                  trap.fishery
                  ){
+  stop('This function was deprecated. Please use `fs_summarize_fishing_areas` instead.', call. = FALSE)
 
   # appease R CMD check
   #ID=NULL

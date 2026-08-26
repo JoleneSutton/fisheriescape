@@ -10,10 +10,9 @@ reference:
   - fs_fleet_by_coordinates
   - fs_fleet_by_date
   - fs_get_data
-  - fs_pivot2
-  - fs_pivot3
   - fs_pivot4
   - fs_site_score
+  - fs_summarize_fishing_areas
   - fs_summarize_trips
   - fs_summarize_vessels
 - title: Data
