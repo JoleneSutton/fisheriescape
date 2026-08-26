@@ -33,6 +33,9 @@ devtools::install_github("JoleneSutton/fisheriescape")
   cfv.
 - [`fs_get_data()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_data.md)
   : Get and process ziff data for fisheriescape project.
+- [`fs_get_herring_phone_survey()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_herring_phone_survey.md)
+  : Fisheriescape get herring phone survey data for herring CEU
+  calculations
 - [`fs_pivot4()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot4.md)
   : Fisheriescape not really a pivot, but should be done after pivot
   table 3 in path to CEU calculations.
