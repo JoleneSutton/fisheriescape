@@ -15,6 +15,7 @@ reference:
   - fs_pivot4
   - fs_site_score
   - fs_summarize_trips
+  - fs_summarize_vessels
 - title: Data
   contents:
   - fs.data.anon
