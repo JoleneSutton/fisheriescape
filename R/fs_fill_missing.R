@@ -1,6 +1,6 @@
-#' Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing trips. Replaces NAs with either group means or group maximums
+#' Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing trips
 #'
-#' See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
+#' Replaces NAs with either group means or group maximums. See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
 #'
 #' @param df The data frame produced by function `fs_summarize_trips`, for which duplicate rows have been removed.
 #' @param gear.type Must be either 'trap' or 'non-trap'.
