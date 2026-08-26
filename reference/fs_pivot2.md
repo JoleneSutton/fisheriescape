@@ -1,6 +1,7 @@
 # Fisheriescape pivot table 2 in path to CEU calculations.
 
-Fisheriescape pivot table 2 in path to CEU calculations.
+**\[deprecated\]** This function was deprecated. Please use
+`fs_summarize_trips` instead.
 
 ## Usage
 

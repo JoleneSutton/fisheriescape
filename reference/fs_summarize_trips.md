@@ -1,6 +1,8 @@
-# Fisheriescape path to CEU, summarize trips within fishing areas.
+# Fisheriescape path to CEU, summarize trips within fishing areas
 
-Fisheriescape path to CEU, summarize trips within fishing areas.
+See Table 2 in "Building a Fisheriescape: mapping the threat of marine
+wildlife entanglement in vertical fishing lines in the Gulf of St.
+Lawrence, Canada".
 
 ## Usage
 
@@ -41,6 +43,10 @@ fs_summarize_trips(
 - day.col:
 
   Name of day column to summarize. Required if gear.type is non-trap.
+
+## Value
+
+A data frame
 
 ## Examples
 
