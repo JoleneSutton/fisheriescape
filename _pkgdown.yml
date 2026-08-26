@@ -10,6 +10,7 @@ reference:
   - fs_fleet_by_coordinates
   - fs_fleet_by_date
   - fs_get_data
+  - fs_get_herring_phone_survey
   - fs_pivot4
   - fs_proportion_week_fished
   - fs_site_score

@@ -17,7 +17,9 @@ Imports:
     eclectic(>= 0.0.0.9),
     gslSpatial(>= 0.0.0.9),
     ISOweek(>= 0.6.0),
+    readr(>= 2.1.5),
     sf(>= 1.0.19),
+    stringr(>= 1.5.1),
     terra(>= 1.7.83),
     tidyr(>= 1.3.1),
     utils(>= 4.4.0)
