@@ -2,7 +2,7 @@
 % Please edit documentation in R/fs_fill_missing.R
 \name{fs_fill_missing}
 \alias{fs_fill_missing}
-\title{Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing trips. Replaces NAs with either group means or group maximums}
+\title{Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing trips}
 \usage{
 fs_fill_missing(
   df,
@@ -30,7 +30,7 @@ fs_fill_missing(
 A data frame
 }
 \description{
-Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing trips. Replaces NAs with either group means or group maximums
+Replaces NAs with either group means or group maximums. See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
 }
 \examples{
 \dontrun{

@@ -4,11 +4,18 @@
 #' @param trap.fishery Is it a trap fishery? Default is 'yes'.
 #' @param group.cols Names of columns to group by.
 #' @import dplyr
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_pivot2<-function(pivot1,
                     trap.fishery='yes',
                     group.cols
                     ){
+
+  stop('This function was deprecated. Please use `fs_summarize_vessels` instead.', call. = FALSE)
+
   # for a trap fishery, max of sum.gear and max of max.hours
   # for a longline or gillnet fishery, mean of sum.gear and mean of max.hours
 

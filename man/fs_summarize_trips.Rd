@@ -2,7 +2,7 @@
 % Please edit documentation in R/fs_summarize_trips.R
 \name{fs_summarize_trips}
 \alias{fs_summarize_trips}
-\title{Fisheriescape path to CEU, summarize trips within fishing areas.}
+\title{Fisheriescape path to CEU, summarize trips within fishing areas}
 \usage{
 fs_summarize_trips(
   df,
@@ -26,8 +26,12 @@ fs_summarize_trips(
 
 \item{day.col}{Name of day column to summarize. Required if gear.type is non-trap.}
 }
+\value{
+A data frame
+}
 \description{
-Fisheriescape path to CEU, summarize trips within fishing areas.
+See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife
+entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
 }
 \examples{
 \dontrun{

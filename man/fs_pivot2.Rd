@@ -14,5 +14,7 @@ fs_pivot2(pivot1, trap.fishery = "yes", group.cols)
 \item{group.cols}{Names of columns to group by.}
 }
 \description{
-Fisheriescape pivot table 2 in path to CEU calculations.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
+\keyword{internal}
