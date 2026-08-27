@@ -4,7 +4,6 @@ template:
 reference:
 - title: Functions
   contents:
-  - fs_calc_ceu
   - fs_fill_missing
   - fs_fleet_by_coordinates
   - fs_fleet_by_date

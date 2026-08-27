@@ -13,5 +13,10 @@ fs_calc_ceu(pivot4 = NULL)
 A data frame
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
+}
+\details{
 Uses set cards and length cards.
 }
+\keyword{internal}

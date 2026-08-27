@@ -5,8 +5,14 @@
 #' @import dplyr
 #' @importFrom utils read.csv
 #' @returns A data frame
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_calc_ceu<-function(pivot4=NULL){
+
+  stop('This function was deprecated.', call. = FALSE)
 
   # appease R CMD check
   choose.fishery=NULL
