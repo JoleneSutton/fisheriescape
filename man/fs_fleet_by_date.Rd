@@ -14,5 +14,7 @@ fs_fleet_by_date(df, match.type = "exact", num.days = NULL)
 \item{num.days}{Plus and minus days around date to search.}
 }
 \description{
-Assign missing fleets based on nearest date within range for same cfv.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
+\keyword{internal}

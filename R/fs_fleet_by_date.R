@@ -4,10 +4,16 @@
 #' @param match.type Match with dates that are either 'exact', 'same.year', 'previous.year'. Default is 'exact' date. For 'same.year' and 'previous.year', 'num.days' must be specified.
 #' @param num.days Plus and minus days around date to search.
 #' @importFrom eclectic find_replace
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_fleet_by_date<-function(df,
                           match.type='exact',#exact, same.year, previous.year
                           num.days=NULL){
+
+  stop('This function was deprecated.', call. = FALSE)
 
   message('THIS IS A DRAFT FUNCTION, USE WITH CAUTION!')
   message('using columns: fleet, dateland,...')
