@@ -3,12 +3,12 @@
 #' @format Data frame
 "fs.data.anon"
 
-#' Example site score calculations
+#' Example site score data set
 #'
 #' @format Data frame
 "fs.data.site.score"
 
-#' Example CEU calculates
+#' Example CEU data set
 #'
 #' @format Data frame
 "fs.data.ceu"
