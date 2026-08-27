@@ -27,5 +27,7 @@ fs_pivot4(
 \item{area.note.col}{Currently NULL}
 }
 \description{
-Fisheriescape not really a pivot, but should be done after pivot table 3 in path to CEU calculations.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
+\keyword{internal}

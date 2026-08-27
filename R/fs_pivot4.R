@@ -7,6 +7,10 @@
 #' @param prov.col Currently NULL
 #' @param area.note.col Currently NULL
 #' @import dplyr
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_pivot4<-function(df1, #ziff
                     trap.fishery,
@@ -15,6 +19,8 @@ fs_pivot4<-function(df1, #ziff
                     prov.col=NULL,
                     area.note.col=NULL
                     ){
+  stop('This function was deprecated. Please use `fs_proportion_week_fished` instead.', call. = FALSE)
+
 
   # appease R CMD check
   fleet=NULL
