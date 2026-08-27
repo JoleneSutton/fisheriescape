@@ -7,9 +7,6 @@
 - [`fs_fill_missing()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_missing.md)
   : Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing
   trips
-- [`fs_fill_rows()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_rows.md)
-  : Fill NAs (replace NAs) in duplicate rows. Use with caution (see
-  examples)!!
 - [`fs_fleet_by_coordinates()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fleet_by_coordinates.md)
   : Assign missing fleets based on geographic coordinates.
 - [`fs_fleet_by_date()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fleet_by_date.md)
@@ -39,6 +36,6 @@
 - [`fs.data.anon`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.anon.md)
   : Example fishery data set
 - [`fs.data.ceu`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.ceu.md)
-  : Example CEU calculates
+  : Example CEU data set
 - [`fs.data.site.score`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.site.score.md)
-  : Example site score calculations
+  : Example site score data set

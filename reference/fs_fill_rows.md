@@ -1,7 +1,7 @@
 # Fill NAs (replace NAs) in duplicate rows. Use with caution (see examples)!!
 
-Fill NAs (replace NAs) in duplicate rows. Use with caution (see
-examples)!!
+**\[deprecated\]** This function was deprecated. Please use
+`fs_summarize_trips` instead.
 
 ## Usage
 

@@ -1,6 +1,6 @@
-# Example CEU calculates
+# Example CEU data set
 
-Example CEU calculates
+Example CEU data set
 
 ## Usage
 

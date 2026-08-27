@@ -1,6 +1,6 @@
-# Example site score calculations
+# Example site score data set
 
-Example site score calculations
+Example site score data set
 
 ## Usage
 
