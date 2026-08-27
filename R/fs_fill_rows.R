@@ -19,6 +19,10 @@
 #' fs_fill_rows(DF,"ID",2:ncol(DF))# works.  Note columns "Value5" and "Value6" for ID "1"
 #' fs_fill_rows(DF,c(1,5),2:ncol(DF)) #works. Compare to previous examples.
 #' fs_fill_rows(DF,"ID","Value1:Value6")# does nothing
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_fill_rows<-function(df,group.cols,fill.cols){
   out<-df |>
