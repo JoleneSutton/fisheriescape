@@ -2,8 +2,6 @@
 
 ## Functions
 
-- [`fs_calc_ceu()`](https://jolenesutton.github.io/fisheriescape/reference/fs_calc_ceu.md)
-  : Calculate average CEU
 - [`fs_fill_missing()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_missing.md)
   : Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing
   trips

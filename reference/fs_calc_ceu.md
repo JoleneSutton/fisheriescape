@@ -1,6 +1,7 @@
 # Calculate average CEU
 
-Uses set cards and length cards.
+**\[deprecated\]** This function was deprecated. Please use
+`fs_summarize_trips` instead.
 
 ## Usage
 
@@ -17,3 +18,7 @@ fs_calc_ceu(pivot4 = NULL)
 ## Value
 
 A data frame
+
+## Details
+
+Uses set cards and length cards.
