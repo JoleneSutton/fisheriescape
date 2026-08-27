@@ -1,14 +1,22 @@
 #' Fisheriescape get herring phone survey data for herring CEU calculations
 #'
-#' @param start.year The oldest year you want. 
+#' @param start.year The oldest year you want.
 #' @param one.rope Logical. Do you want to return the one.rope table? Default is TRUE.
+#' The one.rope column indicates the proportion of gear with one rope. 1-one.rope gives
+#' the proportion of gear with two ropes. Other columns indicate the average amount of
+#' gear (nets), average number of hours gear is in the water (hours), and average gear
+#' hauls (hauls) for each season, year and fishing area. To calculate soak time, divide
+#' the number of hours by 24 and multiply by the number of hauls.
 #' @import dplyr
 #' @import readr
 #' @importFrom stringr str_sub str_split
+#' @source This function was adapted from code located at: https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_script/2a-telsurvey_load.R?ref_type=heads
+#' @examples
+#' x = fs_get_herring_phone_survey(2013,one.rope=TRUE)
 #' @export
 fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
-  
-  
+
+
   M=NULL
   S=NULL
   season_code=NULL
@@ -22,25 +30,25 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
   nets=NULL
   hours=NULL
   hauls=NULL
-  
-  
-  
+
+
+
   yr_global<-start.year
-  
-  
+
+
   ##//////////////////////////////////----
   # Locate files -----
   path<-'//ENT.dfo-mpo.ca/dfo-mpo/group/glf/mon/FES/Science/Hd2/herring/phone/'
-  
+
   files_vector <- list.files(path = path, pattern = ("*.de$"), ignore.case = T, full.names = T)
-  
+
   year_fct <- function(i){
     ifelse((as.numeric(as.character(stringr::str_sub(files_vector[[i]], -5, -4))) >= 86),
            (1900 + as.numeric(as.character(stringr::str_sub(files_vector[[i]], -5, -4)))),
            (2000 + as.numeric(as.character(stringr::str_sub(files_vector[[i]], -5, -4))))
     )
   }
-  
+
   # remove file younger than yr_global
   for (i in files_vector) {
     no <- which(files_vector == i)
@@ -50,8 +58,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
       }
     }
   }
-  
-  
+
+
   #//////////////////////////////////----
   # Setting reading parameters for survey -----
   #------------------------------------------------------------------------------#
@@ -104,7 +112,7 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                  'limit_week',        # Question 57/58 Y/N
                  'catch_limit_week'   # Question 57/58 lbs ***Since 2011
   )
-  
+
   col_spec_86 <- readr::cols(district = readr::col_character(),  # stdist
                              resp = readr::col_character(),
                              season_code = readr::col_integer(),
@@ -150,8 +158,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                              limit_week = readr::col_character(),
                              catch_limit_week = readr::col_double()
   )
-  
-  
+
+
   ### for all other years ----
   col_start <- c(1, 3, 6, 7, 8, 12, 13, 14, 19, 20, 25, 29, 34, 38, 43, 47, 52, 56, 61, 66, 71, 72, 77, 82,
                  83, 88, 93, 94, 104, 108, 112, 116, 120, 123, 126, 132, 138, 143, 144, 149, 152, 156)
@@ -203,7 +211,7 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                'limit_week',       # Question 57/58 Y/N
                'catch_limit_week'  # Question 57/58 lbs ***Since 2011
   )
-  
+
   col_spec <- readr::cols(district = readr::col_character(),
                           resp = readr::col_character(),
                           season_code = readr::col_integer(),
@@ -247,21 +255,21 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                           limit_week = readr::col_character(),
                           catch_limit_week = readr::col_double()
   )
-  
+
   #//////////////////////////////////----
   # Load files  -----
   #------------------------------------------------------------------------------#
   ## import loop 1986 to current year ----
   telsurvey_list <- list()
-  
+
   for (i in 1:length(files_vector)) {
-    
+
     #### for 2019, use only "19FALL"
     # if ((str_sub(files_vector[[i]], -5, -4)) == "19") {next}
-    
+
     ### for 1986 ----
     if ((stringr::str_sub(files_vector[[i]], -5, -4)) == "86") {
-      
+
       temp <- readr::read_log(files_vector[i],
                               col_names = col_id_86,
                               col_types = col_spec_86,
@@ -271,13 +279,13 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
       cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
       telsurvey_list[[i]] <- temp
       names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
-      
+
     } # end of 1986 load
-    
-    
+
+
     ## for 1987 ----
     if ((stringr::str_sub(files_vector[[i]], -5, -4)) == "87") {
-      
+
       temp <- readr::read_log( files_vector[i],
                                col_names = col_id,
                                col_types = col_spec,
@@ -287,16 +295,16 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
       cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
       telsurvey_list[[i]] <- temp
       names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
-      
+
     } # end of 1987 load
-    
-    
+
+
     ## for others, but exception for 2019 fall ----
     if (!(stringr::str_sub(files_vector[[i]], -5, -4)) %in% c("86","87")) {
-      
+
       # 2019 fall exception
       if ((stringr::str_sub(files_vector[[i]], -9, -4)) =="19FALL") {
-        
+
         temp <- suppressWarnings(readr::read_fwf(files_vector[i],
                                 guess_max = 5000,
                                 progress = readr::show_progress(),
@@ -305,13 +313,13 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                       col_names = col_id),
                                 col_types = col_spec
         ))
-        
+
         temp$year <- 2019
         cat(paste('\n', 'load', temp$year[1], 'phone survey data (19FALL)', '\n'))
         telsurvey_list[[i]] <- temp
         names(telsurvey_list)[i] <- paste(temp$year[1], "f", sep = "") # rename the list element for easy access
       }
-      
+
       # others
       if (!((stringr::str_sub(files_vector[[i]], -9, -4)) =="19FALL")) {
         temp <- suppressWarnings(readr::read_fwf(files_vector[i],
@@ -322,90 +330,90 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                       col_names = col_id),
                                 col_types = col_spec
         ))
-        
+
         temp$year <- year_fct(i)
         cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
         telsurvey_list[[i]] <- temp
         names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
       }
     } # end of others load
-    
-    
+
+
   } # end of the loop
-  
-  
-  
+
+
+
   ##### reorder as in SAS ----
   telsurvey_list <- telsurvey_list[order(names(telsurvey_list))]
-  
+
   #//////////////////////////////////----
   # Corrections -----
   #------------------------------------------------------------------------------#
   for (i in 1:length(telsurvey_list)) {
-    
+
     output_i <- telsurvey_list[[i]]
-    
+
     ### add number of rows for sas comparison ----
     output_i$row_no = 1:nrow(output_i)
-    
-    
+
+
     # initialize variable because some year haven't net_length_fm information (new correction) ----
     if (("netlngth" %in% names(output_i)) == FALSE){
       output_i$netlngth <- output_i$length1 # not in SAS
-      
+
     }
-    
-    
+
+
     # import error in R, not present in SAS ----
     output_ii <- output_i[!(output_i$resp %in% c("C14", "C15", "C16")), ]
-    
-    
+
+
     # raw data correction as in effind.sas (year correction from 1986 to 1995) -----
     # year = 1986;
     if (output_ii$year[1] == 1986){
       output_ii$peakdays[is.na(output_ii$peakdays) & output_ii$year == 1986] <- 0
       output_ii$telsurvey_area[output_ii$year == 1986] <- output_ii$telsurvey_area[output_ii$year == 1986] + 1
     }
-    
+
     # year = 1993;
     if (output_ii$year[1] == 1993){
       output_ii$resp[output_ii$year == 1993 &
                        output_ii$district == '65' &
                        is.na(output_ii$resp)] <- '151'
-      
+
       output_ii$resp[output_ii$year == 1993 &
                        output_ii$district == '75' &
                        is.na(output_ii$resp)] <- '266'
-      
+
       output_ii$district[output_ii$resp == '130' &
                            !is.na(output_ii$resp)] <- '64'
     }
-    
+
     # year = 1994;
     if (output_ii$year[1] == 1994){
       output_ii$district[output_ii$year == 1994 &
                            output_ii$cfv == 150521 &
                            is.na(output_ii$cfv)] <- '80'
-      
+
       output_ii$district[output_ii$year == 1994 &
                            (output_ii$cfv == 152008 | output_ii$cfv == 13378) &
                            is.na(output_ii$cfv)] <- '65'
-      
+
       output_ii$district[is.na(output_ii$resp) &
                            output_ii$telsurvey_area == 5 &
                            output_ii$owns == 33 &
                            output_ii$year == 1994] <- '80'
-      
+
       output_ii$district[is.na(output_ii$resp) &
                            output_ii$telsurvey_area == 8 &
                            output_ii$owns == 6 &
                            output_ii$year == 1994] <- '92'
-      
+
       output_ii <- output_ii[!(output_ii$year == 1994 &
                                  output_ii$resp == '18' &
                                  output_ii$telsurvey_area == 6),]
     }
-    
+
     # year = 1995
     if (output_ii$year[1] == 1995){
       output_ii$district[output_ii$resp == 288 & output_ii$year == 1995] <- '73'
@@ -414,17 +422,17 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
       output_ii$district[output_ii$resp == 232 & output_ii$year == 1995] <- '66'
       output_ii$district[output_ii$resp == 394 & output_ii$year == 1995] <- '87'
     }
-    
-    
-    output_iii <- output_ii 
-    
+
+
+    output_iii <- output_ii
+
     output_iii <- subset(output_iii, season_code %in% c(1, 2))
-    
+
     output_iii <- subset(output_iii, telsurvey_area %in% c(1:8)) # in the by area steps in SAS (dmp or telsurvey part).
-    
+
     output_iii$season <- ifelse(output_iii$season_code == 1, "spring",
                                 ifelse(output_iii$season_code == 2, "fall", NA)) # remove one line (in tel3 steps in SAS)
-    
+
     # adjust resp variable ----
     output_iii$resp = as.character(output_iii$resp)
     output_iii$x = stringr::str_sub(output_iii$resp, 1, 1)
@@ -433,30 +441,30 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
     output_iii$z2 = stringr::str_sub(output_iii$resp, -1, -1)
     output_iii$resp = ifelse(output_iii$y == "00", output_iii$z2,
                              ifelse(output_iii$x == "0", output_iii$z1, output_iii$resp))
-    
+
     output_iii <- output_iii[,!(names(output_iii) %in% c("x", "y", "z1", "z2"))]
-    
-    
+
+
     # add NAs : (peak, fished88, type1, type2, type3, limit_day, ffished, sfished) ----
     output_iii$fished88 <- ifelse(is.na(output_iii$fished88)| output_iii$fished88 %in% c("", "."), NA, output_iii$fished88)
     output_iii$peak <- ifelse(is.na(output_iii$peak)| output_iii$peak %in% c("", "."), NA, output_iii$peak)
     output_iii$limit_day <- ifelse(is.na(output_iii$limit_day)| output_iii$limit_day %in% c("", "."), NA, output_iii$limit_day)
-    
+
     if (output_iii$year[1] != 1986){
       output_iii$type1 <- ifelse(is.na(output_iii$type1)| output_iii$type1 %in% c("", "."), NA, output_iii$type1)
       output_iii$type2 <- ifelse(is.na(output_iii$type2)| output_iii$type2 %in% c("", "."), NA, output_iii$type2)
       output_iii$type3 <- ifelse(is.na(output_iii$type3)| output_iii$type1 %in% c("", "."), NA, output_iii$type3)
     }
-    
+
     if (output_iii$year[1] == 1986){
       output_iii$ffished <- ifelse(is.na(output_iii$ffished)| output_iii$ffished %in% c("", "."), NA, output_iii$ffished)
       output_iii$sfished <- ifelse(is.na(output_iii$sfished)| output_iii$sfished %in% c("", "."), NA, output_iii$sfished)
     }
-    
-    
+
+
     # mesh corrections -----
     # mesh1
-    output_iii$mesh1 <- 
+    output_iii$mesh1 <-
       ifelse(output_iii$mesh1 == "21/16", "2.0625",
              ifelse(output_iii$mesh1 %in% c("23/16", "2316"), "2.1875",
                     ifelse(output_iii$mesh1 %in% c("25/16", "2516"), "2.3125",
@@ -475,8 +483,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                                                                ifelse(output_iii$mesh1 == ".", NA,
                                                                                                                       output_iii$mesh1
                                                                                                                ))))))))))))))))
-    
-    output_iii$mesh1 <- 
+
+    output_iii$mesh1 <-
       ifelse(output_iii$mesh1 == "11/16", "1.0625",
              ifelse(output_iii$mesh1 == "13/16", "1.1875",
                     ifelse(output_iii$mesh1 == "15/16", "1.3125",
@@ -491,8 +499,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                                    ifelse(output_iii$mesh1 %in% c("13/4", "134"), "1.75",
                                                                                           output_iii$mesh1
                                                                                    ))))))))))))
-    
-    output_iii$mesh1 <- 
+
+    output_iii$mesh1 <-
       ifelse(output_iii$mesh1 == "31/4", "3.25",
              ifelse(output_iii$mesh1 == "51/2", "5.5",
                     ifelse(output_iii$mesh1 == "1/2", "0.5",
@@ -501,9 +509,9 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                          ifelse(output_iii$mesh1 == "53/8", "5.375",
                                                 output_iii$mesh1
                                          ))))))
-    
+
     # mesh2
-    output_iii$mesh2 <- 
+    output_iii$mesh2 <-
       ifelse(output_iii$mesh2 == "21/16", "2.0625",
              ifelse(output_iii$mesh2 %in% c("23/16", "2316"), "2.1875",
                     ifelse(output_iii$mesh2 %in% c("25/16", "2516"), "2.3125",
@@ -522,8 +530,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                                                                ifelse(output_iii$mesh2 == ".", NA,
                                                                                                                       output_iii$mesh2
                                                                                                                ))))))))))))))))
-    
-    output_iii$mesh2 <- 
+
+    output_iii$mesh2 <-
       ifelse(output_iii$mesh2 == "11/16", "1.0625",
              ifelse(output_iii$mesh2 == "13/16", "1.1875",
                     ifelse(output_iii$mesh2 == "15/16", "1.3125",
@@ -538,8 +546,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                                    ifelse(output_iii$mesh2 %in% c("13/4", "134"), "1.75",
                                                                                           output_iii$mesh2
                                                                                    ))))))))))))
-    
-    output_iii$mesh2 <- 
+
+    output_iii$mesh2 <-
       ifelse(output_iii$mesh2 == "31/4", "3.25",
              ifelse(output_iii$mesh2 == "51/2", "5.5",
                     ifelse(output_iii$mesh2 == "1/2", "0.5",
@@ -548,9 +556,9 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                          ifelse(output_iii$mesh2 == "53/8", "5.375",
                                                 output_iii$mesh2
                                          ))))))
-    
+
     # mesh3
-    output_iii$mesh3 <- 
+    output_iii$mesh3 <-
       ifelse(output_iii$mesh3 == "21/16", "2.0625",
              ifelse(output_iii$mesh3 %in% c("23/16", "2316"), "2.1875",
                     ifelse(output_iii$mesh3 %in% c("25/16", "2516"), "2.3125",
@@ -569,8 +577,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                                                                ifelse(output_iii$mesh3 == ".", NA,
                                                                                                                       output_iii$mesh3
                                                                                                                ))))))))))))))))
-    
-    output_iii$mesh3 <- 
+
+    output_iii$mesh3 <-
       ifelse(output_iii$mesh3 == "11/16", "1.0625",
              ifelse(output_iii$mesh3 == "13/16", "1.1875",
                     ifelse(output_iii$mesh3 == "15/16", "1.3125",
@@ -585,8 +593,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                                                                    ifelse(output_iii$mesh3 %in% c("13/4", "134"), "1.75",
                                                                                           output_iii$mesh3
                                                                                    ))))))))))))
-    
-    output_iii$mesh3 <- 
+
+    output_iii$mesh3 <-
       ifelse(output_iii$mesh3 == "31/4", "3.25",
              ifelse(output_iii$mesh3 == "51/2", "5.5",
                     ifelse(output_iii$mesh3 == "1/2", "0.5",
@@ -595,114 +603,114 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                                          ifelse(output_iii$mesh3 == "53/8", "5.375",
                                                 output_iii$mesh3
                                          ))))))
-    
+
 #    if (output_iii$year[1] == yr_global){
 #      cat("The following mesh values are from : ", yr_global, ", if you see a character or wrong value return to 'telsurvey_load.R'", "\n",
 #          "mesh1: ", unique(output_iii$mesh1), "\n",
 #          "mesh2: ", unique(output_iii$mesh2), "\n",
 #          "mesh3: ", unique(output_iii$mesh3), "\n")
 #    }
-    
+
     output_iii$mesh1 <- as.numeric(as.character(output_iii$mesh1))
     output_iii$mesh2 <- as.numeric(as.character(output_iii$mesh2))
     output_iii$mesh3 <- as.numeric(as.character(output_iii$mesh3))
-    
+
     telsurvey_list[[i]] <- output_iii
   } # end of corrections
-  
+
   rm(temp, output_i, output_ii, output_iii, col_spec, col_spec_86, col_end,
      col_id, col_id_86, col_start, files_vector, i, year_fct)
-  
-  
-  
+
+
+
   #//////////////////////////////////----
   # Add variable to see  -----
   #    strange district (related to homeport) to telsurvey_area
   #    (related to port_landed) assignation
   #------------------------------------------------------------------------------#
-  
+
   ## a- establish vector of districts by telsurvey_area with  the "areas" datafile -----
   #path_areas <- "K:/Data Analysis/Maps/"
   path_areas <- "//ENT.dfo-mpo.ca/dfo-mpo/group/glf/mon/EOS/Science/HerringM/Data Analysis/Maps/"
   list.files(path_areas)
-  
+
   areas <- read.csv(paste0(path_areas, "areas.csv"))
-  
+
   areas_dist_df <- areas |>
     dplyr::ungroup() |>
     dplyr::group_by(telsurvey_area) |>
     dplyr::summarise(area_dist = paste(unique(district), collapse = ' '))
-  
+
   areas_dist_df$area_dist <- stringr::str_split(areas_dist_df$area_dist , " ")
-  
+
   for(i in 1:nrow(areas_dist_df)){
     areas_dist_df$area_dist[i] <- list((as.numeric(trimws(areas_dist_df$area_dist[i][[1]]))))
   }
-  
-  
-  
+
+
+
   ## loop -----
   for (e in 1:length(telsurvey_list)){
-    
+
     #print(names(telsurvey_list[e]))
-    
+
     output_i <- telsurvey_list[[e]]
-    
+
     #print(table(output_i$telsurvey_area, output_i$district))
-    
-    
-    # b- by telsurvey_area, create a logical variable "TRUE or FALSE" describing 
+
+
+    # b- by telsurvey_area, create a logical variable "TRUE or FALSE" describing
     #     if the district assignation in this particular telsurvey_area is good or not.
     dist_verif_list <- list()
     i = 1
-    
+
     for (telarea in (1:8)){
-      
+
       areas_dist_vec <- subset(areas_dist_df, telsurvey_area == telarea)
-      
+
       #cat("telsurvey_area = ", telarea, "areas's district =", areas_dist_vec$area_dist[[1]], "\n")
-      
+
       output_i_telarea <- subset(output_i, telsurvey_area == telarea)
       #output_i_telarea$nrow_yeararea_1 <- nrow(output_i_telarea)
-      
-      
-      output_i_telarea$dist_in_telarea <- 
+
+
+      output_i_telarea$dist_in_telarea <-
         ifelse(output_i_telarea$district %in% areas_dist_vec$area_dist[[1]], TRUE, FALSE)
-      
+
       ## c- remove the rows where the logical variable is FALSE.
       #output_i_telarea <- subset(output_i_telarea, dist_in_telarea == TRUE)
       #output_i_telarea$nrow_yeararea_2 <- nrow(output_i_telarea)
-      
-      
+
+
       dist_verif_list[[i]] <- output_i_telarea
       names(dist_verif_list)[i] <- telarea # rename the list element for easy access
-      
+
       i = i + 1
     }
     rm(i)
-    
+
     output_ii <- dplyr::bind_rows(dist_verif_list)
-    
+
     #print(table(output_ii$telsurvey_area, output_ii$district))
-    
+
     telsurvey_list[[e]] <- output_ii
-    
+
   } # end of loop - to see strange district-telsurvey assignation
-  
+
   telsurvey<-as.data.frame(dplyr::bind_rows(telsurvey_list))
-  
+
   if(isFALSE(one.rope)){return(telsurvey)}
-  
-  
+
+
   # format one.rope----
   if(isTRUE(one.rope)){
     df<-telsurvey
-    
+
     keep.cols<-c('season','year','telsurvey_area','cfv',
                  'peak','peakdays' ,'peaknets' ,'peakhrs' ,
-                 'restnets', 'resthrs', 'npeaknts' ,'npeakhrs', 
+                 'restnets', 'resthrs', 'npeaknts' ,'npeakhrs',
                  'hauls','type1','type2')
-    
+
     df2<-df[,keep.cols]
 
     df2$area<-NA
@@ -714,27 +722,27 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
     df2[which(df2$telsurvey_area==6),"area"]<-'16F'
     df2[which(df2$telsurvey_area==7),"area"]<-'16G'
     df2[which(df2$telsurvey_area==8),"area"]<-'16E'
-  
+
     df2[which(is.na(df2$type1)),'type1']<-'S'
-    
+
     ## ropes ----
     tmp1<-df2|>
       dplyr::group_by(season,year,area)|>
       dplyr::count(type1)|>
       tidyr::pivot_wider(names_from=type1,values_from=n)
-    
+
     tmp2<-df2|>
       dplyr::group_by(season,year,area)|>
       dplyr::count(type2)|>
       tidyr::pivot_wider(names_from=type2,values_from=n)
-    
+
     tmp3<-dplyr::bind_rows(tmp1,tmp2[,1:5])
 
     tmp3<-tmp3|>
       dplyr::group_by(season,year,area)|>
       dplyr::summarise(M=sum(M,na.rm=TRUE),
                 S=sum(S,na.rm=TRUE))
-  
+
     tmp3$tot<-tmp3$M+tmp3$S
     tmp3$one.rope<-tmp3$M/tmp3$tot
     ropes<-tmp3[,c(1:3,7)]
@@ -742,7 +750,7 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
 
     ## gear and hours ----
     rm(tmp1,tmp2,tmp3)
-    
+
     tmp1<-df2
     tmp1$nets<-NA
     for(i in 1:nrow(tmp1)){
@@ -759,23 +767,20 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
       dplyr::summarise(nets=mean(nets,na.rm=TRUE),
                 hours=mean(hours,na.rm=TRUE),
                 hauls=mean(hauls,na.rm=TRUE))
-    
 
-    
-    
+
+
+
     if(nrow(phone)==nrow(ropes)){
     phone<-dplyr::left_join(phone,ropes)
     }
 
     tmp<-phone[which(phone$area=='16B'),]
     tmp$area<-'16A'
-    
-    phone<-dplyr::bind_rows(phone,tmp)
-   
-    return(phone) 
-  }
-  
-}#END FUNCTION ----
 
-#test<-fs_get_herring_phone_survey(2013,one.rope=TRUE)
-#head(test)
+    phone<-dplyr::bind_rows(phone,tmp)
+
+    return(phone)
+  }
+
+}#END FUNCTION ----

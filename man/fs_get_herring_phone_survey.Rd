@@ -3,14 +3,25 @@
 \name{fs_get_herring_phone_survey}
 \alias{fs_get_herring_phone_survey}
 \title{Fisheriescape get herring phone survey data for herring CEU calculations}
+\source{
+This function was adapted from code located at: https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_script/2a-telsurvey_load.R?ref_type=heads
+}
 \usage{
 fs_get_herring_phone_survey(start.year = 2013, one.rope = TRUE)
 }
 \arguments{
 \item{start.year}{The oldest year you want.}
 
-\item{one.rope}{Logical. Do you want to return the one.rope table? Default is TRUE.}
+\item{one.rope}{Logical. Do you want to return the one.rope table? Default is TRUE.
+The one.rope column indicates the proportion of gear with one rope. 1-one.rope gives
+the proportion of gear with two ropes. Other columns indicate the average amount of
+gear (nets), average number of hours gear is in the water (hours), and average gear
+hauls (hauls) for each season, year and fishing area. To calculate soak time, divide
+the number of hours by 24 and multiply by the number of hauls.}
 }
 \description{
 Fisheriescape get herring phone survey data for herring CEU calculations
+}
+\examples{
+x = fs_get_herring_phone_survey(2013,one.rope=TRUE)
 }
