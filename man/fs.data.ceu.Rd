@@ -3,7 +3,7 @@
 \docType{data}
 \name{fs.data.ceu}
 \alias{fs.data.ceu}
-\title{Example CEU calculates}
+\title{Example CEU data set}
 \format{
 Data frame
 }
@@ -11,6 +11,6 @@ Data frame
 fs.data.ceu
 }
 \description{
-Example CEU calculates
+Example CEU data set
 }
 \keyword{datasets}

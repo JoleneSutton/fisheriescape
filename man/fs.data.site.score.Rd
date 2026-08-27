@@ -3,7 +3,7 @@
 \docType{data}
 \name{fs.data.site.score}
 \alias{fs.data.site.score}
-\title{Example site score calculations}
+\title{Example site score data set}
 \format{
 Data frame
 }
@@ -11,6 +11,6 @@ Data frame
 fs.data.site.score
 }
 \description{
-Example site score calculations
+Example site score data set
 }
 \keyword{datasets}

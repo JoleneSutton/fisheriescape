@@ -17,7 +17,8 @@ fs_fill_rows(df, group.cols, fill.cols)
 A data frame
 }
 \description{
-Fill NAs (replace NAs) in duplicate rows. Use with caution (see examples)!!
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
 \examples{
 Lines <- "ID Value1 Value2 Value3 Value4 Value5 Value6
@@ -33,3 +34,4 @@ fs_fill_rows(DF,"ID",2:ncol(DF))# works.  Note columns "Value5" and "Value6" for
 fs_fill_rows(DF,c(1,5),2:ncol(DF)) #works. Compare to previous examples.
 fs_fill_rows(DF,"ID","Value1:Value6")# does nothing
 }
+\keyword{internal}
