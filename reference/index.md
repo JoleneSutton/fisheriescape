@@ -4,6 +4,9 @@
 
 - [`fs_assign_fishing_area_by_coordinates()`](https://jolenesutton.github.io/fisheriescape/reference/fs_assign_fishing_area_by_coordinates.md)
   : A function to help associate each record to a fishing area.
+- [`fs_calc_site_score_simple()`](https://jolenesutton.github.io/fisheriescape/reference/fs_calc_site_score_simple.md)
+  : Calculates the fisheriescape site scores after all records have been
+  assigned to a spatial reference grid.
 - [`fs_fill_missing()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_missing.md)
   : Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing
   trips
@@ -15,8 +18,6 @@
 - [`fs_proportion_week_fished()`](https://jolenesutton.github.io/fisheriescape/reference/fs_proportion_week_fished.md)
   : Fisheriescape path to CEU, calculate the proportion of each week
   fished
-- [`fs_site_score()`](https://jolenesutton.github.io/fisheriescape/reference/fs_site_score.md)
-  : Fisheriescape calculate site score
 - [`fs_summarize_fishing_areas()`](https://jolenesutton.github.io/fisheriescape/reference/fs_summarize_fishing_areas.md)
   : Fisheriescape path to CEU, summarize fishing areas within each time
   period

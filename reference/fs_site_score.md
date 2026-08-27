@@ -1,6 +1,7 @@
 # Fisheriescape calculate site score
 
-Fisheriescape calculate site score
+**\[deprecated\]** This function was deprecated. Please use
+`fs_summarize_trips` instead.
 
 ## Usage
 
