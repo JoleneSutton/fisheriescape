@@ -1,6 +1,7 @@
 # Assign missing fleets based on geographic coordinates.
 
-Assign missing fleets based on geographic coordinates.
+**\[deprecated\]** This function was deprecated. Please use
+`fs_summarize_trips` instead.
 
 ## Usage
 
