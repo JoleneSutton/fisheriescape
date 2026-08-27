@@ -4,9 +4,14 @@
 #' @param polygon A shapefile (class: SpatVector, geometry:polygons) with column "fleet"
 #' @importFrom gslSpatial assign_points_terra assign_points_to_nearest_polygon
 #' @importFrom terra project crs geomtype
-
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_fleet_by_coordinates<-function(df, polygon){
+
+  stop('This function was deprecated. Please use `fs_assign_fishing_areas_by_coordinates` instead.', call. = FALSE)
 
   # checks
   if(length(grep('fleet',names(df)))<1){df$fleet<-NA}

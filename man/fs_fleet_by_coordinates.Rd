@@ -12,5 +12,7 @@ fs_fleet_by_coordinates(df, polygon)
 \item{polygon}{A shapefile (class: SpatVector, geometry:polygons) with column "fleet"}
 }
 \description{
-Assign missing fleets based on geographic coordinates.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
+\keyword{internal}

@@ -4,8 +4,8 @@ template:
 reference:
 - title: Functions
   contents:
+  - fs_assign_fishing_area_by_coordinates
   - fs_fill_missing
-  - fs_fleet_by_coordinates
   - fs_fleet_by_date
   - fs_get_data
   - fs_get_herring_phone_survey
