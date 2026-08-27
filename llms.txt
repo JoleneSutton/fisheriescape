@@ -36,9 +36,6 @@ devtools::install_github("JoleneSutton/fisheriescape")
 - [`fs_get_herring_phone_survey()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_herring_phone_survey.md)
   : Fisheriescape get herring phone survey data for herring CEU
   calculations
-- [`fs_pivot4()`](https://jolenesutton.github.io/fisheriescape/reference/fs_pivot4.md)
-  : Fisheriescape not really a pivot, but should be done after pivot
-  table 3 in path to CEU calculations.
 - [`fs_proportion_week_fished()`](https://jolenesutton.github.io/fisheriescape/reference/fs_proportion_week_fished.md)
   : Fisheriescape path to CEU, calculate the proportion of each week
   fished
