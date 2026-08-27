@@ -7,6 +7,7 @@
 #' @import dplyr
 #' @importFrom tidyr fill
 #' @examples
+#' \dontrun{
 #' Lines <- "ID Value1 Value2 Value3 Value4 Value5 Value6
 #' 1 A B C z z NA
 #' 1 A B C y NA z
@@ -19,12 +20,15 @@
 #' fs_fill_rows(DF,"ID",2:ncol(DF))# works.  Note columns "Value5" and "Value6" for ID "1"
 #' fs_fill_rows(DF,c(1,5),2:ncol(DF)) #works. Compare to previous examples.
 #' fs_fill_rows(DF,"ID","Value1:Value6")# does nothing
+#' }
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #' This function was deprecated. Please use `fs_summarize_trips` instead.
 #' @keywords internal
 #' @export
 fs_fill_rows<-function(df,group.cols,fill.cols){
+  stop('This function was deprecated.', call. = FALSE)
+
   out<-df |>
     dplyr::group_by(dplyr::across(any_of(group.cols)))|>
     tidyr::fill(any_of(fill.cols), .direction = "downup")|>
