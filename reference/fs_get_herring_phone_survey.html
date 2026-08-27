@@ -42,6 +42,10 @@
     </div>
 
     <div class="section level2">
+    <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
+    <p>This function was adapted from code located at: https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_script/2a-telsurvey_load.R?ref_type=heads</p>
+    </div>
+    <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
@@ -50,10 +54,21 @@
 
 
 <dt id="arg-one-rope">one.rope<a class="anchor" aria-label="anchor" href="#arg-one-rope"></a></dt>
-<dd><p>Logical. Do you want to return the one.rope table? Default is TRUE.</p></dd>
+<dd><p>Logical. Do you want to return the one.rope table? Default is TRUE.
+The one.rope column indicates the proportion of gear with one rope. 1-one.rope gives
+the proportion of gear with two ropes. Other columns indicate the average amount of
+gear (nets), average number of hours gear is in the water (hours), and average gear
+hauls (hauls) for each season, year and fishing area. To calculate soak time, divide
+the number of hours by 24 and multiply by the number of hauls.</p></dd>
 
 </dl></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu">fs_get_herring_phone_survey</span><span class="op">(</span><span class="fl">2013</span>,one.rope<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in files_vector[[i]]:</span> subscript out of bounds</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
