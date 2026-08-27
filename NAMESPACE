@@ -2,6 +2,7 @@
 
 export(fs_assign_fishing_area_by_coordinates)
 export(fs_calc_ceu)
+export(fs_calc_site_score_simple)
 export(fs_fill_col)
 export(fs_fill_missing)
 export(fs_fill_rows)

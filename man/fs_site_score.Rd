@@ -14,5 +14,7 @@ fs_site_score(df, fa.poly, grid = NULL)
 \item{grid}{Grid shapefile. If NULL, defaults to 'dfo_hex_coffen_smout_cropped.shp'.}
 }
 \description{
-Fisheriescape calculate site score
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated. Please use \code{fs_summarize_trips} instead.
 }
+\keyword{internal}

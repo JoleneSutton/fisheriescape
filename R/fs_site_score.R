@@ -7,8 +7,14 @@
 #' @importFrom terra vect crs crop merge
 #' @importFrom gslSpatial get_shapefile assign_points_terra
 #' @importFrom sf st_as_sf st_intersection st_area
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function was deprecated. Please use `fs_summarize_trips` instead.
+#' @keywords internal
 #' @export
 fs_site_score<-function(df,fa.poly,grid=NULL){
+
+  stop('This function was deprecated. Please use `fs_calc_site_score_simple` instead.', call. = FALSE)
 
   # appease R CMD check
   GRID_ID=NULL

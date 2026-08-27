@@ -5,11 +5,11 @@ reference:
 - title: Functions
   contents:
   - fs_assign_fishing_area_by_coordinates
+  - fs_calc_site_score_simple
   - fs_fill_missing
   - fs_get_data
   - fs_get_herring_phone_survey
   - fs_proportion_week_fished
-  - fs_site_score
   - fs_summarize_fishing_areas
   - fs_summarize_trips
   - fs_summarize_vessels
