@@ -1,6 +1,7 @@
 # Assign missing fleets based on nearest date within range for same cfv.
 
-Assign missing fleets based on nearest date within range for same cfv.
+**\[deprecated\]** This function was deprecated. Please use
+`fs_summarize_trips` instead.
 
 ## Usage
 

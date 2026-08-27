@@ -7,9 +7,6 @@
 - [`fs_fill_missing()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fill_missing.md)
   : Fisheriescape path to CEU, fill NAs (replace NAs) after summarizing
   trips
-- [`fs_fleet_by_date()`](https://jolenesutton.github.io/fisheriescape/reference/fs_fleet_by_date.md)
-  : Assign missing fleets based on nearest date within range for same
-  cfv.
 - [`fs_get_data()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_data.md)
   : Get and process ziff data for fisheriescape project.
 - [`fs_get_herring_phone_survey()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_herring_phone_survey.md)
