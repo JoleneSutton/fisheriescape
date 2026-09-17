@@ -33,5 +33,5 @@ https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_scrip
 
 ``` r
 x = fs_get_herring_phone_survey(2013,one.rope=TRUE)
-#> Error in files_vector[[i]]: subscript out of bounds
+#> Error in if (nchar(yr) < 4 & yr < 86) {    yr = (2000 + yr)}: argument is of length zero
 ```
