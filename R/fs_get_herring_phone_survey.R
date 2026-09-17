@@ -42,6 +42,11 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
 
   files_vector <- list.files(path = path, pattern = ("*.de$"), ignore.case = T, full.names = T)
 
+  #remove the partial 2021 file (records are replicated in the complete file)
+  index<-grep('HQUEST21.DE',files_vector)
+  if(length(index)>0){files_vector<-files_vector[-index]}
+  rm(index)
+
 
   year_list<-list()
   for(i in 1:length(files_vector)){
