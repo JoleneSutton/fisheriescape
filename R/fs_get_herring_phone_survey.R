@@ -36,28 +36,34 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
   yr_global<-start.year
 
 
-  ##//////////////////////////////////----
-  # Locate files -----
+  #//////////////////////////////////----
+  # Locate files  -----
   path<-'//ENT.dfo-mpo.ca/dfo-mpo/group/glf/mon/FES/Science/Hd2/herring/phone/'
 
   files_vector <- list.files(path = path, pattern = ("*.de$"), ignore.case = T, full.names = T)
 
-  year_fct <- function(i){
-    ifelse((as.numeric(as.character(stringr::str_sub(files_vector[[i]], -5, -4))) >= 86),
-           (1900 + as.numeric(as.character(stringr::str_sub(files_vector[[i]], -5, -4)))),
-           (2000 + as.numeric(as.character(stringr::str_sub(files_vector[[i]], -5, -4))))
-    )
-  }
 
-  # remove file younger than yr_global
-  for (i in files_vector) {
-    no <- which(files_vector == i)
-    if (!((stringr::str_sub(files_vector[[no]], -9, -4)) =="19FALL")) {
-      if(year_fct(i = no) < yr_global) {
-        files_vector <- files_vector[-no]
-      }
-    }
+  year_list<-list()
+  for(i in 1:length(files_vector)){
+    tmp=unlist(stringr::str_split(files_vector[i], "(?=/)"))
+    tmp=unlist(tmp[eclectic::grep_any('.de',tmp)])
+    numbers <- gregexpr("[0-9]+", tmp)
+    (yr <- as.numeric(unlist(regmatches(tmp, numbers))))
+    if(nchar(yr)<4&yr<86){yr=(2000+yr)}
+    if(nchar(yr)<4&yr>=86){yr=(1900+yr)}
+    if(nchar(yr)==4){yr=(yr)}
+    year_list[[i]]<-yr
   }
+  #year_list
+  #sort(as.numeric(unlist(year_list)))
+
+  ## remove file younger than yr_global----
+  index<-which(as.numeric(unlist(year_list))<yr_global)
+  if(length(index)>0){
+    files_vector<-files_vector[-index]
+    year_list<-year_list[-index]
+  }
+  #sort(as.numeric(unlist(year_list)))
 
 
   #//////////////////////////////////----
@@ -256,90 +262,84 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
                           catch_limit_week = readr::col_double()
   )
 
+
   #//////////////////////////////////----
   # Load files  -----
   #------------------------------------------------------------------------------#
   ## import loop 1986 to current year ----
   telsurvey_list <- list()
 
-  for (i in 1:length(files_vector)) {
 
-    #### for 2019, use only "19FALL"
-    # if ((str_sub(files_vector[[i]], -5, -4)) == "19") {next}
+  for (i in 1:length(files_vector)) {
+    year<-as.numeric(year_list[i])
 
     ### for 1986 ----
-    if ((stringr::str_sub(files_vector[[i]], -5, -4)) == "86") {
-
+    if(year==1986){
       temp <- readr::read_log(files_vector[i],
                               col_names = col_id_86,
                               col_types = col_spec_86,
                               progress = readr::show_progress()
       )
-      temp$year <- 1986
+      temp$year <- year
       cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
       telsurvey_list[[i]] <- temp
       names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
-
-    } # end of 1986 load
+    }# end of 1986 load
 
 
     ## for 1987 ----
-    if ((stringr::str_sub(files_vector[[i]], -5, -4)) == "87") {
+    if(year==1987){
 
       temp <- readr::read_log( files_vector[i],
                                col_names = col_id,
                                col_types = col_spec,
                                progress = readr::show_progress()
       )
-      temp$year <- 1987
+      temp$year <- year
       cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
       telsurvey_list[[i]] <- temp
       names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
-
     } # end of 1987 load
 
 
-    ## for others, but exception for 2019 fall ----
-    if (!(stringr::str_sub(files_vector[[i]], -5, -4)) %in% c("86","87")) {
+    ## for 2019 fall ----
+    index.19fall<-grep('19FALL.DE',files_vector[i])
+    if(length(index.19fall)>0){
+      temp <- suppressWarnings(readr::read_fwf(files_vector[i],
+                                               guess_max = 5000,
+                                               progress = readr::show_progress(),
+                                               col_positions = readr::fwf_positions( start = col_start,
+                                                                                     end = col_end,
+                                                                                     col_names = col_id),
+                                               col_types = col_spec
+      ))
 
-      # 2019 fall exception
-      if ((stringr::str_sub(files_vector[[i]], -9, -4)) =="19FALL") {
+      temp$year <- year
+      cat(paste('\n', 'load', temp$year[1], 'phone survey data (19FALL)', '\n'))
+      telsurvey_list[[i]] <- temp
+      names(telsurvey_list)[i] <- paste(temp$year[1], "f", sep = "") # rename the list element for easy access
+    }  # end of 2019 fall load
 
-        temp <- suppressWarnings(readr::read_fwf(files_vector[i],
-                                guess_max = 5000,
-                                progress = readr::show_progress(),
-                                col_positions = readr::fwf_positions( start = col_start,
-                                                                      end = col_end,
-                                                                      col_names = col_id),
-                                col_types = col_spec
-        ))
+    ## for everything else ----
+    if(year!=1986&year!=1987&length(index.19fall)==0){
+      temp <- suppressWarnings(readr::read_fwf(files_vector[i],
+                                               guess_max = 5000,
+                                               progress = readr::show_progress(),
+                                               col_positions = readr::fwf_positions( start = col_start,
+                                                                                     end = col_end,
+                                                                                     col_names = col_id),
+                                               col_types = col_spec
+      ))
 
-        temp$year <- 2019
-        cat(paste('\n', 'load', temp$year[1], 'phone survey data (19FALL)', '\n'))
-        telsurvey_list[[i]] <- temp
-        names(telsurvey_list)[i] <- paste(temp$year[1], "f", sep = "") # rename the list element for easy access
-      }
+      temp$year <- year
+      cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
+      telsurvey_list[[i]] <- temp
+      names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
+    } # end of everything else
 
-      # others
-      if (!((stringr::str_sub(files_vector[[i]], -9, -4)) =="19FALL")) {
-        temp <- suppressWarnings(readr::read_fwf(files_vector[i],
-                                guess_max = 5000,
-                                progress = readr::show_progress(),
-                                col_positions = readr::fwf_positions( start = col_start,
-                                                                      end = col_end,
-                                                                      col_names = col_id),
-                                col_types = col_spec
-        ))
-
-        temp$year <- year_fct(i)
-        cat(paste('\n', 'load', temp$year[1], 'phone survey data', '\n'))
-        telsurvey_list[[i]] <- temp
-        names(telsurvey_list)[i] <- paste(temp$year[1], sep = "") # rename the list element for easy access
-      }
-    } # end of others load
+  }# end of the loop
 
 
-  } # end of the loop
 
 
 
@@ -619,7 +619,7 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
   } # end of corrections
 
   rm(temp, output_i, output_ii, output_iii, col_spec, col_spec_86, col_end,
-     col_id, col_id_86, col_start, files_vector, i, year_fct)
+     col_id, col_id_86, col_start, files_vector, i)
 
 
 
@@ -702,6 +702,8 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
   if(isFALSE(one.rope)){return(telsurvey)}
 
 
+
+
   # format one.rope----
   if(isTRUE(one.rope)){
     df<-telsurvey
@@ -775,10 +777,9 @@ fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
     phone<-dplyr::left_join(phone,ropes)
     }
 
-    tmp<-phone[which(phone$area=='16B'),]
-    tmp$area<-'16A'
-
-    phone<-dplyr::bind_rows(phone,tmp)
+    #tmp<-phone[which(phone$area=='16B'),]
+    #tmp$area<-'16A'
+    #phone<-dplyr::bind_rows(phone,tmp)
 
     return(phone)
   }
