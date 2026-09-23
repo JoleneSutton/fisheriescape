@@ -25,7 +25,7 @@ fs_summarize_trips(
 
 - gear.type:
 
-  Must be either 'trap' or 'non-trap'. Required.
+  Must be either 'trap' or 'non.trap'. Required.
 
 - group.cols:
 
@@ -42,7 +42,7 @@ fs_summarize_trips(
 
 - day.col:
 
-  Name of day column to summarize. Required if gear.type is non-trap.
+  Name of day column to summarize. Required if gear.type is non.trap.
 
 ## Value
 

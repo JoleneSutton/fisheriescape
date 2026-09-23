@@ -26,7 +26,7 @@ fs_proportion_week_fished(
 
 - fish.area.summary:
 
-  The dataframe resulting from `fs_summarize_fishing_areas`
+  The data frame resulting from `fs_summarize_fishing_areas`
 
 - gear.type:
 
