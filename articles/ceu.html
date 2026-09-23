@@ -33,7 +33,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/ceu.html">Common effor unit (CEU)</a></li>
+<li><a class="dropdown-item" href="../articles/calculate_fisheriescape.html">Fisheriescape scores</a></li>
+    <li><a class="dropdown-item" href="../articles/ceu.html">Common effor unit (CEU)</a></li>
     <li><a class="dropdown-item" href="../articles/site_score.html">Site score</a></li>
   </ul>
 </li>
@@ -106,7 +107,7 @@ Functions from the <code>fisheriescape</code> R package are used.
 <code class="sourceCode R"><span></span>
 <span><span class="va">df</span><span class="op">&lt;-</span><span class="va">fs.data.anon</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "fishery"      "event.id"     "trip.id"      "cfv.anon"     "year"        </span></span>
 <span><span class="co">#&gt;  [6] "dateland"     "ctchdate"     "sw"           "nafodiv"      "depth.gebco" </span></span>
 <span><span class="co">#&gt; [11] "x"            "y"            "gear.name"    "gear.amount"  "hours.fished"</span></span>
@@ -627,7 +628,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span>                          hour.col<span class="op">=</span><span class="st">'hours.fished'</span>,</span>
 <span>                          day.col<span class="op">=</span><span class="st">'days.fished'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       fishery           event.id          trip.id           cfv.anon    </span></span>
 <span><span class="co">#&gt;  Length   :20419   Length   :20419   Length   :20419   Length   :20419  </span></span>
 <span><span class="co">#&gt;  N.unique :    1   N.unique :20098   N.unique :15758   N.unique :  625  </span></span>
@@ -676,7 +677,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt;  3rd Qu.:24  </span></span>
 <span><span class="co">#&gt;  Max.   :24  </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       fishery          event.id         trip.id          cfv.anon   </span></span>
 <span><span class="co">#&gt;  Length   :2780   Length   :2780   Length   :2780   Length   :2780  </span></span>
 <span><span class="co">#&gt;  N.unique :   2   N.unique :2778   N.unique :2497   N.unique : 249  </span></span>
@@ -742,7 +743,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="va">trips.non.trap</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">COLS</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trips.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trips.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   nafodiv   fishery gear.name         fa                      trip.id cfv.anon</span></span>
 <span><span class="co">#&gt; 1      4S Snow crab      trap GQ_CFA_12C scx444;2015-05-09;2015-05-09   scx444</span></span>
 <span><span class="co">#&gt; 2      4S Snow crab      trap GQ_CFA_12C scx444;2015-05-12;2015-05-12   scx444</span></span>
@@ -757,7 +758,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt; 4 2015 21      150        24</span></span>
 <span><span class="co">#&gt; 5 2015 21      150        24</span></span>
 <span><span class="co">#&gt; 6 2015 21      140        24</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   nafodiv          fishery gear.name         fa                      trip.id</span></span>
 <span><span class="co">#&gt; 1      4S Atlantic halibut  longline GQ_GFA_4S4 ahx319;2015-07-13;2015-07-10</span></span>
 <span><span class="co">#&gt; 2      4S Atlantic halibut  longline GQ_GFA_4S4 ahx319;2015-07-13;2015-07-11</span></span>
@@ -773,7 +774,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt; 5   ahx149 2015 33        6         6       1</span></span>
 <span><span class="co">#&gt; 6   ahx149 2015 35        6         4       1</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv           fishery          gear.name             fa       </span></span>
 <span><span class="co">#&gt;  Length   :15779   Length   :15779   Length   :15779   Length   :15779  </span></span>
 <span><span class="co">#&gt;  N.unique :    2   N.unique :    1   N.unique :    1   N.unique :   16  </span></span>
@@ -798,7 +799,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt;  3rd Qu.:100.00   3rd Qu.:24  </span></span>
 <span><span class="co">#&gt;  Max.   :433.00   Max.   :24  </span></span>
 <span><span class="co">#&gt;  NAs    :160</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.non.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv          fishery         gear.name            fa      </span></span>
 <span><span class="co">#&gt;  Length   :2512   Length   :2512   Length   :2512   Length   :2512  </span></span>
 <span><span class="co">#&gt;  N.unique :   2   N.unique :   2   N.unique :   2   N.unique :  17  </span></span>
@@ -842,7 +843,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span>                        also.grp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'nafodiv'</span>,<span class="st">"fishery"</span> ,<span class="st">"gear.name"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.trap2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.trap2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv           fishery          gear.name             fa       </span></span>
 <span><span class="co">#&gt;  Length   :15779   Length   :15779   Length   :15779   Length   :15779  </span></span>
 <span><span class="co">#&gt;  N.unique :    2   N.unique :    1   N.unique :    1   N.unique :   16  </span></span>
@@ -864,7 +865,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt;  Mean   : 76.26   Mean   :24  </span></span>
 <span><span class="co">#&gt;  3rd Qu.:100.00   3rd Qu.:24  </span></span>
 <span><span class="co">#&gt;  Max.   :433.00   Max.   :24</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.non.trap2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trips.non.trap2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv          fishery         gear.name            fa      </span></span>
 <span><span class="co">#&gt;  Length   :2512   Length   :2512   Length   :2512   Length   :2512  </span></span>
 <span><span class="co">#&gt;  N.unique :   2   N.unique :   2   N.unique :   2   N.unique :  17  </span></span>
@@ -911,7 +912,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span>                               also.grp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'nafodiv'</span>,<span class="st">"fishery"</span> ,<span class="st">"gear.name"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vessels.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vessels.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv          fishery         gear.name         cfv.anon   </span></span>
 <span><span class="co">#&gt;  Length   :7351   Length   :7351   Length   :7351   Length   :7351  </span></span>
 <span><span class="co">#&gt;  N.unique :   2   N.unique :   1   N.unique :   1   N.unique : 625  </span></span>
@@ -926,7 +927,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt;  Min.nchar:   9   Mean   :2015   Min.nchar:   2   Mean   : 87.5   Mean   :24  </span></span>
 <span><span class="co">#&gt;  Max.nchar:  10   3rd Qu.:2016   Max.nchar:   2   3rd Qu.:120.0   3rd Qu.:24  </span></span>
 <span><span class="co">#&gt;                   Max.   :2016                    Max.   :433.0   Max.   :24</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vessels.non.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vessels.non.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv          fishery         gear.name         cfv.anon   </span></span>
 <span><span class="co">#&gt;  Length   :1301   Length   :1301   Length   :1301   Length   :1301  </span></span>
 <span><span class="co">#&gt;  N.unique :   2   N.unique :   2   N.unique :   2   N.unique : 249  </span></span>
@@ -971,7 +972,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span>                               <span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fareas.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fareas.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv         fishery        gear.name           fa           year     </span></span>
 <span><span class="co">#&gt;  Length   :371   Length   :371   Length   :371   Length   :371   Min.   :2015  </span></span>
 <span><span class="co">#&gt;  N.unique :  2   N.unique :  1   N.unique :  1   N.unique : 16   1st Qu.:2015  </span></span>
@@ -986,7 +987,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt;  Min.nchar:  2   Mean   : 1733.6   Mean   :24  </span></span>
 <span><span class="co">#&gt;  Max.nchar:  2   3rd Qu.: 1339.5   3rd Qu.:24  </span></span>
 <span><span class="co">#&gt;                  Max.   :25371.0   Max.   :24</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fareas.non.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fareas.non.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv         fishery        gear.name           fa           year     </span></span>
 <span><span class="co">#&gt;  Length   :309   Length   :309   Length   :309   Length   :309   Min.   :2015  </span></span>
 <span><span class="co">#&gt;  N.unique :  2   N.unique :  2   N.unique :  2   N.unique : 17   1st Qu.:2015  </span></span>
@@ -1024,7 +1025,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span>                                    also.grp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'year'</span>,<span class="st">'nafodiv'</span>,<span class="st">"fishery"</span> ,<span class="st">"gear.name"</span><span class="op">)</span></span>
 <span>                                    <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">prop.week.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">prop.week.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv         fishery        gear.name           fa           year     </span></span>
 <span><span class="co">#&gt;  Length   :371   Length   :371   Length   :371   Length   :371   Min.   :2015  </span></span>
 <span><span class="co">#&gt;  N.unique :  2   N.unique :  1   N.unique :  1   N.unique : 16   1st Qu.:2015  </span></span>
@@ -1039,7 +1040,7 @@ values in columns ‘gear.amount’, ‘hours.fished’, and ‘days.fished’.<
 <span><span class="co">#&gt;  Min.nchar:  2   Mean   : 1733.6   Mean   :24   Mean   :0.9291  </span></span>
 <span><span class="co">#&gt;  Max.nchar:  2   3rd Qu.: 1339.5   3rd Qu.:24   3rd Qu.:1.0000  </span></span>
 <span><span class="co">#&gt;                  Max.   :25371.0   Max.   :24   Max.   :1.0000</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">prop.week.non.trap</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">prop.week.non.trap</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       nafodiv         fishery        gear.name           fa           year     </span></span>
 <span><span class="co">#&gt;  Length   :309   Length   :309   Length   :309   Length   :309   Min.   :2015  </span></span>
 <span><span class="co">#&gt;  N.unique :  2   N.unique :  2   N.unique :  2   N.unique : 17   1st Qu.:2015  </span></span>
@@ -1074,15 +1075,15 @@ fisheriescape calculations.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df.ceu</span><span class="op">&lt;-</span><span class="va">dat</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "nafodiv"          "fishery"          "gear.name"        "fa"              </span></span>
 <span><span class="co">#&gt;  [5] "year"             "sw"               "total.gear"       "soak.time"       </span></span>
 <span><span class="co">#&gt;  [9] "prop.week.fished" "num.lines"</span></span>
 <span></span>
 <span><span class="va">df.ceu</span><span class="op">$</span><span class="va">ceu</span><span class="op">&lt;-</span><span class="va">df.ceu</span><span class="op">$</span><span class="va">total.gear</span> <span class="op">*</span> <span class="va">df.ceu</span><span class="op">$</span><span class="va">num.lines</span> <span class="op">*</span> <span class="va">df.ceu</span><span class="op">$</span><span class="va">soak.time</span><span class="op">/</span><span class="fl">24</span> <span class="op">*</span><span class="va">df.ceu</span><span class="op">$</span><span class="va">prop.week.fished</span></span>
 <span></span>
-<span><span class="va">df.ceu</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span>
+<span><span class="va">df.ceu</span><span class="op">&lt;-</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df.ceu</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   nafodiv   fishery gear.name         fa year sw total.gear soak.time</span></span>
 <span><span class="co">#&gt; 1      4S Snow crab      trap  GQ_CFA_12 2015 20        115        24</span></span>
 <span><span class="co">#&gt; 2      4S Snow crab      trap GQ_CFA_12B 2015 14        346        24</span></span>
