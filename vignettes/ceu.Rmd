@@ -1,0 +1,267 @@
+---
+title: "Common effor unit (CEU)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Common effor unit (CEU)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+# Overview
+<p style="font-size: 16px;">
+This vignette provides an overview of the steps to generate fishery-specific weekly common effort units (CEUs), using a subset of anonymised landings data. Data have been subjected to quality controls. Each row is associated with a fishing area (column 'fa'). Catch amounts have been removed from the data.
+
+Functions from the `fisheriescape` R package are used.
+</p>
+```{r echo=FALSE, warning = FALSE, message = FALSE, error=FALSE}
+library(knitr)
+library(kableExtra)
+```
+
+# R packages
+## CRAN R packages
+```{r libraries, warning = FALSE, message = FALSE, error=FALSE}
+library(dplyr)
+```
+
+## GitHub R packages
+The following packages are all available from https://jolenesutton.github.io.
+```{r gitlibraries, warning = FALSE, message = FALSE, error=FALSE}
+library(fisheriescape) 
+```
+
+# Get landings data
+
+## Landings data
+```{r landings1, results='hold'}
+
+df<-fs.data.anon
+
+names(df)
+```
+
+```{r landings2, results='hold',echo=FALSE}
+
+kable(table(df$fishery,df$year),
+      caption = "Records per year",format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r landings3, results='hold',echo=FALSE}
+kable(head(df), 
+      caption = "head(df)",format = "html")|>
+  kable_styling(full_width = FALSE) |>
+  column_spec(1:ncol(df), width = "300px", extra_css = "white-space: nowrap;")|>
+  scroll_box(width = "100%")
+```
+<br>
+<br>
+There are three different gear types, and there are missing values in columns 'gear.amount', 'hours.fished', and 'days.fished'.
+```{r echo=TRUE}
+# gear types
+table(df$gear.name)
+
+# gear amounts
+tapply(df$gear.amount,df$fishery,summary)
+
+# hours fished
+tapply(df$hours.fished,df$fishery,summary)
+
+# days fished
+tapply(df$days.fished,df$fishery,summary)
+
+```
+
+
+# Summarize trips
+First, set 'hours.fished' (i.e. daily soak time) to 24.
+
+```{r }
+df[which(df$gear.name=='trap'),'hours.fished']<-24
+```
+<br>
+<br>
+Correct days fished before summarizing
+```{r }
+index<-which(df$days.fished==0)
+if(length(index)>0){
+  df[index,'days.fished']<-NA
+}
+```
+
+## Summarize trips for trap fisheries
+```{r }
+df.trap<-df[which(df$gear.name=="trap"),]
+df.non.trap<-df[which(df$gear.name!="trap"),]
+
+trips.trap<-fs_summarize_trips(df.trap,
+                          gear.type="trap",
+                          group.cols=c('nafodiv','fishery','gear.name','trip.id','fa'),
+                          gear.col='gear.amount',
+                          hour.col='hours.fished')
+
+
+
+trips.non.trap<-fs_summarize_trips(df.non.trap,
+                          gear.type="non.trap",
+                          group.cols=c('nafodiv','fishery','gear.name','trip.id','fa'),
+                          gear.col='gear.amount',
+                          hour.col='hours.fished',
+                          day.col='days.fished')
+
+summary(trips.trap)
+summary(trips.non.trap)
+```
+<br>
+<br>
+Restrict columns and remove duplicate rows.
+```{r }
+COLS<-c('nafodiv','fishery','gear.name','fa','trip.id',
+        "cfv.anon",'year','sw',
+        'sum.gear','max.hours')
+
+trips.trap<-trips.trap[,COLS]
+trips.trap<-distinct(trips.trap)
+rm(COLS)
+
+COLS<-c('nafodiv','fishery','gear.name','fa','trip.id',
+        "cfv.anon",'year','sw',
+        'sum.gear','max.hours','av.days')
+trips.non.trap<-trips.non.trap[,COLS]
+trips.non.trap<-distinct(trips.non.trap)
+rm(COLS)
+
+head(trips.trap)
+head(trips.non.trap)
+
+summary(trips.trap)
+summary(trips.non.trap)
+```
+
+### Fill in missing
+```{r }
+trips.trap2<-suppressMessages(fs_fill_missing(trips.trap,
+                        gear.type='trap',
+                        vessel.col='cfv.anon',
+                        year.col='year',
+                        week.col='sw',
+                        also.grp=c('nafodiv',"fishery" ,"gear.name")))
+
+trips.non.trap2<-suppressMessages(fs_fill_missing(trips.non.trap,
+                        gear.type='non.trap',
+                        vessel.col='cfv.anon',
+                        year.col='year',
+                        week.col='sw',
+                        also.grp=c('nafodiv',"fishery" ,"gear.name")))
+
+
+summary(trips.trap2)
+summary(trips.non.trap2)
+```
+
+# Summarize vessels
+```{r message=FALSE}
+vessels.trap<-fs_summarize_vessels(trips.trap2,
+                               gear.type="trap",
+                               vessel.col="cfv.anon",
+                               week.col="sw",
+                               year.col="year",
+                               fishing.area.col="fa",
+                               also.grp=c('nafodiv',"fishery" ,"gear.name"))
+
+
+vessels.non.trap<-fs_summarize_vessels(trips.non.trap2,
+                               gear.type="non.trap",
+                               vessel.col="cfv.anon",
+                               week.col="sw",
+                               year.col="year",
+                               fishing.area.col="fa",
+                               also.grp=c('nafodiv',"fishery" ,"gear.name"))
+
+
+summary(vessels.trap)
+summary(vessels.non.trap)
+
+```
+
+# Summarize fishing areas
+```{r message=FALSE}
+fareas.trap<-fs_summarize_fishing_areas(vessels.trap,
+                               gear.type="trap",
+                               week.col="sw",
+                               year.col="year",
+                               fishing.area.col="fa",
+                               also.grp=c('nafodiv',"fishery" ,"gear.name")
+                               )
+
+
+fareas.non.trap<-fs_summarize_fishing_areas(vessels.non.trap,
+                               gear.type="non.trap",
+                               week.col="sw",
+                               year.col="year",
+                               fishing.area.col="fa",
+                               also.grp=c('nafodiv',"fishery" ,"gear.name")
+                               )
+
+
+summary(fareas.trap)
+summary(fareas.non.trap)
+```
+
+# Calculate proportion of week fished
+```{r message=FALSE}
+
+prop.week.trap<-fs_proportion_week_fished(df=df.trap,
+                                    fish.area.summary=fareas.trap,
+                                    gear.type="trap",
+                                    week.col="sw",
+                                    fishing.area.col="fa",
+                                    also.grp=c('year','nafodiv',"fishery" ,"gear.name")
+                                    )
+  
+
+prop.week.non.trap<-fs_proportion_week_fished(df=df.non.trap,
+                                    fish.area.summary=fareas.non.trap,
+                                    gear.type="non.trap",
+                                    week.col="sw",
+                                    fishing.area.col="fa",
+                                    also.grp=c('year','nafodiv',"fishery" ,"gear.name")
+                                    )
+
+summary(prop.week.trap)
+summary(prop.week.non.trap)
+```
+
+
+
+# Specify the number of vertical lines
+In these examples, the number of vertical lines per unit of gear is one for the Atlantic halibut longline and snow crab trap fisheries, and two for the winter flounder gillnet fishery.
+<br>
+```{r }
+dat<-dplyr::bind_rows(prop.week.trap,prop.week.non.trap)
+dat$num.lines<-1
+dat[which(dat$fishery=='Winter flounder'),'num.lines']<-2
+```
+
+
+# Calculate CEU
+After running the code, remember to save the file for the fisheriescape calculations.
+```{r }
+df.ceu<-dat
+
+names(df.ceu)
+
+df.ceu$ceu<-df.ceu$total.gear * df.ceu$num.lines * df.ceu$soak.time/24 *df.ceu$prop.week.fished
+
+df.ceu<-as.data.frame(df.ceu)
+head(df.ceu)
+```
