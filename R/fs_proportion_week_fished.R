@@ -17,6 +17,8 @@ fs_proportion_week_fished<-function(df=NULL,
                                     fishing.area.col=NULL,
                                     also.grp=NULL){
 
+  message('Function still under development. Not yet flexible enough for diverse data sets.')
+
   # appease R CMD check
   dateland=NULL
   ctchdate=NULL
@@ -29,6 +31,7 @@ fs_proportion_week_fished<-function(df=NULL,
   sw=NULL
   FLEET=NULL
   seasons=NULL
+  SW=NULL
 
   #////////////////////////////////////////////////////////////////////
   `%!in%` <- Negate(`%in%`)
