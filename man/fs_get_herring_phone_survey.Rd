@@ -23,5 +23,7 @@ the number of hours by 24 and multiply by the number of hauls.}
 Fisheriescape get herring phone survey data for herring CEU calculations
 }
 \examples{
+\dontrun{
 x = fs_get_herring_phone_survey(2013,one.rope=TRUE)
+}
 }

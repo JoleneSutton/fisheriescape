@@ -12,7 +12,9 @@
 #' @importFrom stringr str_sub str_split
 #' @source This function was adapted from code located at: https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_script/2a-telsurvey_load.R?ref_type=heads
 #' @examples
+#' \dontrun{
 #' x = fs_get_herring_phone_survey(2013,one.rope=TRUE)
+#' }
 #' @export
 fs_get_herring_phone_survey<-function(start.year=2013,one.rope=TRUE){
 
