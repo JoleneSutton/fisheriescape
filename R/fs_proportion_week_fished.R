@@ -106,25 +106,29 @@ fs_proportion_week_fished<-function(df=NULL,
       )
 
 
-  #adjust for identical begin and end dates
-  cut.cols=c('season.length'   ,  'season'  ,     'date','weekday')
-  seasons<-seasons[,-which(names(seasons)%in%cut.cols)]
+    seasons<-as.data.frame(seasons)
+    seasons$SW<-seasons[,week.col]
+    seasons$FLEET<-seasons[,fishing.area.col]
 
-  seasons <- as.data.frame(seasons %>%
-                                group_by(FLEET,year) %>%
-                                mutate(has_duplicate = sw %in% sw[duplicated(sw) | duplicated(sw, fromLast = TRUE)]) %>%
-                                ungroup())
-  seasons[which(seasons$has_duplicate==TRUE),]
-  index<-which(seasons$has_duplicate==TRUE)
-  if(length(index)>0){
-    seasons[which(seasons$has_duplicate==TRUE),'prop']<-1/7
-  }
-  seasons<-distinct(seasons)
-  seasons<-seasons[,-ncol(seasons)]
+    #adjust for identical begin and end dates
+    cut.cols=c('season.length'   ,  'season'  ,     'date','weekday')
+    seasons<-seasons[,-which(names(seasons)%in%cut.cols)]
 
-  names(seasons)[which(names(seasons))=='FLEET']<-fishing.area.col
+    seasons <- as.data.frame(seasons %>%
+                               group_by(FLEET,year) %>%
+                               mutate(has_duplicate = SW %in% SW[duplicated(SW) | duplicated(SW, fromLast = TRUE)]) %>%
+                               ungroup())
+    seasons[which(seasons$has_duplicate==TRUE),]
+    index<-which(seasons$has_duplicate==TRUE)
+    if(length(index)>0){
+      seasons[which(seasons$has_duplicate==TRUE),'prop']<-1/7
+    }
+    seasons<-distinct(seasons)
+    seasons<-seasons[,-ncol(seasons)]
+    index.cols<-which(names(seasons)%in%c('FLEET',"SW"))
+    seasons=seasons[,-index.cols]
 
-  fareas2<-left_join(fish.area.summary,seasons)
+    fareas2<-left_join(fish.area.summary,seasons)
 
   #/////////////////////////////
   # proportion of week fished for other than first and last weeks
