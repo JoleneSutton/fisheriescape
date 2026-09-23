@@ -52,3 +52,9 @@ devtools::install_github("JoleneSutton/fisheriescape")
 - [`fs.data.site.score`](https://jolenesutton.github.io/fisheriescape/reference/fs.data.site.score.md)
   : Example site score data set
 
+# Articles
+
+### All vignettes
+
+- [Site
+  score](https://jolenesutton.github.io/fisheriescape/articles/site_score.md):

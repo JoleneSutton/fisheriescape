@@ -32,6 +32,7 @@ https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_scrip
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 x = fs_get_herring_phone_survey(2013,one.rope=TRUE)
-#> Error in if (nchar(yr) < 4 & yr < 86) {    yr = (2000 + yr)}: argument is of length zero
+} # }
 ```
