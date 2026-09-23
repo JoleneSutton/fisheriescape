@@ -1,0 +1,309 @@
+---
+title: "Site score"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Site score}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+# Overview
+<p style="font-size: 16px;">
+This vignette provides an overview of the steps to generate fishery-specific weekly site scores, using a subset of anonymised landings data. Data have been subjected to quality controls. Each row is associated with a fishing area (column 'fa'). Catch amounts have been removed from the data.
+</p>
+```{r echo=FALSE, warning = FALSE, message = FALSE, error=FALSE}
+library(knitr)
+library(kableExtra)
+```
+
+# R packages
+Standard R packages are used that are available from CRAN, as well as some that only available on GitHub.
+
+## CRAN R packages
+```{r libraries, warning = FALSE, message = FALSE, error=FALSE}
+library(dplyr)
+library(terra)
+library(ggplot2)
+library(tidyterra)
+```
+
+## GitHub R packages
+The following packages are all available from https://jolenesutton.github.io.
+```{r gitlibraries, warning = FALSE, message = FALSE, error=FALSE}
+library(fisheriescape) 
+library(gslSpatial) 
+library(eclectic)  
+library(swim)
+```
+
+
+# Get landings data and polygon data
+
+## Landings data
+```{r landings1, results='hold'}
+
+df<-fs.data.anon
+
+names(df)
+```
+
+```{r landings2, results='hold',echo=FALSE}
+
+kable(table(df$fishery,df$year),
+      caption = "Records per year",format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r landings3, results='hold',echo=FALSE}
+kable(head(df), 
+      caption = "head(df)",format = "html")|>
+  kable_styling(full_width = FALSE) |>
+  column_spec(1:ncol(df), width = "300px", extra_css = "white-space: nowrap;")|>
+  scroll_box(width = "100%")
+```
+<br>
+<br>
+Note that there are missing spatial coordinates (columns 'x' and 'y'). There are also some missing depths, and depths > 0 m (on land!)
+```{r landings4, echo=TRUE}
+summary(df$x)
+
+summary(df$y)
+
+summary(df$depth.gebco)
+```
+
+
+## Fishing area polygons
+```{r fapoly}
+fa.poly<-readRDS(system.file('extdata','fa.poly.rds',package='fisheriescape'))
+fa.poly<-terra::vect(fa.poly, geom=c("geometry"), crs='ESRI:102001', keepgeom=F)
+```
+
+## NAFO polygons
+This shapefile is not necessary for estimating site scores, but it is useful here for plotting. Originally sourced from https://www.nafo.int.
+```{r nafo}
+naf<-readRDS(system.file('extdata','nafo.rds',package='fisheriescape'))
+naf<-terra::vect(naf, geom=c("geometry"), crs='ESRI:102001', keepgeom=F)
+```
+
+## Plot
+Most of the coordinates are inside the fishing area polygons, but some are outside. 
+```{r warning=FALSE, fig.height=6,dpi = 300, out.width = "100%"}
+ggplot()+
+  geom_spatvector(data=naf,fill='white',linewidth=0.6)+
+  geom_point(data=df,aes(x,y),size=0.2, col='blue',alpha=0.75)+
+  geom_spatvector(data=fa.poly,fill='blue',alpha=0.1,col='blue')+
+  facet_wrap(~fishery)
+```
+
+# Site score
+During the site score process, records with coordinates inside the fishing area polygons will be assigned to a spatial reference grid according to their coordinates. Records that are missing coordinates records with coordinates outside the fishing area polygons, and records with coordinates at depths > 0 m will be assigned to a spatial reference grid according to the [SWIM framework](https://academic.oup.com/icesjms/article/83/5/fsag070/8687932?login=true). When applying the SWIM framework, the depths from records with good quality coordinates will be used to establish sampling weights over the spatial reference grid. Additional attributes can be incorporated into the SWIM framework, but for simplicity, we will only use depths in this vignette.
+
+## Spatial reference grid
+First, we need a spatial reference grid. The one used here is a 10 km^2^ hexagonal grid from [Koropatnick and Coffen-Smout, 2020](https://gcgeo.gc.ca/geonetwork/metadata/eng/572f6221-4d12-415e-9d5e-984b15d34da4). The grid has been cropped to the approximate study area extent. Each grid cell has been assigned its median depth (m) based on [GEBCO 2024](https://www.gebco.net/).
+```{r }
+grid<-readRDS(system.file('extdata','grid.rds',package='fisheriescape'))
+grid<-terra::vect(grid, geom=c("geometry"), crs='ESRI:102001', keepgeom=F)
+
+grid
+
+names(grid)
+```
+<br>
+<br>
+Next, we need to distinguish records that have good quality coordinates (i.e., inside fishing area polygons), from those that have erroneous coordinates (i.e., outside of fishing area polygons or with depths > 0 m). 
+```{r }
+df$to.swim<-'no'
+df[which(is.na(df$x)|is.na(df$y)),'to.swim']<-'yes'
+df[which(df$depth.gebco>0),'to.swim']<-'yes'
+table(df$to.swim,useNA='always')
+
+## any points outside fa.poly
+unique(df$fishery)
+unique(fa.poly$fishery)
+
+my.list<-list()
+fisheries<-unique(fa.poly$fishery)
+for(j in 1:length(unique(fisheries))){
+  dat<-df[which(df$fishery==fisheries[j]),]
+  poly<-fa.poly[which(fa.poly$fishery==fisheries[j]),]
+  
+  fleets<-sort(unique(dat$fa))
+  inner.list<-list()
+  for(i in 1:length(fleets)){
+    tmp.df<-dat[which(dat$fa==fleets[i]),]
+    tmp.poly<-poly[which(poly$fa==fleets[i]),]
+    tmp<-terra::vect(tmp.df,geom=c('x','y'),crs=crs(poly))
+    tmp$inout<-is.related(tmp, tmp.poly,relation='within')
+    inner.list[[i]]<-tmp
+  }
+ my.list[[j]]<-do.call(rbind,inner.list)
+}
+```
+
+```{r }
+pts<-do.call(rbind,my.list)
+rm(my.list)
+nrow(df)
+nrow(pts)
+df2<-left_join(df,as.data.frame(pts))
+df2[which(df2$inout==FALSE),'to.swim']<-'yes'
+table(df2$to.swim,useNA='always')
+table(df$to.swim,useNA='always')
+
+```
+
+## Assign records to the spatial reference grid
+Records that have good quality coordinates are assigned to the spatial reference grid according to their coordinates.
+```{r message=FALSE}
+index<-which(df2$to.swim=='no')
+
+x<-gslSpatial::assign_points_terra(df2[index,'x'],df2[index,'y'],grid[,"GRID_ID"])
+
+df2[index,'GRID_ID']<-x[,3]
+```
+<br>
+<br>
+Records that have poor quality coordinates are assigned to the spatial reference grid according to the [SWIM framework](https://academic.oup.com/icesjms/article/83/5/fsag070/8687932?login=true). The SWIM framework is applied separately to each fishery and NAFO division.
+```{r }
+no.swim<-df2[which(df2$to.swim=='no'),]
+for.swim<-df2[which(df2$to.swim=='yes'),]
+for.swim$GRID_ID<-NA
+
+unique(for.swim$fishery)
+table(for.swim$nafodiv,for.swim$fishery)
+
+for.swim$fn<-paste(for.swim$fishery,for.swim$gear.name,for.swim$nafodiv,sep='-')
+no.swim$fn<-paste(no.swim$fishery,no.swim$gear.name,no.swim$nafodiv,sep='-')
+
+unique(for.swim$fn)
+unique(no.swim$fn)
+
+```
+
+```{r message=FALSE}
+my.list<-list()
+fisheries<-sort(unique(for.swim$fn))
+fisheries
+
+for(i in 1:length(fisheries)){
+  
+  FOR.SWIM<-for.swim[which(for.swim$fn==fisheries[i]),]
+  
+  index<-which(fa.poly$fishery==unlist(strsplit(fisheries[i],"-"))[1])
+  poly<-fa.poly[index,]
+  grid2<-terra::intersect(grid,poly[,'fa'])
+  
+  #//////////////////////////////////////////
+  ## Depth scores
+  # use good quality coordinates to establish depth scores
+  tmp<-no.swim[which(no.swim$fn==fisheries[i]),]
+  bin.width=10
+  bins<-eclectic::bin_variable(abs(tmp$depth.gebco),bin.width)
+  bins[,2]<-as.numeric(bins[,2])
+  tmp[,c('bin' ,'bin.midpt')]<-bins[,1:2]
+  bins<-distinct(bins)
+  bins<-bins[order(bins$bin.midpt),]
+  df.hist<-tmp|>
+    group_by(bin.midpt=as.numeric(bin.midpt))|>
+    summarise(count=n())|>
+    mutate(prob.depth=count/sum(count))
+
+  grid3<-grid2[which(grid2$depth.med<=0),]
+  grid3$depth<-abs(grid3$depth.med)
+  grid3$bin.midpt<-NA
+  grid.bins<-seq(bins[1,'bin.midpt']-(bin.width/2),max(grid3$depth),by=bin.width)
+  
+  for(j in 1:length(grid.bins)){
+    start<-grid.bins[j]
+    stop<-grid.bins[j]+bin.width
+    bin.midpt<-(start+stop)/2
+    grid3[which(grid3$depth>=start&grid3$depth<stop),'bin.midpt']<-bin.midpt
+  }
+
+  grid4<-left_join(grid3,df.hist[,c(1,3)])
+  grid4<-grid4[,-which(names(grid4)=='bin.midpt')]
+  index<-which(is.na(grid4$prob.depth))
+  if(length(index)>0){
+    grid4[index,'prob.depth']<-0
+  }
+  grid4$prob<-grid4$prob.depth
+  grid4<-grid4[,-which(names(grid4)=='depth.med')]
+  dim(grid4)
+  
+  #//////////////////////////////////////////
+  ## Use depth scores as sampling weights
+  SWIM.KEYS<-sort(unique(FOR.SWIM$fa))
+  SWIM.KEYS%in%unique(grid4$fa)
+
+  for(p in 1:length(SWIM.KEYS)){
+      INDEX<-which(FOR.SWIM$fa==SWIM.KEYS[p])
+      WGHTS<-as.data.frame(grid4[which(grid4$fa==SWIM.KEYS[p]),c('GRID_ID','prob')])
+      WGHTS[which(is.na(WGHTS[,2])),2]<-0
+      set.seed(123)
+      FOR.SWIM[INDEX,'GRID_ID']<-swim::sw_sample(nrow(FOR.SWIM[INDEX,]),WGHTS,option=1)
+  }
+  
+  my.list[[i]]<-FOR.SWIM
+  }
+```
+
+```{r }
+for.swim2<-bind_rows(my.list)
+length(which(is.na(for.swim2$GRID_ID))) #should be zero because all records should be associated with a spatial grid cell
+
+results<-bind_rows(no.swim,for.swim2)
+head(results)
+```
+
+## Calculate site scores from the number of records in each spatial grid cell
+
+**Counts.** For each fishery, count the number of records per week per year.
+```{r }
+counts<-results|>
+    dplyr::group_by(fishery,gear.name,fa,year,sw,GRID_ID)|>
+    dplyr::summarise(count = dplyr::n())
+
+head(counts)
+```
+<br>
+<br>
+**Site score.** Standardize the counts such that the values for each fishing area and week sum to 1. Remember to save this file for the fisheriescape calculations.
+```{r }
+site.score<-counts|>
+    dplyr::group_by(fishery,gear.name,fa,year,sw)|>
+    dplyr::mutate(sum.count.fa.yr.sw=sum(count),
+                  ss=count/sum.count.fa.yr.sw)
+
+head(site.score)
+summary(site.score)
+```
+
+# Plot results
+For simplicity, plot just certain weeks.
+```{r fig.height=7,dpi = 300, out.width = "100%"}
+weeks<-c(25,30)
+plot.grid<-right_join(grid,site.score[which(site.score$sw%in%weeks),])
+
+
+ggplot()+
+  geom_spatvector(data=naf,fill='white')+
+  geom_spatvector(data=plot.grid,aes(fill=ss),col=NA)+
+  facet_wrap(~sw+fishery)+
+  scale_fill_viridis_c(name='Fishery-specific\nsite score',
+         option='turbo',
+         trans = scales::pseudo_log_trans(sigma = 0.001),
+         breaks=c(0.01,0.05,0.25))+
+  theme(panel.spacing = unit(0, "pt"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
