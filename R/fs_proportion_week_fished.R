@@ -2,7 +2,7 @@
 #'
 #' See Table 2 in "Building a Fisheriescape: mapping the threat of marine wildlife entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
 #' @param df The original data frame of fishing records that includes columns dateland and ctchdate, each formatted as YYYY-MM-DD
-#' @param fish.area.summary The dataframe resulting from `fs_summarize_fishing_areas`
+#' @param fish.area.summary The data frame resulting from `fs_summarize_fishing_areas`
 #' @param gear.type Must be either 'trap' or non.trap'.
 #' @param week.col Name of week column. Names must match between df and fish.area.summary
 #' @param fishing.area.col Name of fishing area column. Names must match between df and fish.area.summary
@@ -89,7 +89,7 @@ fs_proportion_week_fished<-function(df=NULL,
       dplyr:: summarise(
         date.begin = min(ctchdate, na.rm = TRUE),
         date.end = max(dateland, na.rm = TRUE),
-        season.length=(date.end-date.begin)+1
+        season.length=as.numeric((as.Date(date.end)-as.Date(date.begin))+1)
       ) |>
       dplyr::ungroup()|>
       tidyr::pivot_longer(cols = starts_with("date."),

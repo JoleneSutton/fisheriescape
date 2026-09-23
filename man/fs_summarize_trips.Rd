@@ -16,7 +16,7 @@ fs_summarize_trips(
 \arguments{
 \item{df}{A data frame}
 
-\item{gear.type}{Must be either 'trap' or 'non-trap'. Required.}
+\item{gear.type}{Must be either 'trap' or 'non.trap'. Required.}
 
 \item{group.cols}{Names of columns of grouping variables. Needs to include the trip id and fishing area columns.}
 
@@ -24,7 +24,7 @@ fs_summarize_trips(
 
 \item{hour.col}{Name of hours column to summarize. Required.}
 
-\item{day.col}{Name of day column to summarize. Required if gear.type is non-trap.}
+\item{day.col}{Name of day column to summarize. Required if gear.type is non.trap.}
 }
 \value{
 A data frame

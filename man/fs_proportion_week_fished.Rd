@@ -16,7 +16,7 @@ fs_proportion_week_fished(
 \arguments{
 \item{df}{The original data frame of fishing records that includes columns dateland and ctchdate, each formatted as YYYY-MM-DD}
 
-\item{fish.area.summary}{The dataframe resulting from \code{fs_summarize_fishing_areas}}
+\item{fish.area.summary}{The data frame resulting from \code{fs_summarize_fishing_areas}}
 
 \item{gear.type}{Must be either 'trap' or non.trap'.}
 
