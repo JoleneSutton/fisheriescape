@@ -1,0 +1,85 @@
+---
+title: "Fisheriescape scores"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fisheriescape scores}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+# Overview
+<p style="font-size: 16px;">
+This vignette generates weekly fishery-specific and cumulative fisheriescape scores from the site scores and CEU scores generated in the previous vignettes.
+</p>
+```{r echo=FALSE, warning = FALSE, message = FALSE, error=FALSE}
+library(knitr)
+library(kableExtra)
+```
+
+
+# R packages
+## CRAN R packages
+```{r libraries, warning = FALSE, message = FALSE, error=FALSE}
+library(dplyr)
+library(terra)
+library(ggplot2)
+library(tidyterra)
+```
+
+## GitHub R packages
+The following packages are all available from https://jolenesutton.github.io.
+```{r gitlibraries, warning = FALSE, message = FALSE, error=FALSE}
+library(fisheriescape) 
+```
+
+
+
+# Get site score and CEU scores
+```{r results='hold'}
+df.ss<-fs.data.site.score
+df.ceu<-fs.data.ceu
+
+dim(df.ss)
+dim(df.ceu)
+
+head(df.ss)
+head(df.ceu)
+```
+
+
+# Calculate fisheriescape scores
+Fisheriescape is calculated as the product of the site score and CEU.
+```{r echo=TRUE, message=FALSE}
+
+df.fs<-left_join(df.ss,df.ceu)
+
+
+df.fs$fs<-df.fs$ss*df.fs$ceu
+
+# Because spatial grid cells can be associated with multiple fishing areas we need to sum fs for each grid cell for each fishery and sw
+# We no longer need to group by NAFO division
+df.fs<-df.fs|>
+  group_by(fishery,gear.name,sw,GRID_ID)|>
+  summarize(fs=sum(fs))
+
+
+summary(df.fs)
+
+```
+
+```{r results='hold',echo=FALSE}
+kable(head(df.fs), 
+      caption = "head(df.fs)",format = "html")|>
+  kable_styling(full_width = FALSE) |>
+  column_spec(1:ncol(df.fs), width = "300px", extra_css = "white-space: nowrap;")|>
+  scroll_box(width = "100%")
+```
