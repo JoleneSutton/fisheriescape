@@ -5,11 +5,11 @@
 #' entanglement in vertical fishing lines in the Gulf of St. Lawrence, Canada".
 #' @returns A data frame
 #' @param df A data frame
-#' @param gear.type Must be either 'trap' or 'non-trap'. Required.
+#' @param gear.type Must be either 'trap' or 'non.trap'. Required.
 #' @param group.cols Names of columns of grouping variables. Needs to include the trip id and fishing area columns.
 #' @param gear.col Name of gear column to summarize. Required.
 #' @param hour.col Name of hours column to summarize. Required.
-#' @param day.col Name of day column to summarize. Required if gear.type is non-trap.
+#' @param day.col Name of day column to summarize. Required if gear.type is non.trap.
 #' @import dplyr
 #' @examples
 #' \dontrun{
@@ -38,7 +38,7 @@ fs_summarize_trips<-function(df,
 
 
   if(gear.type=='non.trap'&& (is.null(gear.col)|is.null(hour.col)|is.null(day.col))){
-    stop("gear.col, hour.col, and day.col must be specified for non-trap fisheries")
+    stop("gear.col, hour.col, and day.col must be specified for non.trap fisheries")
     }
 
 
@@ -59,7 +59,7 @@ fs_summarize_trips<-function(df,
   df$GEAR<-df[,gear.col]
   #df[which(is.na(df$GEAR)),'GEAR']<-0 #to get around dplyr summarize  no non-missing arguments to max, because na.rm=TRUE not working
   df$HRS<-df[,hour.col]
-  if(gear.type=='non-trap'){df$DAYS<-df[,day.col]}
+  if(gear.type=='non.trap'){df$DAYS<-df[,day.col]}
 
   #str(df)
   #summary(df)
