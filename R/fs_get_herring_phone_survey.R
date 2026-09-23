@@ -1,4 +1,4 @@
-#' Fisheriescape get herring phone survey data for herring CEU calculations
+#' Get herring phone survey data for herring CEU calculations
 #'
 #' @param start.year The oldest year you want.
 #' @param one.rope Logical. Do you want to return the one.rope table? Default is TRUE.
