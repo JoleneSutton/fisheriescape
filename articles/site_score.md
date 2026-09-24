@@ -133,7 +133,7 @@ ggplot()+
 
 During the site score process, records with coordinates inside the
 fishing area polygons will be assigned to a spatial reference grid
-according to their coordinates. Records that are missing coordinates
+according to their coordinates. Records that are missing coordinates,
 records with coordinates outside the fishing area polygons, and records
 with coordinates at depths \> 0 m will be assigned to a spatial
 reference grid according to the [SWIM
@@ -141,8 +141,8 @@ framework](https://academic.oup.com/icesjms/article/83/5/fsag070/8687932?login=t
 When applying the SWIM framework, the depths from records with good
 quality coordinates will be used to establish sampling weights over the
 spatial reference grid. Additional attributes can be incorporated into
-the SWIM framework, but for simplicity, we will only use depths in this
-vignette.
+the SWIM framework, but for simplicity, we will only use depth in these
+examples
 
 ### Spatial reference grid
 
