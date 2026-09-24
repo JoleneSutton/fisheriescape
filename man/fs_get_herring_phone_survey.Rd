@@ -2,7 +2,7 @@
 % Please edit documentation in R/fs_get_herring_phone_survey.R
 \name{fs_get_herring_phone_survey}
 \alias{fs_get_herring_phone_survey}
-\title{Fisheriescape get herring phone survey data for herring CEU calculations}
+\title{Get herring phone survey data for herring CEU calculations}
 \source{
 This function was adapted from code located at: https://gccode.ssc-spc.gc.ca/dfo-gulf-science/herring/cpue/-/blob/master/r_script/2a-telsurvey_load.R?ref_type=heads
 }
@@ -20,7 +20,7 @@ hauls (hauls) for each season, year and fishing area. To calculate soak time, di
 the number of hours by 24 and multiply by the number of hauls.}
 }
 \description{
-Fisheriescape get herring phone survey data for herring CEU calculations
+Get herring phone survey data for herring CEU calculations
 }
 \examples{
 \dontrun{
