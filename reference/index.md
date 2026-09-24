@@ -13,8 +13,7 @@
 - [`fs_get_data()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_data.md)
   : Get and process ziff data for fisheriescape project.
 - [`fs_get_herring_phone_survey()`](https://jolenesutton.github.io/fisheriescape/reference/fs_get_herring_phone_survey.md)
-  : Fisheriescape get herring phone survey data for herring CEU
-  calculations
+  : Get herring phone survey data for herring CEU calculations
 - [`fs_proportion_week_fished()`](https://jolenesutton.github.io/fisheriescape/reference/fs_proportion_week_fished.md)
   : Fisheriescape path to CEU, calculate the proportion of each week
   fished

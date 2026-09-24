@@ -1,6 +1,6 @@
-# Fisheriescape get herring phone survey data for herring CEU calculations
+# Get herring phone survey data for herring CEU calculations
 
-Fisheriescape get herring phone survey data for herring CEU calculations
+Get herring phone survey data for herring CEU calculations
 
 ## Usage
 
