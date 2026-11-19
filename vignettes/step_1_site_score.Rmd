@@ -1,5 +1,5 @@
 ---
-title: "Site score"
+title: "Step 1 Site Score"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Site score}
