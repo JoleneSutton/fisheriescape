@@ -2,10 +2,10 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  calculate_fisheriescape: calculate_fisheriescape.html
   step_1_site_score: step_1_site_score.html
   step_2_common_effort_unit: step_2_common_effort_unit.html
-last_built: 2026-11-19T14:57Z
+  step_3_fisheriescape: step_3_fisheriescape.html
+last_built: 2026-11-19T15:23Z
 urls:
   reference: https://jolenesutton.github.io/fisheriescape/reference
   article: https://jolenesutton.github.io/fisheriescape/articles
