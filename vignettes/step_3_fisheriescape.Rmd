@@ -1,5 +1,5 @@
 ---
-title: "Fisheriescape scores"
+title: "Step 3 Fisheriescape"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Fisheriescape scores}
