@@ -1,5 +1,5 @@
 ---
-title: "Common effor unit (CEU)"
+title: "Step 2 Common Effort Unit"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Common effor unit (CEU)}
